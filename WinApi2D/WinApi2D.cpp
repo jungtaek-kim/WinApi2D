@@ -17,8 +17,6 @@ BOOL                InitInstance(HINSTANCE, int);
 LRESULT CALLBACK    WndProc(HWND, UINT, WPARAM, LPARAM);
 INT_PTR CALLBACK    About(HWND, UINT, WPARAM, LPARAM);
 
-void setWindowSize(HWND hWnd, int x, int y, int width, int height);
-
 // _In_ : SAL 주석 - 자주 사용되는 주석을 매번 적기보다 키워드로 작성함.
 // hInstance : 실행된 프로세스의 시작 주소. 인스턴스 핸들
 // hPrevIsntance : 이전에 실행된 인스턴스 핸들
@@ -93,7 +91,7 @@ ATOM MyRegisterClass(HINSTANCE hInstance)
     wcex.hIconSm        = LoadIcon(wcex.hInstance, MAKEINTRESOURCE(IDI_SMALL)); // 타이틀바 좌상단과 윈도우가 최소화 되었을 때 보여주는 아이콘을 지정
     wcex.hCursor        = LoadCursor(nullptr, IDC_ARROW);   // 커서 지정
     wcex.hbrBackground  = (HBRUSH)(COLOR_WINDOW+1);         // 윈도우 작업영역에 칠한 배경 브러시
-    wcex.lpszMenuName   = MAKEINTRESOURCEW(IDC_WINAPI2D);   // 윈도우에서 사용할 메뉴 지정, nullptr로 없앰
+    wcex.lpszMenuName   = nullptr;                          // 윈도우에서 사용할 메뉴 지정, nullptr로 없앰
     wcex.lpszClassName  = szWindowClass;                    // 윈도우 클래스의 이름
 
     return RegisterClassExW(&wcex);
@@ -115,12 +113,11 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 
    HWND hWnd = CreateWindowW(szWindowClass,         // 클래스 이름
                             szTitle,                // 윈도우 타이틀 이름
-                            WS_OVERLAPPEDWINDOW,    // 윈도우 스타일, 내부 뜯어서 보여주기
-                            //WS_CAPTION | WS_SYSMENU  // 게임 개발에서는 이렇게 사용(크기변경 불가)
-                            CW_USEDEFAULT,          // 윈도우 화면 X
-                            0,                      // 윈도우 화면 Y
-                            CW_USEDEFAULT,          // 가로 크기
-                            0,                      // 세로 크기
+                            WINSTYLE,               // 윈도우 스타일, 내부 뜯어서 보여주기
+                            WINSTARTX,              // 윈도우 화면 X
+                            WINSTARTY,              // 윈도우 화면 Y
+                            WINSIZEX,               // 가로 크기
+                            WINSIZEY,               // 세로 크기
                             nullptr,                // 부모 윈도우
                             nullptr,                // 메뉴 핸들
                             hInstance,              // 인스턴스 지정
@@ -131,7 +128,17 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
       return FALSE;
    }
 
-   setWindowSize(hWnd, 0, 0, 1200, 800);
+   // 실제 윈도우 크기를 구하기 위해 AdjustWindowRect 사용
+   RECT rc;
+   rc.left = 0;
+   rc.top = 0;
+   rc.right = WINSIZEX;
+   rc.bottom = WINSIZEY;
+
+   // 실제 창이 크기에 맞게 나온다.
+   AdjustWindowRect(&rc, WINSTYLE, false);
+   //위 RECT정보로 윈도우 사이즈를 셋팅하자.
+   SetWindowPos(hWnd, NULL, WINSTARTX, WINSTARTY, (rc.right - rc.left), (rc.bottom - rc.top), SWP_NOZORDER | SWP_NOMOVE);
 
    ShowWindow(hWnd, nCmdShow);
    UpdateWindow(hWnd);
@@ -155,6 +162,9 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 //  WM_DESTROY  - 종료 메시지를 게시하고 반환합니다.
 //
 //
+int x = 0;
+int y = 0;
+
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
     switch (message)
@@ -182,9 +192,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             HDC hdc = BeginPaint(hWnd, &ps);
             // TODO: 여기에 hdc를 사용하는 그리기 코드를 추가합니다...
             Rectangle(hdc, 0, 0, 200, 200);
-            Ellipse(hdc, 0, 0, 500, 500);
-            MoveToEx(hdc, 0, 0, NULL);
-            LineTo(hdc, 300, 300);
+            Ellipse(hdc, 200, 200, 500, 500);
+            Ellipse(hdc, x - 100, y - 100, x + 100, y + 100);
 
             EndPaint(hWnd, &ps);
         }
@@ -201,6 +210,11 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         break;
 
     case WM_LBUTTONDOWN:
+        {
+            x = LOWORD(lParam);
+            y = HIWORD(lParam);
+            // InvalidateRect(hWnd, NULL, false); 위에꺼만 먼저 하고 왜 안되냐 보여줘야 함.
+        }
         break;
     case WM_LBUTTONUP:
         break;
@@ -209,6 +223,13 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
     case WM_RBUTTONUP:
         break;
     case WM_MOUSEMOVE:
+        /*
+        {
+            x = LOWORD(lParam);
+            y = HIWORD(lParam);
+            InvalidateRect(hWnd, NULL, false);
+        }
+        */
         break;
 
 
@@ -239,22 +260,4 @@ INT_PTR CALLBACK About(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
         break;
     }
     return (INT_PTR)FALSE;
-}
-
-//=======================================================
-//윈도우 크기조정(클라이언트 영역의 사이즈를 정확히 잡아준다)
-//=======================================================
-void setWindowSize(HWND hWnd, int x, int y, int width, int height)
-{
-    RECT rc;
-    rc.left = 0;
-    rc.top = 0;
-    rc.right = width;
-    rc.bottom = height;
-
-    AdjustWindowRect(&rc, WS_OVERLAPPEDWINDOW, false);
-
-    //위 RECT정보로 윈도우 사이즈를 셋팅하자.
-
-    SetWindowPos(hWnd, NULL, x, y, (rc.right - rc.left), (rc.bottom - rc.top), SWP_NOZORDER | SWP_NOMOVE);
 }
