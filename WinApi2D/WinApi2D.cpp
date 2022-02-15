@@ -165,6 +165,8 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 int x = 0;
 int y = 0;
 
+POINT g_keyPos = { 500, 500 };
+
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
     switch (message)
@@ -209,6 +211,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             HBRUSH hOldBrush = (HBRUSH)SelectObject(hdc, hBlueBrush);
 
             Ellipse(hdc, x - 100, y - 100, x + 100, y + 100);
+            Rectangle(hdc, g_keyPos.x - 50, g_keyPos.y - 50, g_keyPos.x + 50, g_keyPos.y + 50);
 
             // DC의 펜과 브러쉬를 원래 것으로 되돌림
             SelectObject(hdc, hOldPen);
@@ -225,10 +228,19 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         switch (wParam)
         {
         case VK_LEFT:
+            g_keyPos.x -= 10;
             break;
-        case 'a':
+        case VK_RIGHT:
+            g_keyPos.x += 10;
+            break;
+        case VK_UP:
+            g_keyPos.y -= 10;
+            break;
+        case VK_DOWN:
+            g_keyPos.y += 10;
             break;
         }
+        InvalidateRect(hWnd, NULL, false);
         break;
 
     case WM_LBUTTONDOWN:
