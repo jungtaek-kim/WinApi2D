@@ -162,10 +162,6 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 //  WM_DESTROY  - 종료 메시지를 게시하고 반환합니다.
 //
 //
-int x = 0;
-int y = 0;
-
-POINT g_keyPos = { 500, 500 };
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
@@ -193,80 +189,10 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             PAINTSTRUCT ps;
             // Device Context 만들어서 ID 를 반환
             HDC hdc = BeginPaint(hWnd, &ps);
-
             // TODO: 여기에 hdc를 사용하는 그리기 코드를 추가합니다...
-            Rectangle(hdc, 0, 0, 200, 200);
-            Ellipse(hdc, 200, 200, 500, 500);
-
-            // DC 의 목적지는 hWnd
-            // DC 의 펜은 기본펜(Black)
-            // DC 의 브러쉬는 기본 브러쉬(White)
-
-            // 직접 펜과 브러쉬를 만들어서 DC에 적용
-            HPEN hRedPen = CreatePen(PS_SOLID, 1, RGB(255, 0, 0));
-            HBRUSH hBlueBrush = CreateSolidBrush(RGB(0, 0, 255));
-
-            // 기존 펜과 브러쉬 ID 값을 받아 둠
-            HPEN hOldPen = (HPEN)SelectObject(hdc, hRedPen);
-            HBRUSH hOldBrush = (HBRUSH)SelectObject(hdc, hBlueBrush);
-
-            Ellipse(hdc, x - 100, y - 100, x + 100, y + 100);
-            Rectangle(hdc, g_keyPos.x - 50, g_keyPos.y - 50, g_keyPos.x + 50, g_keyPos.y + 50);
-
-            // DC의 펜과 브러쉬를 원래 것으로 되돌림
-            SelectObject(hdc, hOldPen);
-            SelectObject(hdc, hOldBrush);
-
-            // 다 쓴 펜, 브러쉬 삭제 요청
-            DeleteObject(hRedPen);
-            DeleteObject(hBlueBrush);
-
             EndPaint(hWnd, &ps);
         }
         break;
-    case WM_KEYDOWN:
-        switch (wParam)
-        {
-        case VK_LEFT:
-            g_keyPos.x -= 10;
-            break;
-        case VK_RIGHT:
-            g_keyPos.x += 10;
-            break;
-        case VK_UP:
-            g_keyPos.y -= 10;
-            break;
-        case VK_DOWN:
-            g_keyPos.y += 10;
-            break;
-        }
-        InvalidateRect(hWnd, NULL, false);
-        break;
-
-    case WM_LBUTTONDOWN:
-        {
-            x = LOWORD(lParam);
-            y = HIWORD(lParam);
-            // InvalidateRect(hWnd, NULL, false); // 위에꺼만 먼저 하고 왜 안되냐 보여줘야 함.
-        }
-        break;
-    case WM_LBUTTONUP:
-        break;
-    case WM_RBUTTONDOWN:
-        break;
-    case WM_RBUTTONUP:
-        break;
-    case WM_MOUSEMOVE:
-        /*
-        {
-            x = LOWORD(lParam);
-            y = HIWORD(lParam);
-            InvalidateRect(hWnd, NULL, false);
-        }
-        */
-        break;
-
-
     case WM_DESTROY:    // 윈도우가 종료될 떄 실행됨.
         PostQuitMessage(0);     // 메세지 큐에 WM_QUIT 입력
         break;
