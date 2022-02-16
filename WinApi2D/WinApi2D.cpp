@@ -163,6 +163,8 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 //
 //
 
+POINT g_mousePos = { -100, -100};
+
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
     switch (message)
@@ -190,9 +192,15 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         // Device Context 만들어서 ID 를 반환
         HDC hdc = BeginPaint(hWnd, &ps);
         // TODO: 여기에 hdc를 사용하는 그리기 코드를 추가합니다...
+        Ellipse(hdc, g_mousePos.x - 50, g_mousePos.y - 50, g_mousePos.x + 50, g_mousePos.y + 50);
         EndPaint(hWnd, &ps);
     }
     break;
+    case WM_LBUTTONDOWN:
+        g_mousePos.x = LOWORD(lParam);
+        g_mousePos.y = HIWORD(lParam);
+        InvalidateRect(hWnd, NULL, true);
+        break;
     case WM_DESTROY:    // 윈도우가 종료될 떄 실행됨.
         PostQuitMessage(0);     // 메세지 큐에 WM_QUIT 입력
         break;
