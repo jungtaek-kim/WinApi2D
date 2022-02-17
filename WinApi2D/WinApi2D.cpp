@@ -3,6 +3,7 @@
 
 #include "framework.h"
 #include "WinApi2D.h"
+#include "CCore.h"
 
 #define MAX_LOADSTRING 100
 
@@ -79,6 +80,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         else
         {
             // 게임 처리
+            CCore::getInst()->update();
+            CCore::getInst()->render();
         }
         
     }
