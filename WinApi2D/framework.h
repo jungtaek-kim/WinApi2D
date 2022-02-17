@@ -30,8 +30,8 @@
 //## 전역변수(인스턴스, 윈도우 핸들)	##
 //========================================
 
-extern HINSTANCE m_hInstance;
-extern HWND m_hWnd;
+extern HINSTANCE hInst;
+extern HWND hWnd;
 
 
 //========================================
