@@ -18,40 +18,44 @@ CCore::~CCore()
 
 void CCore::update()
 {
+	fPoint pos = object.GetPos();
 	// GetAsuncKeyState : 메시지 큐에 키 입력을 받는 방식이 아닌 현재 상태의 키 입력상태를 확인
+
 	if (GetAsyncKeyState(VK_LEFT) & 0x8000)
 	{
-		object.m_ptPos.x -= 1;
+		pos.x -= 0.01;
 	}
 
 	if (GetAsyncKeyState(VK_RIGHT) & 0x8000)
 	{
-		object.m_ptPos.x += 1;
+		pos.x += 0.01;
 	}
 
 	if (GetAsyncKeyState(VK_UP) & 0x8000)
 	{
-		object.m_ptPos.y -= 1;
+		pos.y -= 0.01;
 	}
 
 	if (GetAsyncKeyState(VK_DOWN) & 0x8000)
 	{
-		object.m_ptPos.y += 1;
+		pos.y += 0.01;
 	}
+
+	object.SetPos(pos);
 }
 
 void CCore::render()
 {
 	Rectangle(m_hDC,
-		object.m_ptPos.x - object.m_ptScale.x / 2,
-		object.m_ptPos.y - object.m_ptScale.y / 2,
-		object.m_ptPos.x + object.m_ptScale.x / 2,
-		object.m_ptPos.y + object.m_ptScale.y / 2);
+		object.GetPos().x - object.GetScale().x / 2,
+		object.GetPos().y - object.GetScale().y / 2,
+		object.GetPos().x + object.GetScale().x / 2,
+		object.GetPos().y + object.GetScale().y / 2);
 }
 
 void CCore::init()
 {
 	m_hDC = GetDC(hWnd);
 
-	object = CGameObject(POINT{ 100, 100 }, POINT{ 100, 100 });
+	object = CGameObject(fPoint(100, 100), fPoint{100, 100});
 }

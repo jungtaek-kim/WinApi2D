@@ -1,14 +1,19 @@
 #pragma once
 class CGameObject
 {
-// TODO : Core ¼³¸í‹š¸¸ private
-public:
-	POINT m_ptPos;
-	POINT m_ptScale;
+private:
+	fPoint m_fptPos;
+	fPoint m_fptScale;
 
 public:
 	CGameObject();
-	CGameObject(POINT pos, POINT scale);
+	CGameObject(fPoint pos, fPoint scale);
 	~CGameObject();
+
+	void SetPos(fPoint pos);
+	void SetScale(fPoint scale);
+
+	fPoint GetPos();
+	fPoint GetScale();
 };
 
