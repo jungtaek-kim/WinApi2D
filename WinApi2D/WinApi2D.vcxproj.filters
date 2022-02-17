@@ -42,6 +42,9 @@
     <ClInclude Include="SingleTon.h">
       <Filter>Util</Filter>
     </ClInclude>
+    <ClInclude Include="Logger.h">
+      <Filter>Util</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinApi2D.cpp">
