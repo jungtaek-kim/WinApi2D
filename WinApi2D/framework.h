@@ -14,6 +14,9 @@
 #include <memory.h>
 #include <tchar.h>
 
+#include "SingleTon.h"
+#include "CCore.h"
+
 
 //========================================
 //##			디파인문				##
@@ -30,5 +33,5 @@
 //## 전역변수(인스턴스, 윈도우 핸들)	##
 //========================================
 
-extern HINSTANCE m_hInstance;
-extern HWND m_hWnd;
+extern HINSTANCE hInst;
+extern HWND hWnd;

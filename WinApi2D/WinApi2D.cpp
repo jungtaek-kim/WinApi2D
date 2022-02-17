@@ -8,6 +8,7 @@
 
 // 전역 변수:
 HINSTANCE hInst;                                // 현재 인스턴스입니다.
+HWND hWnd;                                      // 윈도우의 핸들
 WCHAR szTitle[MAX_LOADSTRING];                  // 제목 표시줄 텍스트입니다.
 WCHAR szWindowClass[MAX_LOADSTRING];            // 기본 창 클래스 이름입니다.
 
@@ -79,9 +80,10 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         else
         {
             // 게임 처리
-            // 게임 업데이트
-            // 게임 그려줌
+            CCore::getInst()->update();
+            CCore::getInst()->render();
         }
+        
     }
 
     return (int)msg.wParam;
@@ -101,17 +103,17 @@ ATOM MyRegisterClass(HINSTANCE hInstance)
 
     wcex.cbSize = sizeof(WNDCLASSEX);   // 구조체의 크기 설정
 
-    wcex.style = CS_HREDRAW | CS_VREDRAW;  // 윈도우 클래스의 스타일 지정
-    wcex.lpfnWndProc = WndProc;                  // 메세지를 처리하는 함수를 지정(윈도우 프로시져)
-    wcex.cbClsExtra = 0;                        // 윈도우 클래스에서 사용하고자 하는 여분의 메모리양을 바이트 단위로 지정
-    wcex.cbWndExtra = 0;                        // cbClsExtra와 유사하나 개별 윈도우에서 사용하고자 하는 여분의 메모리양을 지정
-    wcex.hInstance = hInstance;                // 윈도우 클래스를 등록한 인스턴스의 핸들
-    wcex.hIcon = LoadIcon(hInstance, MAKEINTRESOURCE(IDI_WINAPI2D));   // 프로그램 아이콘
-    wcex.hIconSm = LoadIcon(wcex.hInstance, MAKEINTRESOURCE(IDI_SMALL)); // 타이틀바 좌상단과 윈도우가 최소화 되었을 때 보여주는 아이콘을 지정
-    wcex.hCursor = LoadCursor(nullptr, IDC_ARROW);   // 커서 지정
-    wcex.hbrBackground = (HBRUSH)(COLOR_WINDOW);         // 윈도우 작업영역에 칠한 배경 브러시
-    wcex.lpszMenuName = nullptr;                          // 윈도우에서 사용할 메뉴 지정, nullptr로 없앰
-    wcex.lpszClassName = szWindowClass;                    // 윈도우 클래스의 이름
+    wcex.style          = CS_HREDRAW | CS_VREDRAW;  // 윈도우 클래스의 스타일 지정
+    wcex.lpfnWndProc    = WndProc;                  // 메세지를 처리하는 함수를 지정(윈도우 프로시져)
+    wcex.cbClsExtra     = 0;                        // 윈도우 클래스에서 사용하고자 하는 여분의 메모리양을 바이트 단위로 지정
+    wcex.cbWndExtra     = 0;                        // cbClsExtra와 유사하나 개별 윈도우에서 사용하고자 하는 여분의 메모리양을 지정
+    wcex.hInstance      = hInstance;                // 윈도우 클래스를 등록한 인스턴스의 핸들
+    wcex.hIcon          = LoadIcon(hInstance, MAKEINTRESOURCE(IDI_WINAPI2D));   // 프로그램 아이콘
+    wcex.hIconSm        = LoadIcon(wcex.hInstance, MAKEINTRESOURCE(IDI_SMALL)); // 타이틀바 좌상단과 윈도우가 최소화 되었을 때 보여주는 아이콘을 지정
+    wcex.hCursor        = LoadCursor(nullptr, IDC_ARROW);   // 커서 지정
+    wcex.hbrBackground  = (HBRUSH)(COLOR_WINDOW);         // 윈도우 작업영역에 칠한 배경 브러시
+    wcex.lpszMenuName   = nullptr;                          // 윈도우에서 사용할 메뉴 지정, nullptr로 없앰
+    wcex.lpszClassName  = szWindowClass;                    // 윈도우 클래스의 이름
 
     return RegisterClassExW(&wcex);
 }
@@ -130,37 +132,37 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 {
     hInst = hInstance; // 인스턴스 핸들을 전역 변수에 저장합니다.
 
-    HWND hWnd = CreateWindowW(szWindowClass,         // 클래스 이름
-        szTitle,                // 윈도우 타이틀 이름
-        WINSTYLE,               // 윈도우 스타일, 내부 뜯어서 보여주기
-        WINSTARTX,              // 윈도우 화면 X
-        WINSTARTY,              // 윈도우 화면 Y
-        WINSIZEX,               // 가로 크기
-        WINSIZEY,               // 세로 크기
-        nullptr,                // 부모 윈도우
-        nullptr,                // 메뉴 핸들
-        hInstance,              // 인스턴스 지정
-        nullptr);               // 추가 매개변수
+   hWnd = CreateWindowW(szWindowClass,         // 클래스 이름
+                            szTitle,                // 윈도우 타이틀 이름
+                            WINSTYLE,               // 윈도우 스타일, 내부 뜯어서 보여주기
+                            WINSTARTX,              // 윈도우 화면 X
+                            WINSTARTY,              // 윈도우 화면 Y
+                            WINSIZEX,               // 가로 크기
+                            WINSIZEY,               // 세로 크기
+                            nullptr,                // 부모 윈도우
+                            nullptr,                // 메뉴 핸들
+                            hInstance,              // 인스턴스 지정
+                            nullptr);               // 추가 매개변수
 
     if (!hWnd)
     {
         return FALSE;
     }
 
-    // 실제 윈도우 크기를 구하기 위해 AdjustWindowRect 사용
-    RECT rc;
-    rc.left = 0;
-    rc.top = 0;
-    rc.right = WINSIZEX;
-    rc.bottom = WINSIZEY;
+   // 실제 윈도우 크기를 구하기 위해 AdjustWindowRect 사용
+   RECT rc;
+   rc.left = 0;
+   rc.top = 0;
+   rc.right = WINSIZEX;
+   rc.bottom = WINSIZEY;
 
-    // 실제 창이 크기에 맞게 나온다.
-    AdjustWindowRect(&rc, WINSTYLE, false);
-    //위 RECT정보로 윈도우 사이즈를 셋팅하자.
-    SetWindowPos(hWnd, NULL, WINSTARTX, WINSTARTY, (rc.right - rc.left), (rc.bottom - rc.top), SWP_NOZORDER | SWP_NOMOVE);
+   // 실제 창이 크기에 맞게 나온다.
+   AdjustWindowRect(&rc, WINSTYLE, false);
+   //위 RECT정보로 윈도우 사이즈를 셋팅하자.
+   SetWindowPos(hWnd, NULL, WINSTARTX, WINSTARTY, (rc.right - rc.left), (rc.bottom - rc.top), SWP_NOZORDER | SWP_NOMOVE);
 
-    ShowWindow(hWnd, nCmdShow);
-    UpdateWindow(hWnd);
+   ShowWindow(hWnd, nCmdShow);
+   UpdateWindow(hWnd);
 
     return TRUE;
 }
@@ -182,58 +184,35 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 //
 //
 
-const int g_rectXSize = 50;
-const int g_rectYSize = 100;
-POINT g_rectPos = { 500, 500};
-
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
     switch (message)
     {
     case WM_COMMAND:
-    {
-        int wmId = LOWORD(wParam);
-        // 메뉴 선택을 구문 분석합니다:
-        switch (wmId)
         {
-        case IDM_ABOUT:
-            DialogBox(hInst, MAKEINTRESOURCE(IDD_ABOUTBOX), hWnd, About);
-            break;
-        case IDM_EXIT:
-            DestroyWindow(hWnd);
-            break;
-        default:
-            return DefWindowProc(hWnd, message, wParam, lParam);
+            int wmId = LOWORD(wParam);
+            // 메뉴 선택을 구문 분석합니다:
+            switch (wmId)
+            {
+            case IDM_ABOUT:
+                DialogBox(hInst, MAKEINTRESOURCE(IDD_ABOUTBOX), hWnd, About);
+                break;
+            case IDM_EXIT:
+                DestroyWindow(hWnd);
+                break;
+            default:
+                return DefWindowProc(hWnd, message, wParam, lParam);
+            }
         }
-    }
-    break;
+        break;
     case WM_PAINT:      // 윈도우의 작업영역이 다시 그려져야 할 때 실행됨. (무효화 영역이 발생 했을 떄)
-    {
-        PAINTSTRUCT ps;
-        // Device Context 만들어서 ID 를 반환
-        HDC hdc = BeginPaint(hWnd, &ps);
-        // TODO: 여기에 hdc를 사용하는 그리기 코드를 추가합니다...
-        Rectangle(hdc, g_rectPos.x - g_rectXSize, g_rectPos.y - g_rectYSize, g_rectPos.x + g_rectXSize, g_rectPos.y + g_rectYSize);
-        EndPaint(hWnd, &ps);
-    }
-    break;
-    case WM_KEYDOWN:
-        switch (wParam)
         {
-        case VK_LEFT:
-            g_rectPos.x -= 10;
-            break;
-        case VK_RIGHT:
-            g_rectPos.x += 10;
-            break;
-        case VK_UP:
-            g_rectPos.y -= 10;
-            break;
-        case VK_DOWN:
-            g_rectPos.y += 10;
-            break;
+            PAINTSTRUCT ps;
+            // Device Context 만들어서 ID 를 반환
+            HDC hdc = BeginPaint(hWnd, &ps);
+            // TODO: 여기에 hdc를 사용하는 그리기 코드를 추가합니다...
+            EndPaint(hWnd, &ps);
         }
-        InvalidateRect(hWnd, NULL, false);
         break;
     case WM_DESTROY:    // 윈도우가 종료될 떄 실행됨.
         PostQuitMessage(0);     // 메세지 큐에 WM_QUIT 입력
