@@ -22,6 +22,9 @@
     <Filter Include="Util">
       <UniqueIdentifier>{36eb40e0-4b84-42f3-bd41-06c8ed18f0e7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Object">
+      <UniqueIdentifier>{b75c7ab5-e9ac-4bf9-9f0e-671d43db16ec}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -42,6 +45,9 @@
     <ClInclude Include="SingleTon.h">
       <Filter>Util</Filter>
     </ClInclude>
+    <ClInclude Include="CGameObject.h">
+      <Filter>Object</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinApi2D.cpp">
@@ -49,6 +55,9 @@
     </ClCompile>
     <ClCompile Include="CCore.cpp">
       <Filter>Engine\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="CGameObject.cpp">
+      <Filter>Object</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

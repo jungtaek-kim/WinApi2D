@@ -29,8 +29,8 @@ public:												\
 		return &_instance;							\
 	}												\
 private:											\
-	type(){}										\
-	~type(){}										
+	type();											\
+	~type();										
 
 
 // ΩÃ±€≈Ê ≈¨∑°Ω∫ ¡§¿«
