@@ -14,6 +14,9 @@
 #include <memory.h>
 #include <tchar.h>
 
+#include "SingleTon.h"
+#include "CCore.h"
+
 
 //========================================
 //##			디파인문				##
