@@ -13,10 +13,12 @@
 #include <malloc.h>
 #include <memory.h>
 #include <tchar.h>
+#include <string>
 
 #include "SingleTon.h"
 #include "struct.h"
 #include "CCore.h"
+#include "CTimeManager.h"
 
 
 //========================================

@@ -25,6 +25,9 @@
     <Filter Include="Object">
       <UniqueIdentifier>{b75c7ab5-e9ac-4bf9-9f0e-671d43db16ec}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Manager">
+      <UniqueIdentifier>{1e0dd3c9-84f3-428f-8079-cd29857a5233}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -51,6 +54,9 @@
     <ClInclude Include="struct.h">
       <Filter>Util</Filter>
     </ClInclude>
+    <ClInclude Include="CTimeManager.h">
+      <Filter>Engine\Manager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinApi2D.cpp">
@@ -61,6 +67,9 @@
     </ClCompile>
     <ClCompile Include="CGameObject.cpp">
       <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="CTimeManager.cpp">
+      <Filter>Engine\Manager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
