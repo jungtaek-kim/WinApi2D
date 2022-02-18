@@ -7,5 +7,6 @@ class CCore
 public:
 	void update();
 	void render();
+	void init();
 };
 
