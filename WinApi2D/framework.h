@@ -17,6 +17,7 @@
 #include "SingleTon.h"
 #include "Logger.h"
 #include "CCore.h"
+#include "CTimeManager.h"
 
 
 //========================================
