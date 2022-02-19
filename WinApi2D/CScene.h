@@ -13,7 +13,7 @@ private:
 
 public:
 	CScene();
-	~CScene();
+	virtual ~CScene();
 
 	void SetName(const wstring& strName);
 	wstring GetName();

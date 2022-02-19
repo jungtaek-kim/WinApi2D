@@ -88,6 +88,7 @@ void CCore::init()
 {
 	CTimeManager::getInst()->init();
 	CKeyManager::getInst()->init();
+	CSceneManager::getInst()->init();
 
 	m_hDC = GetDC(hWnd);
 
