@@ -26,6 +26,7 @@
 #include "CCore.h"
 #include "CTimeManager.h"
 #include "CKeyManager.h"
+#include "CSceneManager.h"
 
 using namespace std;
 
@@ -48,13 +49,23 @@ extern HINSTANCE hInst;
 extern HWND hWnd;
 
 //========================================
-//## 전역변수(인스턴스, 윈도우 핸들)		##
+//## 게임 그룹						##
 //========================================
 
 enum class GROUP_GAMEOBJ
 {
 	DEFAULT,
 	PLAYER,
+
+	SIZE,
+};
+
+enum class GROUP_SCENE
+{
+	TOOL,
+	START,
+	STAGE_01,
+	STAGE_02,
 
 	SIZE,
 };
