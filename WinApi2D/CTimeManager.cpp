@@ -35,7 +35,7 @@ void CTimeManager::update()
 
 void CTimeManager::init()
 {
-	QueryPerformanceCounter(&m_llCurCount);
+	QueryPerformanceCounter(&m_llPrevCount);
 	QueryPerformanceFrequency(&m_llFrequency);
 }
 

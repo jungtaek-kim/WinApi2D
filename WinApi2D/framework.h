@@ -31,6 +31,7 @@ enum class GROUP_GAMEOBJ
 {
 	DEFAULT,
 	PLAYER,
+	MONSTER,
 
 	SIZE,
 };
@@ -55,6 +56,10 @@ enum class GROUP_SCENE
 #define	WINSIZEY	720
 #define WINSTYLE	WS_CAPTION | WS_SYSMENU | WS_MINIMIZEBOX
 
+#define fDT				CTimeManager::getInst()->GetDT()
+#define Key(key)		CKeyManager::getInst()->GetButton(key)
+#define KeyUP(key)		CKeyManager::getInst()->GetButtonUP(key)
+#define KeyDown(key)	CKeyManager::getInst()->GetButtonDOWN(key)
 
 //========================================
 //## 전역변수(인스턴스, 윈도우 핸들)	##
