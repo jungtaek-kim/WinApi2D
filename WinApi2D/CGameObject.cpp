@@ -37,25 +37,7 @@ fPoint CGameObject::GetScale()
 
 void CGameObject::update()
 {
-	if (CKeyManager::getInst()->GetButton(VK_LEFT))
-	{
-		m_fptPos.x -= 100 * CTimeManager::getInst()->GetDT();
-	}
-
-	if (CKeyManager::getInst()->GetButton(VK_RIGHT))
-	{
-		m_fptPos.x += 100 * CTimeManager::getInst()->GetDT();
-	}
-
-	if (CKeyManager::getInst()->GetButton(VK_UP))
-	{
-		m_fptPos.y -= 100 * CTimeManager::getInst()->GetDT();
-	}
-
-	if (CKeyManager::getInst()->GetButton(VK_DOWN))
-	{
-		m_fptPos.y += 100 * CTimeManager::getInst()->GetDT();
-	}
+	
 }
 
 void CGameObject::render(HDC hDC)
