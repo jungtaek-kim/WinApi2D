@@ -15,10 +15,14 @@
 #include <tchar.h>
 #include <string>
 
+// STL
 #include <vector>
 
+// Util
 #include "SingleTon.h"
 #include "struct.h"
+
+// Core & Manager
 #include "CCore.h"
 #include "CTimeManager.h"
 #include "CKeyManager.h"
@@ -42,3 +46,15 @@ using namespace std;
 
 extern HINSTANCE hInst;
 extern HWND hWnd;
+
+//========================================
+//## 전역변수(인스턴스, 윈도우 핸들)		##
+//========================================
+
+enum class GROUP_GAMEOBJ
+{
+	DEFAULT,
+	PLAYER,
+
+	SIZE,
+};
