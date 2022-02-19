@@ -15,11 +15,15 @@
 #include <tchar.h>
 #include <string>
 
+#include <vector>
+
 #include "SingleTon.h"
 #include "struct.h"
 #include "CCore.h"
 #include "CTimeManager.h"
+#include "CKeyManager.h"
 
+using namespace std;
 
 //========================================
 //##			디파인문				##

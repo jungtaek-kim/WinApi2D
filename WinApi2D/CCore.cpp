@@ -21,25 +21,26 @@ CCore::~CCore()
 void CCore::update()
 {
 	CTimeManager::getInst()->update();
+	CKeyManager::getInst()->update();
 
 	fPoint pos = object.GetPos();
 	// GetAsuncKeyState : 메시지 큐에 키 입력을 받는 방식이 아닌 현재 상태의 키 입력상태를 확인
-	if (GetAsyncKeyState(VK_LEFT) & 0x8000)
+	if (CKeyManager::getInst()->GetButton(VK_LEFT))
 	{
 		pos.x -= 100 * CTimeManager::getInst()->GetDT();
 	}
 
-	if (GetAsyncKeyState(VK_RIGHT) & 0x8000)
+	if (CKeyManager::getInst()->GetButton(VK_RIGHT))
 	{
 		pos.x += 100 * CTimeManager::getInst()->GetDT();
 	}
 
-	if (GetAsyncKeyState(VK_UP) & 0x8000)
+	if (CKeyManager::getInst()->GetButton(VK_UP))
 	{
 		pos.y -= 100 * CTimeManager::getInst()->GetDT();
 	}
 
-	if (GetAsyncKeyState(VK_DOWN) & 0x8000)
+	if (CKeyManager::getInst()->GetButton(VK_DOWN))
 	{
 		pos.y += 100 * CTimeManager::getInst()->GetDT();
 	}
@@ -86,6 +87,7 @@ void CCore::render()
 void CCore::init()
 {
 	CTimeManager::getInst()->init();
+	CKeyManager::getInst()->init();
 
 	m_hDC = GetDC(hWnd);
 
