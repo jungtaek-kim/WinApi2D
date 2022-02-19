@@ -15,6 +15,12 @@ public:
 	CScene();
 	virtual ~CScene();
 
+	virtual void update();
+	virtual void render(HDC hDC);
+
+	virtual void Enter() = 0;	// 해당 씬에 진입시 호출
+	virtual void Exit() = 0;	// 해당 씬을 탈출시 호출
+
 	void SetName(const wstring& strName);
 	wstring GetName();
 

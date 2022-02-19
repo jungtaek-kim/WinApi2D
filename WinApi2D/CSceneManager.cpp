@@ -23,10 +23,21 @@ CSceneManager::~CSceneManager()
 	}
 }
 
+void CSceneManager::update()
+{
+	m_pCurScene->update();
+}
+
+void CSceneManager::render(HDC hDC)
+{
+	m_pCurScene->render(hDC);
+}
+
 void CSceneManager::init()
 {
 	m_arrScene[(size_t)GROUP_SCENE::START] = new CScene_Start;
 	m_arrScene[(size_t)GROUP_SCENE::START]->SetName(L"Start_Scene");
 
 	m_pCurScene = m_arrScene[(size_t)GROUP_SCENE::START];
+	m_pCurScene->Enter();
 }
