@@ -21,6 +21,9 @@
 
 // STL
 #include <vector>
+#include <map>
+
+using namespace std;
 
 // Util
 #include "SingleTon.h"
@@ -83,5 +86,3 @@ enum class GROUP_SCENE
 
 extern HINSTANCE hInst;
 extern HWND hWnd;
-
-using namespace std;

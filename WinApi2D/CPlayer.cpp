@@ -3,20 +3,16 @@
 #include "CMissile.h"
 #include "CScene.h"
 #include "CTexture.h"
+#include "CResourceManager.h"
 
 CPlayer::CPlayer()
 {
-	m_pTex = new CTexture;
-
-	wstring strFilepath = CPathManager::getInst()->GetContentPath();
-	strFilepath += L"texture\\Player.bmp";
-	m_pTex->Load(strFilepath);
+	m_pTex = CResourceManager::getInst()->LoadTextrue(L"PlayerTex", L"texture\\Player.bmp");
 }
 
 CPlayer::~CPlayer()
 {
-	if (nullptr != m_pTex)
-		delete m_pTex;
+
 }
 
 void CPlayer::update()

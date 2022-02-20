@@ -105,6 +105,9 @@
     <ClInclude Include="Logger.h">
       <Filter>Util</Filter>
     </ClInclude>
+    <ClInclude Include="CResourceManager.h">
+      <Filter>Engine\Manager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinApi2D.cpp">
@@ -150,6 +153,9 @@
       <Filter>Resouce\Sound</Filter>
     </ClCompile>
     <ClCompile Include="CPathManager.cpp">
+      <Filter>Engine\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="CResourceManager.cpp">
       <Filter>Engine\Manager</Filter>
     </ClCompile>
   </ItemGroup>

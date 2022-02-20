@@ -18,7 +18,7 @@ void CPathManager::init()
 	// 상위 폴더로
 	// + bin\\content\\
 
-	int iLen = wcslen(m_strContentPath);		// wchar_t 문자열의 길이 확인
+	int iLen = (int)wcslen(m_strContentPath);		// wchar_t 문자열의 길이 확인
 
 	for (int i = iLen - 1; i >= 0; i--)
 	{
