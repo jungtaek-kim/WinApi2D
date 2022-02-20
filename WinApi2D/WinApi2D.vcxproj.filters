@@ -31,6 +31,15 @@
     <Filter Include="Scene">
       <UniqueIdentifier>{ba334e97-7748-4f45-8519-a2804624b0b8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resouce">
+      <UniqueIdentifier>{7d41d1e4-dcea-4ae2-afc4-bc5893bbd5c3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resouce\Texture">
+      <UniqueIdentifier>{55c046b8-ab3d-48e8-8b4e-8e6fccc09d75}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resouce\Sound">
+      <UniqueIdentifier>{f088250d-4f33-47bc-84cf-d28792e60b4a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -81,6 +90,15 @@
     <ClInclude Include="CMissile.h">
       <Filter>Object</Filter>
     </ClInclude>
+    <ClInclude Include="CResource.h">
+      <Filter>Resouce</Filter>
+    </ClInclude>
+    <ClInclude Include="CTexture.h">
+      <Filter>Resouce\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="CSound.h">
+      <Filter>Resouce\Sound</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinApi2D.cpp">
@@ -115,6 +133,15 @@
     </ClCompile>
     <ClCompile Include="CMissile.cpp">
       <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="CResource.cpp">
+      <Filter>Resouce</Filter>
+    </ClCompile>
+    <ClCompile Include="CTexture.cpp">
+      <Filter>Resouce\Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="CSound.cpp">
+      <Filter>Resouce\Sound</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
