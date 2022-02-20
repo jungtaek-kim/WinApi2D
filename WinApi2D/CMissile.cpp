@@ -40,6 +40,6 @@ void CMissile::SetDir(fVec2 vec)
 
 void CMissile::SetDir(float theta)
 {
-	m_fvDir.x = cos(theta);
-	m_fvDir.y = sin(theta);
+	m_fvDir.x = (float)cos(theta);
+	m_fvDir.y = (float)sin(theta);
 }

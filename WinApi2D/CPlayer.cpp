@@ -68,12 +68,12 @@ void CPlayer::CreateMissile()
 	CMissile* pMissile4 = new CMissile;
 	pMissile4->SetPos(fpMissilePos);
 	pMissile4->SetScale(fPoint(25.f, 25.f));
-	pMissile4->SetDir(3.141592);
+	pMissile4->SetDir(3.141592f);
 
 	CMissile* pMissile5 = new CMissile;
 	pMissile5->SetPos(fpMissilePos);
 	pMissile5->SetScale(fPoint(25.f, 25.f));
-	pMissile5->SetDir(3.141592 * 90 / 180);
+	pMissile5->SetDir(3.141592f * 90 / 180);
 
 	CScene* pCurScene = CSceneManager::getInst()->GetCurScene();
 	pCurScene->AddObject(pMissile1, GROUP_GAMEOBJ::MISSILE);

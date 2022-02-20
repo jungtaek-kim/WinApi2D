@@ -54,6 +54,7 @@ enum class GROUP_SCENE
 #include "CTimeManager.h"
 #include "CKeyManager.h"
 #include "CSceneManager.h"
+#include "CPathManager.h"
 
 
 //========================================

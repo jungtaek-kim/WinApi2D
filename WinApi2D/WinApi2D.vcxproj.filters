@@ -99,6 +99,9 @@
     <ClInclude Include="CSound.h">
       <Filter>Resouce\Sound</Filter>
     </ClInclude>
+    <ClInclude Include="CPathManager.h">
+      <Filter>Engine\Manager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinApi2D.cpp">
@@ -142,6 +145,9 @@
     </ClCompile>
     <ClCompile Include="CSound.cpp">
       <Filter>Resouce\Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="CPathManager.cpp">
+      <Filter>Engine\Manager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
