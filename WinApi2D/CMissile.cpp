@@ -27,6 +27,18 @@ void CMissile::update()
 	SetPos(pos);
 }
 
+void CMissile::render(HDC hDC)
+{
+	fPoint pos = GetPos();
+	fPoint scale = GetScale();
+
+	Ellipse(hDC,
+		(int)(pos.x - scale.x / 2.f),
+		(int)(pos.y - scale.y / 2.f),
+		(int)(pos.x + scale.x / 2.f),
+		(int)(pos.y + scale.y / 2.f));
+}
+
 void CMissile::SetDir(bool dir)
 {
 	m_bDir = dir;

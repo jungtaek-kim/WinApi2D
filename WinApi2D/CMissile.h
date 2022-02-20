@@ -12,6 +12,7 @@ public:
 	~CMissile();
 
 	virtual void update();
+	virtual void render(HDC hDC);
 
 	void SetDir(bool dir);
 };
