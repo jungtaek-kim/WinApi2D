@@ -19,13 +19,13 @@ void CMonster::update()
 
 	if (m_bIsUPDir)
 	{
-		pos.y -= fDT * m_fVelocity;
+		pos.y -= DT * m_fVelocity;
 		if (pos.y < m_fptCenterPos.y - m_fDistance)
 			m_bIsUPDir = false;
 	}
 	else
 	{
-		pos.y += fDT * m_fVelocity;
+		pos.y += DT * m_fVelocity;
 		if (pos.y > m_fptCenterPos.y + m_fDistance)
 			m_bIsUPDir = true;
 	}

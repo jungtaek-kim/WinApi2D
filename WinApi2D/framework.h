@@ -32,6 +32,7 @@ enum class GROUP_GAMEOBJ
 	DEFAULT,
 	PLAYER,
 	MONSTER,
+	MISSILE,
 
 	SIZE,
 };
@@ -46,6 +47,13 @@ enum class GROUP_SCENE
 	SIZE,
 };
 
+// Core & Manager
+#include "CCore.h"
+#include "CTimeManager.h"
+#include "CKeyManager.h"
+#include "CSceneManager.h"
+
+
 //========================================
 //##			디파인문				##
 //========================================
@@ -56,7 +64,8 @@ enum class GROUP_SCENE
 #define	WINSIZEY	720
 #define WINSTYLE	WS_CAPTION | WS_SYSMENU | WS_MINIMIZEBOX
 
-#define fDT				CTimeManager::getInst()->GetDT()
+#define DT				CTimeManager::getInst()->GetDT()
+
 #define Key(key)		CKeyManager::getInst()->GetButton(key)
 #define KeyUP(key)		CKeyManager::getInst()->GetButtonUP(key)
 #define KeyDown(key)	CKeyManager::getInst()->GetButtonDOWN(key)
@@ -67,11 +76,5 @@ enum class GROUP_SCENE
 
 extern HINSTANCE hInst;
 extern HWND hWnd;
-
-// Core & Manager
-#include "CCore.h"
-#include "CTimeManager.h"
-#include "CKeyManager.h"
-#include "CSceneManager.h"
 
 using namespace std;

@@ -78,6 +78,9 @@
     <ClInclude Include="CMonster.h">
       <Filter>Object</Filter>
     </ClInclude>
+    <ClInclude Include="CMissile.h">
+      <Filter>Object</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinApi2D.cpp">
@@ -108,6 +111,9 @@
       <Filter>Object</Filter>
     </ClCompile>
     <ClCompile Include="CMonster.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="CMissile.cpp">
       <Filter>Object</Filter>
     </ClCompile>
   </ItemGroup>

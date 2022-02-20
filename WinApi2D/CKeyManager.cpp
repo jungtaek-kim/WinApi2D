@@ -41,7 +41,7 @@ void CKeyManager::update()
 		}
 		else
 		{
-			m_arrPrevKey[key] = false;
+			m_arrCurKey[key] = false;
 		}
 	}
 }
