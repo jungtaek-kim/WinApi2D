@@ -47,10 +47,15 @@ struct fVec2
 		this->y = y;
 	}
 
-	fVec2& normalize(fVec2 other)
+	fVec2& normalize()
 	{
-		float length = (float)sqrt(other.x * other.x + other.y + other.y);
-		this->x = other.x / length;
-		this->y = other.y / length;
+		float length = (float)sqrt(x * x + y * y);
+
+		assert(length != 0.f);
+
+		x = x / length;
+		y = y / length;
+
+		return *this;
 	}
 };

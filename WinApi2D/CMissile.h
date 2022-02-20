@@ -4,8 +4,7 @@
 class CMissile : public CGameObject
 {
 private:
-	float m_fXDir;
-	float m_fYDir;
+	fVec2 m_fvDir;
 	float m_fVelocity;
 
 public:
@@ -15,6 +14,7 @@ public:
 	virtual void update();
 	virtual void render(HDC hDC);
 
-	void SetDir(float x, float y);
+	void SetDir(fVec2 vec);
+	void SetDir(float theta);
 };
 

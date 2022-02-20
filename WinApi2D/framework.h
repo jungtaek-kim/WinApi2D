@@ -15,6 +15,7 @@
 #include <tchar.h>
 #include <string>
 #include <math.h>
+#include <assert.h>
 
 // STL
 #include <vector>
