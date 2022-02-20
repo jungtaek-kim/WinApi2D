@@ -2,6 +2,22 @@
 #include "CPlayer.h"
 #include "CMissile.h"
 #include "CScene.h"
+#include "CTexture.h"
+
+CPlayer::CPlayer()
+{
+	m_pTex = new CTexture;
+
+	wstring strFilepath = CPathManager::getInst()->GetContentPath();
+	strFilepath += L"texture\\Player.bmp";
+	m_pTex->Load(strFilepath);
+}
+
+CPlayer::~CPlayer()
+{
+	if (nullptr != m_pTex)
+		delete m_pTex;
+}
 
 void CPlayer::update()
 {
@@ -37,11 +53,17 @@ void CPlayer::update()
 
 void CPlayer::render(HDC hDC)
 {
-	Rectangle(hDC,
-		(int)(GetPos().x - GetScale().x / 2),
-		(int)(GetPos().y - GetScale().y / 2),
-		(int)(GetPos().x + GetScale().x / 2),
-		(int)(GetPos().y + GetScale().y / 2));
+	int iWidth = (int)(m_pTex->GetBmpWidth());
+	int iHeight = (int)(m_pTex->GetBmpHeight());
+
+	fPoint pos = GetPos();
+
+	BitBlt(hDC,
+		(int)(pos.x - (float)(iWidth / 2)),
+		(int)(pos.y - (float)(iHeight / 2)),
+		iWidth, iHeight,
+		m_pTex->GetDC(),
+		0, 0, SRCCOPY);
 }
 
 void CPlayer::CreateMissile()

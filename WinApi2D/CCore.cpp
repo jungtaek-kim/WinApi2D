@@ -55,3 +55,8 @@ void CCore::init()
 	HBITMAP hOldBitmap = (HBITMAP)SelectObject(m_hMemDC, m_hBMP);
 	DeleteObject(hOldBitmap);
 }
+
+HDC CCore::GetMainDC()
+{
+	return m_hDC;
+}

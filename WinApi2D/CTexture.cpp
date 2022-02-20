@@ -13,12 +13,27 @@ CTexture::~CTexture()
 
 HDC CTexture::GetDC()
 {
-	return HDC();
+	return m_hDC;
 }
 
 HBITMAP CTexture::GetBitmap()
 {
-	return HBITMAP();
+	return m_hBMP;
+}
+
+BITMAP CTexture::GetBitInfo()
+{
+	return m_bmpInfo;
+}
+
+int CTexture::GetBmpWidth()
+{
+	return (int)(m_bmpInfo.bmWidth);
+}
+
+int CTexture::GetBmpHeight()
+{
+	return (int)(m_bmpInfo.bmHeight);
 }
 
 void CTexture::Load(const wstring& strFilePath)
@@ -32,4 +47,13 @@ void CTexture::Load(const wstring& strFilePath)
 	);
 
 	assert(m_hBMP);		// 이미지가 없다면 assert
+
+	// 비트맵과 연결할 DC
+	m_hDC = CreateCompatibleDC(CCore::getInst()->GetMainDC());
+
+	// 비트맵과 DC 연결
+	HBITMAP hPrevBit = (HBITMAP)SelectObject(m_hDC, m_hBMP);
+
+	// 비트맵 정보
+	GetObject(m_hBMP, sizeof(BITMAP), &m_bmpInfo);
 }
