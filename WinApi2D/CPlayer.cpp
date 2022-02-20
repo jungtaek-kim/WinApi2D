@@ -58,12 +58,13 @@ void CPlayer::render(HDC hDC)
 
 	fPoint pos = GetPos();
 
-	BitBlt(hDC,
+	TransparentBlt(hDC,
 		(int)(pos.x - (float)(iWidth / 2)),
 		(int)(pos.y - (float)(iHeight / 2)),
 		iWidth, iHeight,
 		m_pTex->GetDC(),
-		0, 0, SRCCOPY);
+		0, 0, iWidth, iHeight,
+		RGB(255, 0, 255));
 }
 
 void CPlayer::CreateMissile()
