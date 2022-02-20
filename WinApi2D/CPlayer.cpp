@@ -9,22 +9,22 @@ void CPlayer::update()
 
 	if (Key(VK_LEFT))
 	{
-		pos.x -= 100 * DT;
+		pos.x -= 100 * fDT;
 	}
 
 	if (Key(VK_RIGHT))
 	{
-		pos.x += 100 * DT;
+		pos.x += 100 * fDT;
 	}				   
 					   
 	if (Key(VK_UP))	   
 	{				   
-		pos.y -= 100 * DT;
+		pos.y -= 100 * fDT;
 	}				   
 					   
 	if (Key(VK_DOWN))  
 	{				   
-		pos.y += 100 * DT;
+		pos.y += 100 * fDT;
 	}
 
 	SetPos(pos);
@@ -38,10 +38,10 @@ void CPlayer::update()
 void CPlayer::render(HDC hDC)
 {
 	Rectangle(hDC,
-		GetPos().x - GetScale().x / 2,
-		GetPos().y - GetScale().y / 2,
-		GetPos().x + GetScale().x / 2,
-		GetPos().y + GetScale().y / 2);
+		(int)(GetPos().x - GetScale().x / 2),
+		(int)(GetPos().y - GetScale().y / 2),
+		(int)(GetPos().x + GetScale().x / 2),
+		(int)(GetPos().y + GetScale().y / 2));
 }
 
 void CPlayer::CreateMissile()

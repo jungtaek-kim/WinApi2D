@@ -14,6 +14,7 @@
 #include <memory.h>
 #include <tchar.h>
 #include <string>
+#include <math.h>
 
 // STL
 #include <vector>
@@ -65,6 +66,7 @@ enum class GROUP_SCENE
 #define WINSTYLE	WS_CAPTION | WS_SYSMENU | WS_MINIMIZEBOX
 
 #define DT				CTimeManager::getInst()->GetDT()
+#define fDT				CTimeManager::getInst()->GetfDT()
 
 #define Key(key)		CKeyManager::getInst()->GetButton(key)
 #define KeyUP(key)		CKeyManager::getInst()->GetButtonUP(key)

@@ -3,7 +3,11 @@
 
 CTimeManager::CTimeManager()
 {
-
+	m_uiFPS = 1;
+	m_dDT = 1;
+	m_llPrevCount = {};
+	m_llCurCount = {};
+	m_llFrequency = {};
 }
 
 CTimeManager::~CTimeManager()
@@ -42,6 +46,11 @@ void CTimeManager::init()
 unsigned int CTimeManager::GetFPS()
 {
 	return m_uiFPS;
+}
+
+float CTimeManager::GetfDT()
+{
+	return (float)m_dDT;
 }
 
 double CTimeManager::GetDT()

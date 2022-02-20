@@ -18,6 +18,7 @@ public:
 	void init();
 
 	unsigned int GetFPS();
+	float GetfDT();
 	double GetDT();
 };
 
