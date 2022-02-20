@@ -3,8 +3,9 @@
 
 CMissile::CMissile()
 {
-	m_bDir = true;
-	m_fVelocity = 600;
+	m_fXDir = 0;
+	m_fYDir = 0;
+	m_fVelocity = 50;
 }
 
 CMissile::~CMissile()
@@ -15,14 +16,8 @@ void CMissile::update()
 {
 	fPoint pos = GetPos();
 
-	if (m_bDir)
-	{
-		pos.x += m_fVelocity * DT;
-	}
-	else
-	{
-		pos.x -= m_fVelocity * DT;
-	}
+	pos.x += m_fVelocity * m_fXDir * DT;
+	pos.y += m_fVelocity * m_fYDir * DT;
 
 	SetPos(pos);
 }
@@ -39,7 +34,8 @@ void CMissile::render(HDC hDC)
 		(int)(pos.y + scale.y / 2.f));
 }
 
-void CMissile::SetDir(bool dir)
+void CMissile::SetDir(float x, float y)
 {
-	m_bDir = dir;
+	m_fXDir = x;
+	m_fYDir = y;
 }
