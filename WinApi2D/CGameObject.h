@@ -1,9 +1,14 @@
 #pragma once
+
+class CCollider;
+
 class CGameObject
 {
 private:
 	fPoint m_fptPos;
 	fPoint m_fptScale;
+
+	CCollider* m_pCollider;
 
 public:
 	CGameObject();
@@ -17,5 +22,8 @@ public:
 
 	virtual void update() = 0;
 	virtual void render(HDC hDC);
+
+	CCollider* GetCollider();
+	void CreateCollider();
 };
 
