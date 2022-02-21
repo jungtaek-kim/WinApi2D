@@ -5,6 +5,7 @@
 
 CSceneManager::CSceneManager()
 {
+	// 씬 목록 초기화
 	for (int i = 0; i < (int)GROUP_SCENE::SIZE; i++)
 	{
 		m_arrScene[i] = nullptr;
@@ -14,6 +15,7 @@ CSceneManager::CSceneManager()
 
 CSceneManager::~CSceneManager()
 {
+	// 씬 목록 삭제
 	for (int i = 0; i < (int)GROUP_SCENE::SIZE; i++)
 	{
 		if (nullptr != m_arrScene[i])

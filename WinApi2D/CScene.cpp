@@ -9,6 +9,7 @@ CScene::CScene()
 
 CScene::~CScene()
 {
+    // 씬이 가진 모든 게임오브젝트 삭제
     for (int i = 0; i < (int)GROUP_GAMEOBJ::SIZE; i++)
     {
         for (int j = 0; j < m_arrObj[i].size(); j++)
@@ -20,6 +21,7 @@ CScene::~CScene()
 
 void CScene::update()
 {
+    // 씬이 가진 모든 오브젝트 업데이트
     for (int i = 0; i < (int)GROUP_GAMEOBJ::SIZE; i++)
     {
         for (int j = 0; j < m_arrObj[i].size(); j++)
@@ -31,6 +33,7 @@ void CScene::update()
 
 void CScene::finalupdate()
 {
+    // 씬이 가진 모든 오브젝트 finalupdate
     for (int i = 0; i < (int)GROUP_GAMEOBJ::SIZE; i++)
     {
         for (int j = 0; j < m_arrObj[i].size(); j++)
@@ -42,6 +45,7 @@ void CScene::finalupdate()
 
 void CScene::render(HDC hDC)
 {
+    // 씬이 가진 모든 오브젝트 render
     for (int i = 0; i < (int)GROUP_GAMEOBJ::SIZE; i++)
     {
         for (int j = 0; j < m_arrObj[i].size(); j++)

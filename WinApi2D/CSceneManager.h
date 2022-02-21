@@ -7,14 +7,14 @@ class CSceneManager
 	SINGLETON(CSceneManager);
 
 private:
-	CScene* m_arrScene[(int)GROUP_SCENE::SIZE];
-	CScene* m_pCurScene;
+	CScene* m_arrScene[(int)GROUP_SCENE::SIZE];		// ÀüÃ¼ ¾À ¸ñ·Ï
+	CScene* m_pCurScene;							// ÇöÀç ¾À
 
 public:
 	void update();
 	void render(HDC hDC);
 	void init();
 
-	CScene* GetCurScene();
+	CScene* GetCurScene();							//ÇöÀç ¾À ¹ÝÈ¯
 };
 
