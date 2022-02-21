@@ -47,6 +47,7 @@ void CCore::render()
 void CCore::init()
 {
 	// GDI
+	CreateBrushPen();
 
 	CPathManager::getInst()->init();
 	CTimeManager::getInst()->init();

@@ -2,6 +2,8 @@
 #include "CCollider.h"
 #include "CGameObject.h"
 
+#include "SelectGDI.h"
+
 CCollider::CCollider()
 {
 	m_pOwner = nullptr;
@@ -52,18 +54,12 @@ void CCollider::finalupdate()
 
 void CCollider::render(HDC hDC)
 {
-	HPEN hGreenPen = CCore::getInst()->GetPen(TYPE_PEN::GREEN);
-	HPEN hDefaultPen = (HPEN)SelectObject(hDC, hGreenPen);
-
-	HBRUSH hHollowBrush = CCore::getInst()->GetBrush(TYPE_BRUSH::HOLLOW);
-	HBRUSH hDefaultBrush = (HBRUSH)SelectObject(hDC, hHollowBrush);
+	SelectGDI brush(hDC, TYPE_BRUSH::HOLLOW);
+	SelectGDI pen(hDC, TYPE_PEN::GREEN);
 
 	Rectangle(hDC,
-		m_fptFinalPos.x - m_fptScale.x / 2.f,
-		m_fptFinalPos.y - m_fptScale.y / 2.f,
-		m_fptFinalPos.x + m_fptScale.x / 2.f,
-		m_fptFinalPos.y + m_fptScale.y / 2.f);
-
-	(HPEN)SelectObject(hDC, hDefaultPen);
-	(HBRUSH)SelectObject(hDC, hDefaultBrush);
+		(int)(m_fptFinalPos.x - m_fptScale.x / 2.f),
+		(int)(m_fptFinalPos.y - m_fptScale.y / 2.f),
+		(int)(m_fptFinalPos.x + m_fptScale.x / 2.f),
+		(int)(m_fptFinalPos.y + m_fptScale.y / 2.f));
 }

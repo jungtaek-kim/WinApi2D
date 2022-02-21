@@ -4,10 +4,14 @@
 #include "CScene.h"
 #include "CTexture.h"
 #include "CResourceManager.h"
+#include "CCollider.h"
 
 CPlayer::CPlayer()
 {
 	m_pTex = CResourceManager::getInst()->LoadTextrue(L"PlayerTex", L"texture\\Player.bmp");
+
+	CreateCollider();
+	GetCollider()->SetScale(fPoint(100.f, 100.f));
 }
 
 CPlayer::~CPlayer()
