@@ -22,6 +22,24 @@ struct fPoint
 		this->x = x;
 		this->y = y;
 	}
+
+	fPoint& operator=(const fPoint& other)
+	{
+		x = other.x;
+		y = other.y;
+
+		return *this;
+	}
+
+	fPoint operator+(const fPoint& other)
+	{
+		return fPoint(x + other.x, y + other.y);
+	}
+
+	fPoint operator-(const fPoint& other)
+	{
+		return fPoint(x - other.x, y - other.y);
+	}
 };
 
 struct iVec2

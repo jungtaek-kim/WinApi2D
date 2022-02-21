@@ -16,6 +16,7 @@ public:
 	virtual ~CScene();
 
 	virtual void update();
+	virtual void finalupdate();
 	virtual void render(HDC hDC);
 
 	virtual void Enter() = 0;	// 해당 씬에 진입시 호출

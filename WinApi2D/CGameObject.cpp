@@ -37,6 +37,14 @@ fPoint CGameObject::GetScale()
 	return m_fptScale;
 }
 
+void CGameObject::finalupdate()
+{
+	if (nullptr != m_pCollider)
+	{
+		m_pCollider->finalupdate();
+	}
+}
+
 void CGameObject::render(HDC hDC)
 {
 	Rectangle(hDC,
