@@ -61,6 +61,8 @@ void CPlayer::render(HDC hDC)
 		m_pTex->GetDC(),
 		0, 0, iWidth, iHeight,
 		RGB(255, 0, 255));
+
+	component_render(hDC);
 }
 
 void CPlayer::CreateMissile()

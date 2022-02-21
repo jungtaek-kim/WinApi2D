@@ -5,14 +5,51 @@
 CCollider::CCollider()
 {
 	m_pOwner = nullptr;
+	m_fptOffsetPos = {};
+	m_fptFinalPos = {};
+	m_fptScale = {};
 }
 
 CCollider::~CCollider()
 {
 }
 
+fPoint CCollider::GetOffsetPos()
+{
+	return m_fptOffsetPos;
+}
+
+fPoint CCollider::GetFinalPos()
+{
+	return m_fptFinalPos;
+}
+
+fPoint CCollider::GetScale()
+{
+	return m_fptScale;
+}
+
+void CCollider::SetOffsetPos(fPoint offsetPos)
+{
+	m_fptOffsetPos = offsetPos;
+}
+
+void CCollider::SetFinalPos(fPoint finalPos)
+{
+	m_fptFinalPos = finalPos;
+}
+
+void CCollider::SetScale(fPoint scale)
+{
+	m_fptScale = scale;
+}
+
 void CCollider::finalupdate()
 {
 	fPoint fptObjectPos = m_pOwner->GetPos();
 	m_fptFinalPos = fptObjectPos + m_fptOffsetPos;
+}
+
+void CCollider::render(HDC hDC)
+{
 }

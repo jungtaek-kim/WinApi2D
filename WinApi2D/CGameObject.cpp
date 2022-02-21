@@ -52,6 +52,16 @@ void CGameObject::render(HDC hDC)
 		(int)(m_fptPos.y - m_fptScale.y / 2),
 		(int)(m_fptPos.x + m_fptScale.x / 2),
 		(int)(m_fptPos.y + m_fptScale.y / 2));
+
+	component_render(hDC);
+}
+
+void CGameObject::component_render(HDC hDC)
+{
+	if (nullptr != m_pCollider)
+	{
+		m_pCollider->render(hDC);
+	}
 }
 
 CCollider* CGameObject::GetCollider()
