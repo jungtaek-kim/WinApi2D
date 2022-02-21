@@ -16,6 +16,11 @@ CCore::~CCore()
 	ReleaseDC(hWnd, m_hDC);
 	DeleteObject(m_hMemDC);
 	DeleteObject(m_hBMP);
+
+	for (int i = 0; i < (int)TYPE_PEN::SIZE; i++)
+	{
+		DeleteObject(m_arrPen[i]);
+	}
 }
 
 void CCore::update()
@@ -41,6 +46,8 @@ void CCore::render()
 
 void CCore::init()
 {
+	// GDI
+
 	CPathManager::getInst()->init();
 	CTimeManager::getInst()->init();
 	CKeyManager::getInst()->init();
@@ -59,4 +66,25 @@ void CCore::init()
 HDC CCore::GetMainDC()
 {
 	return m_hDC;
+}
+
+void CCore::CreateBrushPen()
+{
+	// brush
+	m_arrBrush[(int)TYPE_BRUSH::HOLLOW] = (HBRUSH)GetStockObject(HOLLOW_BRUSH);
+
+	// pen
+	m_arrPen[(int)TYPE_PEN::RED] = CreatePen(PS_SOLID, 1, RGB(255, 0, 0));
+	m_arrPen[(int)TYPE_PEN::GREEN] = CreatePen(PS_SOLID, 1, RGB(0, 255, 0));
+	m_arrPen[(int)TYPE_PEN::BLUE] = CreatePen(PS_SOLID, 1, RGB(0, 0, 255));
+}
+
+HBRUSH CCore::GetBrush(TYPE_BRUSH type)
+{
+	return m_arrBrush[(int)type];
+}
+
+HPEN CCore::GetPen(TYPE_PEN type)
+{
+	return m_arrPen[(int)type];
 }

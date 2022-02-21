@@ -55,6 +55,26 @@ enum class GROUP_SCENE
 	SIZE,
 };
 
+//========================================
+//## Core DC의 GDI					##
+//========================================
+
+enum class TYPE_BRUSH
+{
+	HOLLOW,
+
+	SIZE,
+};
+
+enum class TYPE_PEN
+{
+	RED,
+	GREEN,
+	BLUE,
+
+	SIZE,
+};
+
 // Core & Manager
 #include "CCore.h"
 #include "CTimeManager.h"
