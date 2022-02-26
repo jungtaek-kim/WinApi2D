@@ -9,6 +9,9 @@ CMonster::CMonster()
 	m_fDistance = 300;
 	m_bIsUPDir = true;
 
+	SetName(L"Monster");
+	SetScale(fPoint(100.f, 100.f));
+
 	CreateCollider();
 	GetCollider()->SetScale(fPoint(90.f, 90.f));
 }
@@ -44,10 +47,5 @@ void CMonster::SetCenterPos(fPoint point)
 
 void CMonster::OnCollisionEnter(CCollider* pOther)
 {
-	CGameObject* pOtherObj = pOther->GetObj();
-
-	if (pOtherObj->GetName() == L"MISSILE_PLAYER")
-	{
-		DeleteObj(this);
-	}
+	int a;
 }

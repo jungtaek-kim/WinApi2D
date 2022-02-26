@@ -8,6 +8,8 @@
 CPlayer::CPlayer()
 {
 	m_pTex = CResourceManager::getInst()->LoadTextrue(L"PlayerTex", L"texture\\Player.bmp");
+	SetName(L"Player");
+	SetScale(fPoint(70.f, 70.f));
 
 	CreateCollider();
 	GetCollider()->SetScale(fPoint(40.f, 40.f));
@@ -76,7 +78,6 @@ void CPlayer::CreateMissile()
 
 	// Misiile Object
 	CMissile* pMissile = new CMissile;
-	pMissile->SetName(L"MISSILE_PLAYER");
 	pMissile->SetPos(fpMissilePos);
 	pMissile->SetDir(fVec2(1, 0));
 

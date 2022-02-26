@@ -18,13 +18,11 @@ void CScene_Start::Enter()
 	// Player 추가
 	CGameObject* pPlayer = new CPlayer;
 	pPlayer->SetPos(fPoint(200, 200));
-	pPlayer->SetScale(fPoint(100, 100));
 	AddObject(pPlayer, GROUP_GAMEOBJ::PLAYER);
 
 	// Monster 추가
 	CMonster* pMonster = new CMonster;
 	pMonster->SetPos(fPoint(1100, 350));
-	pMonster->SetScale(fPoint(100, 100));
 	pMonster->SetCenterPos(pMonster->GetPos());
 	AddObject(pMonster, GROUP_GAMEOBJ::MONSTER);
 

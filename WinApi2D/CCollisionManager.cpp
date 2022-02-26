@@ -29,17 +29,17 @@ void CCollisionManager::CollisionGroupUpdate(GROUP_GAMEOBJ objLeft, GROUP_GAMEOB
 		for (int j = 0; j < vecRight.size(); j++)
 		{
 			// 충돌체 컴포넌트가 없는 경우 무시
-			if (nullptr == vecRight[i]->GetCollider())
+			if (nullptr == vecRight[j]->GetCollider())
 				continue;
 
 			// 자기 자신과의 충돌은 무시
-			if (vecLeft[i] == vecRight[i])
+			if (vecLeft[i] == vecRight[j])
 				continue;
 
 			// 두 충돌체의 ID를 이용해서, 유일한 키 생성
 			COLLIDER_ID id;
 			id.left_id = vecLeft[i]->GetCollider()->GetID();
-			id.Right_id = vecRight[i]->GetCollider()->GetID();
+			id.Right_id = vecRight[j]->GetCollider()->GetID();
 
 			map<ULONGLONG, bool>::iterator iter = m_mapCollInfo.find(id.ID);
 
@@ -51,36 +51,36 @@ void CCollisionManager::CollisionGroupUpdate(GROUP_GAMEOBJ objLeft, GROUP_GAMEOB
 			}
 
 			// 충돌 처리
-			if (IsCollision(vecLeft[i]->GetCollider(), vecRight[i]->GetCollider()))
+			if (IsCollision(vecLeft[i]->GetCollider(), vecRight[j]->GetCollider()))
 			{
 				// Prev O, Cur O
 				if (iter->second)
 				{
 					// 충돌체 중 하나가 Dead 상태라면 충돌 해제
-					if (vecLeft[i]->isDead() || vecRight[i]->isDead())
+					if (vecLeft[i]->isDead() || vecRight[j]->isDead())
 					{
-						vecLeft[i]->OnCollisionExit(vecRight[i]->GetCollider());
-						vecRight[i]->OnCollisionExit(vecLeft[i]->GetCollider());
+						vecLeft[i]->OnCollisionExit(vecRight[j]->GetCollider());
+						vecRight[j]->OnCollisionExit(vecLeft[i]->GetCollider());
 						iter->second = false;
 					}
 					else
 					{
-						vecLeft[i]->OnCollision(vecRight[i]->GetCollider());
-						vecRight[i]->OnCollision(vecLeft[i]->GetCollider());
+						vecLeft[i]->OnCollision(vecRight[j]->GetCollider());
+						vecRight[j]->OnCollision(vecLeft[i]->GetCollider());
 					}
 				}
 				// Prev X, Cur O
 				else
 				{
 					// 충돌체 중 하나가 Dead 상태라면 충돌 시키지 않음
-					if (vecLeft[i]->isDead() || vecRight[i]->isDead())
+					if (vecLeft[i]->isDead() || vecRight[j]->isDead())
 					{
 						// 아무것도 하지 않음
 					}
 					else
 					{
-						vecLeft[i]->OnCollisionEnter(vecRight[i]->GetCollider());
-						vecRight[i]->OnCollisionEnter(vecLeft[i]->GetCollider());
+						vecLeft[i]->OnCollisionEnter(vecRight[j]->GetCollider());
+						vecRight[j]->OnCollisionEnter(vecLeft[i]->GetCollider());
 						iter->second = true;
 					}
 				}
@@ -90,8 +90,8 @@ void CCollisionManager::CollisionGroupUpdate(GROUP_GAMEOBJ objLeft, GROUP_GAMEOB
 				// Prev O, Cur X
 				if (iter->second)
 				{
-					vecLeft[i]->OnCollisionExit(vecRight[i]->GetCollider());
-					vecRight[i]->OnCollisionExit(vecLeft[i]->GetCollider());
+					vecLeft[i]->OnCollisionExit(vecRight[j]->GetCollider());
+					vecRight[j]->OnCollisionExit(vecLeft[i]->GetCollider());
 					iter->second = false;
 				}
 				else

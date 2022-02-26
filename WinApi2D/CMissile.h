@@ -5,7 +5,7 @@ class CMissile : public CGameObject
 {
 private:
 	fVec2 m_fvDir;
-	float m_fVelocity = 50.f;
+	float m_fVelocity = 400.f;
 
 public:
 	CMissile();
@@ -16,5 +16,7 @@ public:
 
 	void SetDir(fVec2 vec);
 	void SetDir(float theta);
+
+	void OnCollisionEnter(CCollider* pOther);
 };
 
