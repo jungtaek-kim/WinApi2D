@@ -15,6 +15,7 @@ class CEventManager
 
 private:
 	vector<tEvent> m_vecEvent;
+	vector<CGameObject*> m_vecDead;
 
 	void Execute(const tEvent& event);
 
@@ -23,5 +24,6 @@ public:
 
 	void AddEvent(const tEvent& event);
 	void EventCreateObject(CGameObject* pObj, GROUP_GAMEOBJ group);
+	void EventDeleteObject(CGameObject* pObj);
 };
 

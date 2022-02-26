@@ -117,6 +117,7 @@ enum class TYPE_EVENT
 #define KeyDown(key)	CKeyManager::getInst()->GetButtonDOWN(key)
 
 #define CreateObj(pObj, group)	CEventManager::getInst()->EventCreateObject(pObj, group)
+#define DeleteObj(pObj)			CEventManager::getInst()->EventDeleteObject(pObj)
 
 //========================================
 //## 전역변수(인스턴스, 윈도우 핸들)	##

@@ -4,11 +4,16 @@ class CCollider;
 
 class CGameObject
 {
+	friend CEventManager;
+
 private:
 	fPoint m_fptPos;
 	fPoint m_fptScale;
 
 	CCollider* m_pCollider;
+
+	bool m_bAlive;
+	void SetDead();
 
 public:
 	CGameObject();
@@ -19,6 +24,8 @@ public:
 
 	fPoint GetPos();
 	fPoint GetScale();
+
+	bool isDead();
 
 	virtual void update() = 0;			// 반드시 상속받은 객체가 update를 구현하도록 순수가상함수로 선언
 	virtual void finalupdate() final;	// 상속받는 클래스가 오버라이딩 할 수 없게 막는 final 키워드

@@ -7,6 +7,7 @@ CGameObject::CGameObject()
 	m_fptPos = {};
 	m_fptScale = {};
 	m_pCollider = nullptr;
+	m_bAlive = true;
 }
 
 CGameObject::~CGameObject()
@@ -35,6 +36,16 @@ fPoint CGameObject::GetPos()
 fPoint CGameObject::GetScale()
 {
 	return m_fptScale;
+}
+
+bool CGameObject::isDead()
+{
+	return !m_bAlive;
+}
+
+void CGameObject::SetDead()
+{
+	m_bAlive = false;
 }
 
 void CGameObject::finalupdate()
