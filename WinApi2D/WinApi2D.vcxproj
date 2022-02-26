@@ -152,6 +152,7 @@
     <ClInclude Include="CCollisionManager.h" />
     <ClInclude Include="CCollider.h" />
     <ClInclude Include="CCore.h" />
+    <ClInclude Include="CEventManager.h" />
     <ClInclude Include="CGameObject.h" />
     <ClInclude Include="CKeyManager.h" />
     <ClInclude Include="CMissile.h" />
@@ -179,6 +180,7 @@
     <ClCompile Include="CCollisionManager.cpp" />
     <ClCompile Include="CCollider.cpp" />
     <ClCompile Include="CCore.cpp" />
+    <ClCompile Include="CEventManager.cpp" />
     <ClCompile Include="CGameObject.cpp" />
     <ClCompile Include="CKeyManager.cpp" />
     <ClCompile Include="CMissile.cpp" />

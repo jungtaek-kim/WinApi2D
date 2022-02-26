@@ -75,6 +75,19 @@ enum class TYPE_PEN
 	SIZE,
 };
 
+//========================================
+//## 이벤트 타입					##
+//========================================
+
+enum class TYPE_EVENT
+{
+	CREATE_OBJECT,
+	DELETE_OBJECT,
+	SCENE_CHANGE,
+
+	SIZE,
+};
+
 // Core & Manager
 #include "CCore.h"
 #include "CTimeManager.h"
