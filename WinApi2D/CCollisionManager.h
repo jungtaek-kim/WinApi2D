@@ -27,6 +27,7 @@ private:
 	map<ULONGLONG, bool> m_mapCollInfo;				// 충돌체 간의 이전 update 충돌 정보
 
 	void CollisionGroupUpdate(GROUP_GAMEOBJ objLeft, GROUP_GAMEOBJ objRight);
+	bool IsCollision(CCollider* pLeftCollider, CCollider* pRightCollider);
 
 public:
 	void init();

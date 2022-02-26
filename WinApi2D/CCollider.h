@@ -34,5 +34,10 @@ public:
 
 	void finalupdate();
 	void render(HDC hDC);
+
+	// 충돌 시점 함수
+	void OnCollision(CCollider* pOther);
+	void OnCollisionEnter(CCollider* pOther);
+	void OnCollisionExit(CCollider* pOther);
 };
 

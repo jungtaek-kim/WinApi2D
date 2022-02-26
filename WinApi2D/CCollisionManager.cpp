@@ -51,8 +51,47 @@ void CCollisionManager::CollisionGroupUpdate(GROUP_GAMEOBJ objLeft, GROUP_GAMEOB
 			}
 
 			// 충돌 처리
+			if (IsCollision(vecLeft[i]->GetCollider(), vecRight[i]->GetCollider()))
+			{
+				// Prev O, Cur O
+				if (iter->second)
+				{
+					vecLeft[i]->GetCollider()->OnCollision(vecRight[i]->GetCollider());
+					vecRight[i]->GetCollider()->OnCollision(vecLeft[i]->GetCollider());
+					iter->second = true;
+				}
+				// Prev X, Cur O
+				else
+				{
+					vecLeft[i]->GetCollider()->OnCollisionEnter(vecRight[i]->GetCollider());
+					vecRight[i]->GetCollider()->OnCollisionEnter(vecLeft[i]->GetCollider());
+					iter->second = true;
+				}
+			}
+			else
+			{
+				// Prev O, Cur X
+				if (iter->second)
+				{
+					vecLeft[i]->GetCollider()->OnCollisionExit(vecRight[i]->GetCollider());
+					vecRight[i]->GetCollider()->OnCollisionExit(vecLeft[i]->GetCollider());
+					iter->second = false;
+				}
+				// Prev X, Cur X
+				else
+				{
+					// 아무것도 하지 않음
+					iter->second = false;
+				}
+			}
 		}
 	}
+}
+
+bool CCollisionManager::IsCollision(CCollider* pLeftCollider, CCollider* pRightCollider)
+{
+	// TODO : 충돌 검사
+	return false;
 }
 
 void CCollisionManager::init()
