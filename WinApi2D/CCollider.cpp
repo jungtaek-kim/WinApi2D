@@ -12,6 +12,7 @@ CCollider::CCollider()
 	m_fptOffsetPos = {};
 	m_fptFinalPos = {};
 	m_fptScale = {};
+	m_iColCount = 0;
 	m_iID = s_iID++;
 }
 
@@ -21,6 +22,7 @@ CCollider::CCollider(const CCollider& other)
 	m_fptOffsetPos = other.m_fptOffsetPos;
 	m_fptFinalPos = other.m_fptFinalPos;
 	m_fptScale = other.m_fptScale;
+	m_iColCount = other.m_iColCount;
 	m_iID = s_iID++;
 }
 
@@ -72,7 +74,7 @@ void CCollider::finalupdate()
 void CCollider::render(HDC hDC)
 {
 	TYPE_PEN typePen;
-	if (m_bIsCollising)
+	if (m_iColCount)
 		typePen = TYPE_PEN::RED;
 	else
 		typePen = TYPE_PEN::GREEN;
@@ -93,10 +95,10 @@ void CCollider::OnCollision(CCollider* pOther)
 
 void CCollider::OnCollisionEnter(CCollider* pOther)
 {
-	m_bIsCollising = true;
+	m_iColCount++;
 }
 
 void CCollider::OnCollisionExit(CCollider* pOther)
 {
-	m_bIsCollising = false;
+	m_iColCount--;
 }
