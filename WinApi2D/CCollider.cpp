@@ -91,14 +91,17 @@ void CCollider::render(HDC hDC)
 
 void CCollider::OnCollision(CCollider* pOther)
 {
+	m_pOwner->OnCollision(pOther);
 }
 
 void CCollider::OnCollisionEnter(CCollider* pOther)
 {
+	m_pOwner->OnCollisionEnter(pOther);
 	m_iColCount++;
 }
 
 void CCollider::OnCollisionExit(CCollider* pOther)
 {
+	m_pOwner->OnCollisionExit(pOther);
 	m_iColCount--;
 }
