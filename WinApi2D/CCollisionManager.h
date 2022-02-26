@@ -14,6 +14,8 @@ private:
 	*/
 	UINT m_arrCheck[(UINT)GROUP_GAMEOBJ::SIZE];		// 충돌해야하는 그룹들을 가진 배열
 
+	void CollisionGroupUpdate(GROUP_GAMEOBJ objLeft, GROUP_GAMEOBJ objRight);
+
 public:
 	void init();
 	void update();
