@@ -9,6 +9,8 @@ class CPlayer : public CGameObject
 private:
 	CTexture* m_pTex;
 
+	float m_fVelocity = 300;
+
 public:
 	CPlayer();
 	~CPlayer();

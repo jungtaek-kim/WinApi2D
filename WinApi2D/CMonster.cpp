@@ -5,7 +5,7 @@
 CMonster::CMonster()
 {
 	m_fptCenterPos = fPoint(0, 0);
-	m_fVelocity = 200;
+	m_fVelocity = 0;
 	m_fDistance = 300;
 	m_bIsUPDir = true;
 

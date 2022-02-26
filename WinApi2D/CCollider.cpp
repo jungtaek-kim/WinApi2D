@@ -71,8 +71,14 @@ void CCollider::finalupdate()
 
 void CCollider::render(HDC hDC)
 {
+	TYPE_PEN typePen;
+	if (m_bIsCollising)
+		typePen = TYPE_PEN::RED;
+	else
+		typePen = TYPE_PEN::GREEN;
+
 	SelectGDI brush(hDC, TYPE_BRUSH::HOLLOW);
-	SelectGDI pen(hDC, TYPE_PEN::GREEN);
+	SelectGDI pen(hDC, typePen);
 
 	Rectangle(hDC,
 		(int)(m_fptFinalPos.x - m_fptScale.x / 2.f),
@@ -87,8 +93,10 @@ void CCollider::OnCollision(CCollider* pOther)
 
 void CCollider::OnCollisionEnter(CCollider* pOther)
 {
+	m_bIsCollising = true;
 }
 
 void CCollider::OnCollisionExit(CCollider* pOther)
 {
+	m_bIsCollising = false;
 }

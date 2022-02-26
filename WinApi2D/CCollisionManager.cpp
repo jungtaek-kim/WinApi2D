@@ -90,7 +90,19 @@ void CCollisionManager::CollisionGroupUpdate(GROUP_GAMEOBJ objLeft, GROUP_GAMEOB
 
 bool CCollisionManager::IsCollision(CCollider* pLeftCollider, CCollider* pRightCollider)
 {
-	// TODO : 충돌 검사
+	// 사각 충돌
+	fPoint fptLeftPos = pLeftCollider->GetFinalPos();
+	fPoint fptLeftScale = pLeftCollider->GetScale();
+
+	fPoint fptRightPos = pRightCollider->GetFinalPos();
+	fPoint fptRightScale = pRightCollider->GetScale();
+
+	if (abs(fptLeftPos.x - fptRightPos.x) < (fptLeftScale.x + fptRightScale.x) / 2.f
+		&& abs(fptLeftPos.y - fptRightPos.y) < (fptLeftScale.y + fptRightScale.y) / 2.f)
+	{
+		return true;
+	}
+
 	return false;
 }
 
@@ -120,7 +132,7 @@ void CCollisionManager::CheckGroup(GROUP_GAMEOBJ objLeft, GROUP_GAMEOBJ objRight
 	UINT iCol;	// 행
 
 	// 더 작은 수를 행으로 둠
-	if ((UINT)objLeft > (UINT)objRight)
+	if ((UINT)objLeft < (UINT)objRight)
 	{
 		iRow = (UINT)objLeft;
 		iCol = (UINT)objRight;

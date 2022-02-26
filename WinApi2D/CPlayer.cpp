@@ -26,22 +26,22 @@ void CPlayer::update()
 
 	if (Key(VK_LEFT))
 	{
-		pos.x -= 100 * fDT;
+		pos.x -= m_fVelocity * fDT;
 	}
 
 	if (Key(VK_RIGHT))
 	{
-		pos.x += 100 * fDT;
+		pos.x += m_fVelocity * fDT;
 	}				   
 					   
 	if (Key(VK_UP))	   
 	{				   
-		pos.y -= 100 * fDT;
+		pos.y -= m_fVelocity * fDT;
 	}				   
 					   
 	if (Key(VK_DOWN))  
 	{				   
-		pos.y += 100 * fDT;
+		pos.y += m_fVelocity * fDT;
 	}
 
 	SetPos(pos);
