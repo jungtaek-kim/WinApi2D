@@ -56,6 +56,7 @@ void CCore::init()
 	CTimeManager::getInst()->init();
 	CKeyManager::getInst()->init();
 	CSceneManager::getInst()->init();
+	CCollisionManager::getInst()->init();
 
 	m_hDC = GetDC(hWnd);
 

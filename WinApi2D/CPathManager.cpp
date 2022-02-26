@@ -29,7 +29,7 @@ void CPathManager::init()
 		}
 	}
 
-	wcscat_s(m_strContentPath, 255, L"\\bin\\content\\");	// wchar_t 문자열 뒤에 문자열 붙이기
+	wcscat_s(m_strContentPath, 255, L"\\Release\\content\\");	// wchar_t 문자열 뒤에 문자열 붙이기
 
 	Logger::info(m_strContentPath);
 }
