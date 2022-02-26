@@ -1,10 +1,14 @@
 #include "framework.h"
 #include "CMissile.h"
+#include "CCollider.h"
 
 CMissile::CMissile()
 {
+	SetScale(fPoint(25.f, 25.f));
 	m_fvDir = fVec2(0, 0);
-	m_fVelocity = 50;
+
+	CreateCollider();
+	GetCollider()->SetScale(fPoint(15.f, 15.f));
 }
 
 CMissile::~CMissile()
@@ -31,6 +35,8 @@ void CMissile::render(HDC hDC)
 		(int)(pos.y - scale.y / 2.f),
 		(int)(pos.x + scale.x / 2.f),
 		(int)(pos.y + scale.y / 2.f));
+
+	component_render(hDC);
 }
 
 void CMissile::SetDir(fVec2 vec)

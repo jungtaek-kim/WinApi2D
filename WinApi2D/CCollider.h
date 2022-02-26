@@ -22,6 +22,7 @@ public:
 	CCollider(const CCollider& other);
 	~CCollider();
 
+	CGameObject* GetObj();
 	fPoint GetOffsetPos();
 	fPoint GetFinalPos();
 	fPoint GetScale();

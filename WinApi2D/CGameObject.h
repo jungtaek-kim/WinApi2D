@@ -7,6 +7,7 @@ class CGameObject
 	friend CEventManager;
 
 private:
+	wstring m_strName;
 	fPoint m_fptPos;
 	fPoint m_fptScale;
 
@@ -21,9 +22,11 @@ public:
 
 	void SetPos(fPoint pos);
 	void SetScale(fPoint scale);
+	void SetName(wstring name);
 
 	fPoint GetPos();
 	fPoint GetScale();
+	wstring GetName();
 
 	bool isDead();
 

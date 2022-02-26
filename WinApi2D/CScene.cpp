@@ -26,7 +26,8 @@ void CScene::update()
     {
         for (int j = 0; j < m_arrObj[i].size(); j++)
         {
-            m_arrObj[i][j]->update();
+            if (!m_arrObj[i][j]->isDead())
+                m_arrObj[i][j]->update();
         }
     }
 }
@@ -48,9 +49,18 @@ void CScene::render(HDC hDC)
     // 씬이 가진 모든 오브젝트 render
     for (int i = 0; i < (int)GROUP_GAMEOBJ::SIZE; i++)
     {
-        for (int j = 0; j < m_arrObj[i].size(); j++)
+        for (vector<CGameObject*>::iterator iter = m_arrObj[i].begin();
+            iter != m_arrObj[i].end(); )
         {
-            m_arrObj[i][j]->render(hDC);
+            if (!(*iter)->isDead())
+            {
+                (*iter)->render(hDC);
+                iter++;
+            }
+            else
+            {
+                iter = m_arrObj[i].erase(iter);
+            }
         }
     }
 }

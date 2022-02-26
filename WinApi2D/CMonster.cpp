@@ -41,3 +41,13 @@ void CMonster::SetCenterPos(fPoint point)
 {
 	m_fptCenterPos = point;
 }
+
+void CMonster::OnCollisionEnter(CCollider* pOther)
+{
+	CGameObject* pOtherObj = pOther->GetObj();
+
+	if (pOtherObj->GetName() == L"MISSILE_PLAYER")
+	{
+		DeleteObj(this);
+	}
+}

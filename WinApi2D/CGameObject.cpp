@@ -28,6 +28,11 @@ void CGameObject::SetScale(fPoint scale)
 	m_fptScale = scale;
 }
 
+void CGameObject::SetName(wstring name)
+{
+	m_strName = name;
+}
+
 fPoint CGameObject::GetPos()
 {
 	return m_fptPos;
@@ -36,6 +41,11 @@ fPoint CGameObject::GetPos()
 fPoint CGameObject::GetScale()
 {
 	return m_fptScale;
+}
+
+wstring CGameObject::GetName()
+{
+	return m_strName;
 }
 
 bool CGameObject::isDead()

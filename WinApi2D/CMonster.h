@@ -16,5 +16,7 @@ public:
 	virtual void update();
 
 	void SetCenterPos(fPoint point);
+
+	void OnCollisionEnter(CCollider* pOther);
 };
 

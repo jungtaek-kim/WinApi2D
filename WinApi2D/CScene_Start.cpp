@@ -29,6 +29,7 @@ void CScene_Start::Enter()
 	AddObject(pMonster, GROUP_GAMEOBJ::MONSTER);
 
 	CCollisionManager::getInst()->CheckGroup(GROUP_GAMEOBJ::PLAYER, GROUP_GAMEOBJ::MONSTER);
+	CCollisionManager::getInst()->CheckGroup(GROUP_GAMEOBJ::MISSILE_PLAYER, GROUP_GAMEOBJ::MONSTER);
 }
 
 void CScene_Start::Exit()

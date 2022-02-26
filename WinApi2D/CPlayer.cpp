@@ -75,34 +75,10 @@ void CPlayer::CreateMissile()
 	fpMissilePos.x += GetScale().x / 2.f;
 
 	// Misiile Object
-	CMissile* pMissile1 = new CMissile;
-	pMissile1->SetPos(fpMissilePos);
-	pMissile1->SetScale(fPoint(25.f, 25.f));
-	pMissile1->SetDir(fVec2(1, 0));
+	CMissile* pMissile = new CMissile;
+	pMissile->SetName(L"MISSILE_PLAYER");
+	pMissile->SetPos(fpMissilePos);
+	pMissile->SetDir(fVec2(1, 0));
 
-	CMissile* pMissile2 = new CMissile;
-	pMissile2->SetPos(fpMissilePos);
-	pMissile2->SetScale(fPoint(25.f, 25.f));
-	pMissile2->SetDir(fVec2(1, 1));   
-
-	CMissile* pMissile3 = new CMissile;
-	pMissile3->SetPos(fpMissilePos);
-	pMissile3->SetScale(fPoint(25.f, 25.f));
-	pMissile3->SetDir(fVec2(1, -1));
-
-	CMissile* pMissile4 = new CMissile;
-	pMissile4->SetPos(fpMissilePos);
-	pMissile4->SetScale(fPoint(25.f, 25.f));
-	pMissile4->SetDir(3.141592f);
-
-	CMissile* pMissile5 = new CMissile;
-	pMissile5->SetPos(fpMissilePos);
-	pMissile5->SetScale(fPoint(25.f, 25.f));
-	pMissile5->SetDir(3.141592f * 90 / 180);
-
-	CreateObj(pMissile1, GROUP_GAMEOBJ::MISSILE_PLAYER);
-	CreateObj(pMissile2, GROUP_GAMEOBJ::MISSILE_PLAYER);
-	CreateObj(pMissile3, GROUP_GAMEOBJ::MISSILE_PLAYER);
-	CreateObj(pMissile4, GROUP_GAMEOBJ::MISSILE_PLAYER);
-	CreateObj(pMissile5, GROUP_GAMEOBJ::MISSILE_PLAYER);
+	CreateObj(pMissile, GROUP_GAMEOBJ::MISSILE_PLAYER);
 }
