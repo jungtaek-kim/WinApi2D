@@ -27,6 +27,9 @@ CCore::~CCore()
 
 void CCore::update()
 {
+	// 이전 update에서 추가된 이벤트를 프레임 초기에 한꺼번에 처리
+	CEventManager::getInst()->update();
+
 	CTimeManager::getInst()->update();
 	CKeyManager::getInst()->update();
 	CSceneManager::getInst()->update();

@@ -1,5 +1,7 @@
 #include "framework.h"
 #include "CEventManager.h"
+#include "CGameObject.h"
+#include "CScene.h"
 
 CEventManager::CEventManager()
 {
@@ -16,8 +18,14 @@ void CEventManager::Execute(const tEvent& event)
 	switch (event.eEven)
 	{
 	case TYPE_EVENT::CREATE_OBJECT:
-		// lParam : Object 林家
-		// wParam : Group 
+		{
+			// lParam : Object 林家
+			// wParam : Group 
+			CGameObject* pObj = (CGameObject*)event.lParam;
+			GROUP_GAMEOBJ group = (GROUP_GAMEOBJ)event.wParam;
+
+			CSceneManager::getInst()->GetCurScene()->AddObject(pObj, group);
+		}
 		break;
 	case TYPE_EVENT::DELETE_OBJECT:
 		break;
@@ -32,10 +40,12 @@ void CEventManager::update()
 	{
 		Execute(m_vecEvent[i]);
 	}
+	m_vecEvent.clear();
 }
 
 void CEventManager::AddEvent(const tEvent& event)
 {
+	m_vecEvent.push_back(event);
 }
 
 void CEventManager::EventCreateObject(CGameObject* pObj, GROUP_GAMEOBJ group)
