@@ -3,7 +3,6 @@
 #include "CMissile.h"
 #include "CScene.h"
 #include "CTexture.h"
-#include "CResourceManager.h"
 #include "CCollider.h"
 
 CPlayer::CPlayer()
@@ -101,10 +100,9 @@ void CPlayer::CreateMissile()
 	pMissile5->SetScale(fPoint(25.f, 25.f));
 	pMissile5->SetDir(3.141592f * 90 / 180);
 
-	CScene* pCurScene = CSceneManager::getInst()->GetCurScene();
-	pCurScene->AddObject(pMissile1, GROUP_GAMEOBJ::MISSILE);
-	pCurScene->AddObject(pMissile2, GROUP_GAMEOBJ::MISSILE);
-	pCurScene->AddObject(pMissile3, GROUP_GAMEOBJ::MISSILE);
-	pCurScene->AddObject(pMissile4, GROUP_GAMEOBJ::MISSILE);
-	pCurScene->AddObject(pMissile5, GROUP_GAMEOBJ::MISSILE);
+	CreateObj(pMissile1, GROUP_GAMEOBJ::MISSILE_PLAYER);
+	CreateObj(pMissile2, GROUP_GAMEOBJ::MISSILE_PLAYER);
+	CreateObj(pMissile3, GROUP_GAMEOBJ::MISSILE_PLAYER);
+	CreateObj(pMissile4, GROUP_GAMEOBJ::MISSILE_PLAYER);
+	CreateObj(pMissile5, GROUP_GAMEOBJ::MISSILE_PLAYER);
 }

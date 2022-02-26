@@ -40,7 +40,8 @@ enum class GROUP_GAMEOBJ
 	DEFAULT,
 	PLAYER,
 	MONSTER,
-	MISSILE,
+	MISSILE_PLAYER,
+	MISSILE_MONSTER,
 
 	SIZE,
 };
@@ -95,7 +96,8 @@ enum class TYPE_EVENT
 #include "CSceneManager.h"
 #include "CPathManager.h"
 #include "CCollisionManager.h"
-
+#include "CEventManager.h"
+#include "CResourceManager.h"
 
 //========================================
 //##			디파인문				##
@@ -113,6 +115,8 @@ enum class TYPE_EVENT
 #define Key(key)		CKeyManager::getInst()->GetButton(key)
 #define KeyUP(key)		CKeyManager::getInst()->GetButtonUP(key)
 #define KeyDown(key)	CKeyManager::getInst()->GetButtonDOWN(key)
+
+#define CreateObj(pObj, group)	CEventManager::getInst()->EventCreateObject(pObj, group)
 
 //========================================
 //## 전역변수(인스턴스, 윈도우 핸들)	##

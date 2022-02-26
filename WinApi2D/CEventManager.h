@@ -1,5 +1,7 @@
 #pragma once
 
+class CGameObject;
+
 struct tEvent
 {
 	TYPE_EVENT	eEven;		// 이벤트 타입
@@ -20,5 +22,6 @@ public:
 	void update();
 
 	void AddEvent(const tEvent& event);
+	void EventCreateObject(CGameObject* pObj, GROUP_GAMEOBJ group);
 };
 
