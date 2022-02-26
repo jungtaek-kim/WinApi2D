@@ -55,7 +55,7 @@ void CScene::render(HDC hDC)
     }
 }
 
-vector<CGameObject*>& CScene::GetGroupObject(GROUP_GAMEOBJ group)
+const vector<CGameObject*>& CScene::GetGroupObject(GROUP_GAMEOBJ group)
 {
     return m_arrObj[(UINT)group];
 }

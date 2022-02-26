@@ -4,12 +4,24 @@
 
 #include "SelectGDI.h"
 
+UINT CCollider::s_iID = 0;
+
 CCollider::CCollider()
 {
 	m_pOwner = nullptr;
 	m_fptOffsetPos = {};
 	m_fptFinalPos = {};
 	m_fptScale = {};
+	m_iID = s_iID++;
+}
+
+CCollider::CCollider(const CCollider& other)
+{
+	m_pOwner = nullptr;
+	m_fptOffsetPos = other.m_fptOffsetPos;
+	m_fptFinalPos = other.m_fptFinalPos;
+	m_fptScale = other.m_fptScale;
+	m_iID = s_iID++;
 }
 
 CCollider::~CCollider()
@@ -44,6 +56,11 @@ void CCollider::SetFinalPos(fPoint finalPos)
 void CCollider::SetScale(fPoint scale)
 {
 	m_fptScale = scale;
+}
+
+UINT CCollider::GetID()
+{
+	return m_iID;
 }
 
 void CCollider::finalupdate()

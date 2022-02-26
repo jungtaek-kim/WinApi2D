@@ -12,12 +12,14 @@ public:
 		m_hDC = hDC;
 		HBRUSH hBrush = CCore::getInst()->GetBrush(brushType);
 		m_hDefaultBrush = (HBRUSH)SelectObject(hDC, hBrush);
+		m_hDefaultPen = 0;
 	}
 	SelectGDI(HDC hDC, TYPE_PEN penType)
 	{
 		m_hDC = hDC;
 		HPEN hPen = CCore::getInst()->GetPen(penType);
 		m_hDefaultPen = (HPEN)SelectObject(hDC, hPen);
+		m_hDefaultBrush = 0;
 	}
 	~SelectGDI()
 	{

@@ -1,7 +1,7 @@
 #include "framework.h"
-#include "CCollisionManager.h"
 #include "CScene.h"
 #include "CGameObject.h"
+#include "CCollider.h"
 
 CCollisionManager::CCollisionManager()
 {
@@ -35,6 +35,20 @@ void CCollisionManager::CollisionGroupUpdate(GROUP_GAMEOBJ objLeft, GROUP_GAMEOB
 			// 자기 자신과의 충돌은 무시
 			if (vecLeft[i] == vecRight[i])
 				continue;
+
+			// 두 충돌체의 ID를 이용해서, 유일한 키 생성
+			COLLIDER_ID id;
+			id.left_id = vecLeft[i]->GetCollider()->GetID();
+			id.Right_id = vecRight[i]->GetCollider()->GetID();
+
+			map<ULONGLONG, bool>::iterator iter = m_mapCollInfo.find(id.ID);
+
+			// 충돌 정보가 없는 경우, 충돌하지 않은 상태를 넣어줌
+			if (m_mapCollInfo.end() == iter)
+			{
+				m_mapCollInfo.insert(make_pair(id.ID, false));
+				iter = m_mapCollInfo.find(id.ID);
+			}
 
 			// 충돌 처리
 		}
