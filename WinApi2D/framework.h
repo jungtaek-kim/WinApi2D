@@ -81,6 +81,7 @@ enum class TYPE_PEN
 #include "CKeyManager.h"
 #include "CSceneManager.h"
 #include "CPathManager.h"
+#include "CCollisionManager.h"
 
 
 //========================================

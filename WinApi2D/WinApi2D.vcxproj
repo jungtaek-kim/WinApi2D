@@ -149,6 +149,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="CCollisionManager.h" />
     <ClInclude Include="CCollider.h" />
     <ClInclude Include="CCore.h" />
     <ClInclude Include="CGameObject.h" />
@@ -175,6 +176,7 @@
     <ClInclude Include="WinApi2D.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CCollisionManager.cpp" />
     <ClCompile Include="CCollider.cpp" />
     <ClCompile Include="CCore.cpp" />
     <ClCompile Include="CGameObject.cpp" />

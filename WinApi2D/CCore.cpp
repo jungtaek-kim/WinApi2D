@@ -8,6 +8,8 @@ CCore::CCore()
 	m_hDC = 0;
 	m_hMemDC = 0;
 	m_hBMP = 0;
+	m_arrPen[0] = 0;
+	m_arrBrush[0] = 0;
 }
 
 CCore::~CCore()
@@ -28,6 +30,7 @@ void CCore::update()
 	CTimeManager::getInst()->update();
 	CKeyManager::getInst()->update();
 	CSceneManager::getInst()->update();
+	CCollisionManager::getInst()->update();
 }
 
 void CCore::render()

@@ -120,6 +120,9 @@
     <ClInclude Include="SelectGDI.h">
       <Filter>Util</Filter>
     </ClInclude>
+    <ClInclude Include="CCollisionManager.h">
+      <Filter>Engine\Manager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinApi2D.cpp">
@@ -172,6 +175,9 @@
     </ClCompile>
     <ClCompile Include="CCollider.cpp">
       <Filter>Engine\Component\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="CCollisionManager.cpp">
+      <Filter>Engine\Manager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -67,7 +67,7 @@ struct fVec2
 
 	fVec2& normalize()
 	{
-		float length = (float)sqrt(x * x + y * y);
+		float length = (float)sqrt((double)x * x + (double)y * y);
 
 		assert(length != 0.f);
 

@@ -11,7 +11,8 @@ CPlayer::CPlayer()
 	m_pTex = CResourceManager::getInst()->LoadTextrue(L"PlayerTex", L"texture\\Player.bmp");
 
 	CreateCollider();
-	GetCollider()->SetScale(fPoint(100.f, 100.f));
+	GetCollider()->SetScale(fPoint(40.f, 40.f));
+	GetCollider()->SetOffsetPos(fPoint(0.f, 10.f));
 }
 
 CPlayer::~CPlayer()
