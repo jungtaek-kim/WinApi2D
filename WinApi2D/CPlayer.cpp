@@ -79,11 +79,6 @@ void CPlayer::update()
 
 void CPlayer::render(HDC hDC)
 {
-	int iWidth = (int)(m_pTex->GetBmpWidth());
-	int iHeight = (int)(m_pTex->GetBmpHeight());
-
-	fPoint pos = GetPos();
-
 	component_render(hDC);
 }
 
