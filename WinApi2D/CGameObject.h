@@ -46,5 +46,8 @@ public:
 	virtual void OnCollision(CCollider* _pOther) {}			// 재정의용 충돌중 가상함수
 	virtual void OnCollisionEnter(CCollider* _pOther) {}	// 재정의용 충돌시 가상함수
 	virtual void OnCollisionExit(CCollider* _pOther) {}		// 재정의용 탈충돌 가상함수
+
+	CAnimator* GetAnimator();				// 애니메이터 반환
+	void CreateAnimator();					// 애니메이터 생성
 };
 

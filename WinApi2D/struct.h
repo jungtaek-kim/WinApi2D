@@ -40,6 +40,20 @@ struct fPoint
 	{
 		return fPoint(x - other.x, y - other.y);
 	}
+
+	template <typename T>
+	fPoint operator*(T num)
+	{
+		return fPoint(x * num, y * num);
+	}
+
+	template <typename T>
+	fPoint operator/(T num)
+	{
+		assert(0 != num);
+
+		return fPoint(x / num, y / num);
+	}
 };
 
 struct iVec2

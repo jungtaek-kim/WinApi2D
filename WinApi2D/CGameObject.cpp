@@ -110,6 +110,10 @@ void CGameObject::component_render(HDC hDC)
 	{
 		m_pCollider->render(hDC);
 	}
+	if (nullptr != m_pAnimator)
+	{
+		m_pAnimator->render(hDC);
+	}
 }
 
 CCollider* CGameObject::GetCollider()
@@ -121,4 +125,15 @@ void CGameObject::CreateCollider()
 {
 	m_pCollider = new CCollider();
 	m_pCollider->m_pOwner = this;
+}
+
+CAnimator* CGameObject::GetAnimator()
+{
+	return m_pAnimator;
+}
+
+void CGameObject::CreateAnimator()
+{
+	m_pAnimator = new CAnimator;
+	m_pAnimator->m_pOwner = this;
 }
