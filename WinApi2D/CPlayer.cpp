@@ -21,6 +21,11 @@ CPlayer::~CPlayer()
 
 }
 
+CPlayer* CPlayer::Clone()
+{
+	return new CPlayer(*this);
+}
+
 void CPlayer::update()
 {
 	fPoint pos = GetPos();

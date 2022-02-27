@@ -2,6 +2,11 @@
 #include "CMonster.h"
 #include "CCollider.h"
 
+CMonster* CMonster::Clone()
+{
+	return new CMonster(*this);
+}
+
 CMonster::CMonster()
 {
 	m_fptCenterPos = fPoint(0, 0);

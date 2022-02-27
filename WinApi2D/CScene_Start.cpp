@@ -30,6 +30,10 @@ void CScene_Start::Enter()
 	pPlayer->SetPos(fPoint(200, 200));
 	AddObject(pPlayer, GROUP_GAMEOBJ::PLAYER);
 
+	CGameObject* pOtherPlayer = pPlayer->Clone();
+	pOtherPlayer->SetPos(fPoint(200, 400));
+	AddObject(pOtherPlayer, GROUP_GAMEOBJ::PLAYER);
+
 	// Monster Ãß°¡
 	CMonster* pMonster = new CMonster;
 	pMonster->SetPos(fPoint(1100, 350));

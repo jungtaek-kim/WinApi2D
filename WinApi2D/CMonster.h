@@ -12,6 +12,7 @@ private:
 public:
 	CMonster();
 	~CMonster();
+	virtual CMonster* Clone();
 
 	virtual void update();
 

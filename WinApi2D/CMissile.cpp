@@ -2,6 +2,11 @@
 #include "CMissile.h"
 #include "CCollider.h"
 
+CMissile* CMissile::Clone()
+{
+	return new CMissile(*this);
+}
+
 CMissile::CMissile()
 {
 	SetScale(fPoint(25.f, 25.f));
