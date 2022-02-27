@@ -1,6 +1,7 @@
 #pragma once
 
 class CCollider;
+class CAnimator;
 
 class CGameObject
 {
@@ -11,7 +12,9 @@ private:
 	fPoint m_fptPos;
 	fPoint m_fptScale;
 
+	// Component
 	CCollider* m_pCollider;
+	CAnimator* m_pAnimator;
 
 	bool m_bAlive;
 	void SetDead();

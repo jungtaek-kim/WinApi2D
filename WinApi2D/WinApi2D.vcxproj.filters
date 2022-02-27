@@ -46,6 +46,12 @@
     <Filter Include="Engine\Component\Collider">
       <UniqueIdentifier>{8e1098bb-084b-4293-a467-fec1aa4985e1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Component\Animator">
+      <UniqueIdentifier>{1209e5ef-2c30-47c7-a534-fd0e085e2ee1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Component\Animator\Animation">
+      <UniqueIdentifier>{a2dc5a2d-5c20-4e1a-919a-856815c3db28}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -129,6 +135,12 @@
     <ClInclude Include="CScene_Tool.h">
       <Filter>Scene</Filter>
     </ClInclude>
+    <ClInclude Include="CAnimator.h">
+      <Filter>Engine\Component\Animator</Filter>
+    </ClInclude>
+    <ClInclude Include="CAnimation.h">
+      <Filter>Engine\Component\Animator\Animation</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinApi2D.cpp">
@@ -190,6 +202,12 @@
     </ClCompile>
     <ClCompile Include="CScene_Tool.cpp">
       <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="CAnimator.cpp">
+      <Filter>Engine\Component\Animator</Filter>
+    </ClCompile>
+    <ClCompile Include="CAnimation.cpp">
+      <Filter>Engine\Component\Animator\Animation</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
