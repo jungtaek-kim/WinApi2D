@@ -27,6 +27,16 @@ const wstring& CAnimation::GetName()
     return m_strName;
 }
 
+void CAnimation::SetFrame(int frmIndex)
+{
+    m_iCurFrm = frmIndex;
+}
+
+tAniFrm& CAnimation::GetFrame(int frmIndex)
+{
+    return m_vecFrm[frmIndex];
+}
+
 void CAnimation::update()
 {
     m_fAccTime += fDT;
@@ -44,6 +54,8 @@ void CAnimation::render(HDC hDC)
     CGameObject* pObj = m_pAnimator->GetObj();
     fPoint fptPos = pObj->GetPos();
     tAniFrm frm = m_vecFrm[m_iCurFrm];
+
+    fptPos = fptPos + frm.fptOffset;
 
     TransparentBlt(hDC,
         (int)(fptPos.x - frm.fptSlice.x / 2.f),

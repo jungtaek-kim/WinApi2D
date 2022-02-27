@@ -7,6 +7,7 @@ struct tAniFrm
 {
 	fPoint fptLT;
 	fPoint fptSlice;
+	fPoint fptOffset;
 	float fDuration;
 };
 
@@ -29,8 +30,11 @@ public:
 	void SetName(const wstring& strName);
 	const wstring& GetName();
 
+	void SetFrame(int frmIndex);
+	tAniFrm& GetFrame(int frmIndex);
+
 	void update();
-	void render(HDC hDC);
+	void render(HDC hDC);	
 
 	void Create(CTexture* tex, fPoint lt, fPoint slice, fPoint step, float duration, UINT frmCount);	// 局聪皋捞记 积己
 };

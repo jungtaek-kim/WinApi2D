@@ -5,6 +5,7 @@
 #include "CTexture.h"
 #include "CCollider.h"
 #include "CAnimator.h"
+#include "CAnimation.h"
 
 CPlayer::CPlayer()
 {
@@ -17,8 +18,19 @@ CPlayer::CPlayer()
 	GetCollider()->SetOffsetPos(fPoint(0.f, 10.f));
 
 	CreateAnimator();
-	GetAnimator()->CreateAnimation(L"None", m_pTex, fPoint(0.f, 0.f), fPoint(70.f, 70.f), fPoint(70.f, 0.f), 0.5f, 2);
-	GetAnimator()->Play(L"None");
+	GetAnimator()->CreateAnimation(L"LeftNone",		m_pTex, fPoint(0.f, 0.f),	fPoint(70.f, 70.f), fPoint(70.f, 0.f), 0.5f, 2);
+	GetAnimator()->CreateAnimation(L"RightNone",	m_pTex, fPoint(0.f, 70.f),	fPoint(70.f, 70.f), fPoint(70.f, 0.f), 0.5f, 2);
+	GetAnimator()->CreateAnimation(L"LeftMove",		m_pTex, fPoint(0.f, 140.f),	fPoint(70.f, 70.f), fPoint(70.f, 0.f), 0.25f, 3);
+	GetAnimator()->CreateAnimation(L"RightMove",	m_pTex, fPoint(0.f, 210.f), fPoint(70.f, 70.f), fPoint(70.f, 0.f), 0.25f, 3);
+	GetAnimator()->CreateAnimation(L"LeftHit",		m_pTex, fPoint(140.f, 0.f), fPoint(70.f, 70.f), fPoint(70.f, 0.f), 0.25f, 1);
+	GetAnimator()->CreateAnimation(L"RightHit",		m_pTex, fPoint(140.f, 70.f), fPoint(70.f, 70.f), fPoint(70.f, 0.f), 0.25f, 1);
+	GetAnimator()->Play(L"LeftNone");
+
+	CAnimation* pAni;
+	pAni = GetAnimator()->FindAnimation(L"LeftMove");
+	pAni->GetFrame(1).fptOffset = fPoint(0.f, -20.f);
+	pAni = GetAnimator()->FindAnimation(L"RightMove");
+	pAni->GetFrame(1).fptOffset = fPoint(0.f, -20.f);
 }
 
 CPlayer::~CPlayer()
@@ -38,18 +50,17 @@ void CPlayer::update()
 	if (Key(VK_LEFT))
 	{
 		pos.x -= m_fVelocity * fDT;
+		GetAnimator()->Play(L"LeftMove");
 	}
-
 	if (Key(VK_RIGHT))
 	{
 		pos.x += m_fVelocity * fDT;
+		GetAnimator()->Play(L"RightMove");
 	}				   
-					   
 	if (Key(VK_UP))	   
 	{				   
 		pos.y -= m_fVelocity * fDT;
 	}				   
-					   
 	if (Key(VK_DOWN))  
 	{				   
 		pos.y += m_fVelocity * fDT;
@@ -60,6 +71,7 @@ void CPlayer::update()
 	if (KeyDown(VK_SPACE))
 	{
 		CreateMissile();
+		GetAnimator()->Play(L"LeftHit");
 	}
 
 	GetAnimator()->update();
@@ -71,14 +83,6 @@ void CPlayer::render(HDC hDC)
 	int iHeight = (int)(m_pTex->GetBmpHeight());
 
 	fPoint pos = GetPos();
-
-	/*TransparentBlt(hDC,
-		(int)(pos.x - (float)(iWidth / 2)),
-		(int)(pos.y - (float)(iHeight / 2)),
-		iWidth, iHeight,
-		m_pTex->GetDC(),
-		0, 0, iWidth, iHeight,
-		RGB(255, 0, 255));*/
 
 	component_render(hDC);
 }
