@@ -56,6 +56,7 @@ void CAnimation::render(HDC hDC)
     tAniFrm frm = m_vecFrm[m_iCurFrm];
 
     fptPos = fptPos + frm.fptOffset;
+    fptPos = CCameraManager::getInst()->GetRenderPos(fptPos);
 
     TransparentBlt(hDC,
         (int)(fptPos.x - frm.fptSlice.x / 2.f),

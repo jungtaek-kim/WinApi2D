@@ -34,6 +34,7 @@ void CCore::update()
 	CKeyManager::getInst()->update();
 	CSceneManager::getInst()->update();
 	CCollisionManager::getInst()->update();
+	CCameraManager::getInst()->update();
 }
 
 void CCore::render()

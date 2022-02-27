@@ -98,6 +98,7 @@ enum class TYPE_EVENT
 #include "CCollisionManager.h"
 #include "CEventManager.h"
 #include "CResourceManager.h"
+#include "CCameraManager.h"
 
 //========================================
 //##			디파인문				##

@@ -95,11 +95,15 @@ void CGameObject::finalupdate()
 
 void CGameObject::render(HDC hDC)
 {
+	// 절대 위치를 넘기고, 랜더링 위치를 받아옴
+	fPoint fptRenderPos = CCameraManager::getInst()->GetRenderPos(m_fptPos);
+
+	// 카메라를 기준으로 그려져야하는 위치
 	Rectangle(hDC,
-		(int)(m_fptPos.x - m_fptScale.x / 2),
-		(int)(m_fptPos.y - m_fptScale.y / 2),
-		(int)(m_fptPos.x + m_fptScale.x / 2),
-		(int)(m_fptPos.y + m_fptScale.y / 2));
+		(int)(fptRenderPos.x - m_fptScale.x / 2),
+		(int)(fptRenderPos.y - m_fptScale.y / 2),
+		(int)(fptRenderPos.x + m_fptScale.x / 2),
+		(int)(fptRenderPos.y + m_fptScale.y / 2));
 
 	component_render(hDC);
 }
