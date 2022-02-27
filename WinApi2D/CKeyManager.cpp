@@ -44,6 +44,15 @@ void CKeyManager::update()
 			m_arrCurKey[key] = false;
 		}
 	}
+
+	// Mouse 좌표 계산
+	POINT ptPos = {};
+	// GetCursorPos() 윈도우에서 모니터 좌상단 기준 마우스의 좌표를 반환
+	GetCursorPos(&ptPos);
+	// 모니터 좌상단 기준 마우스 좌표를 게임 윈도우 기준 마우스 위치로 계산
+	ScreenToClient(hWnd, &ptPos);
+
+	m_fptCurMousePos = fPoint((float)ptPos.x, (float)ptPos.y);
 }
 
 void CKeyManager::init()
@@ -64,5 +73,10 @@ bool CKeyManager::GetButtonUP(const int key)
 bool CKeyManager::GetButtonDOWN(const int key)
 {
 	return (true == m_arrCurKey[key] && false == m_arrPrevKey[key]);
+}
+
+fPoint CKeyManager::GetMousePos()
+{
+	return m_fptCurMousePos;
 }
 
