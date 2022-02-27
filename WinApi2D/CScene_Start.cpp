@@ -13,6 +13,16 @@ CScene_Start::~CScene_Start()
 {
 }
 
+void CScene_Start::update()
+{
+	CScene::update();
+
+	if (KeyDown(VK_ESCAPE))
+	{
+		ChangeScn(GROUP_SCENE::TOOL);
+	}
+}
+
 void CScene_Start::Enter()
 {
 	// Player Ãß°¡

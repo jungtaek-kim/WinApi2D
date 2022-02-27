@@ -4,7 +4,7 @@ class CCollider;
 
 class CGameObject
 {
-	friend CEventManager;
+	friend class CEventManager;
 
 private:
 	wstring m_strName;

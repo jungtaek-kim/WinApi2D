@@ -25,5 +25,6 @@ public:
 	void AddEvent(const tEvent& event);
 	void EventCreateObject(CGameObject* pObj, GROUP_GAMEOBJ group);
 	void EventDeleteObject(CGameObject* pObj);
+	void EventChangeScene(GROUP_SCENE scene);
 };
 

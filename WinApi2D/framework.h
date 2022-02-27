@@ -84,7 +84,7 @@ enum class TYPE_EVENT
 {
 	CREATE_OBJECT,
 	DELETE_OBJECT,
-	SCENE_CHANGE,
+	CHANGE_SCENE,
 
 	SIZE,
 };
@@ -118,6 +118,7 @@ enum class TYPE_EVENT
 
 #define CreateObj(pObj, group)	CEventManager::getInst()->EventCreateObject(pObj, group)
 #define DeleteObj(pObj)			CEventManager::getInst()->EventDeleteObject(pObj)
+#define ChangeScn(scene)		CEventManager::getInst()->EventChangeScene(scene)
 
 //========================================
 //## 전역변수(인스턴스, 윈도우 핸들)	##

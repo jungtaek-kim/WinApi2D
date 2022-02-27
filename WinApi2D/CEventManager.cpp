@@ -37,7 +37,12 @@ void CEventManager::Execute(const tEvent& event)
 		m_vecDead.push_back(pObj);
 	}
 		break;
-	case TYPE_EVENT::SCENE_CHANGE:
+	case TYPE_EVENT::CHANGE_SCENE:
+	{
+		// lParam : scene ±×·ì
+		GROUP_SCENE scene = (GROUP_SCENE)event.lParam;
+		CSceneManager::getInst()->ChangeScene(scene);
+	}
 		break;
 	}
 }
@@ -79,6 +84,15 @@ void CEventManager::EventDeleteObject(CGameObject* pObj)
 	tEvent event = {};
 	event.eEven = TYPE_EVENT::DELETE_OBJECT;
 	event.lParam = (DWORD_PTR)pObj;
+
+	AddEvent(event);
+}
+
+void CEventManager::EventChangeScene(GROUP_SCENE scene)
+{
+	tEvent event = {};
+	event.eEven = TYPE_EVENT::CHANGE_SCENE;
+	event.lParam = (DWORD_PTR)scene;
 
 	AddEvent(event);
 }
