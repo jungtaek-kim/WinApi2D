@@ -28,6 +28,9 @@ CSceneManager::~CSceneManager()
 
 void CSceneManager::ChangeScene(GROUP_SCENE scene)
 {
+	m_pCurScene->Exit();
+	m_pCurScene = m_arrScene[(UINT)scene];
+	m_pCurScene->Enter();
 }
 
 void CSceneManager::update()

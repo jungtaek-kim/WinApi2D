@@ -22,11 +22,12 @@ public:
 	virtual void Enter() = 0;	// 해당 씬에 진입시 호출
 	virtual void Exit() = 0;	// 해당 씬을 탈출시 호출
 
-	const vector<CGameObject*>& GetGroupObject(GROUP_GAMEOBJ group);
-
 	void SetName(const wstring& strName);
 	wstring GetName();
 
-	void AddObject(CGameObject* pObj, GROUP_GAMEOBJ type);
+	const vector<CGameObject*>& GetGroupObject(GROUP_GAMEOBJ group);
+	void AddObject(CGameObject* pObj, GROUP_GAMEOBJ group);
+	void DeleteGroup(GROUP_GAMEOBJ group);
+	void DeleteAll();
 };
 

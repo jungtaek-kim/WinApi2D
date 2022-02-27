@@ -9,6 +9,16 @@ CScene_Tool::~CScene_Tool()
 {
 }
 
+void CScene_Tool::update()
+{
+	CScene::update();
+
+	if (KeyDown(VK_ESCAPE))
+	{
+		ChangeScn(GROUP_SCENE::START);
+	}
+}
+
 void CScene_Tool::Enter()
 {
 }
