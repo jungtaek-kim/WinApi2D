@@ -4,7 +4,14 @@
 
 CCameraManager::CCameraManager()
 {
+	m_fptLookAt = fPoint(WINSIZEX / 2.f, WINSIZEY / 2.f);
+	m_fptCurLookAt = m_fptLookAt;
+	m_fptPrevLookAt = m_fptLookAt;
 	m_pTargetObj = nullptr;
+	m_fAccTime = m_fTime;
+	m_fSpeed = 0;
+	m_fPreSpeed = m_fSpeed;
+	m_fAccel = 0;
 }
 
 CCameraManager::~CCameraManager()
@@ -33,6 +40,19 @@ void CCameraManager::update()
 void CCameraManager::SetLookAt(fPoint lookAt)
 {
 	m_fptLookAt = lookAt;
+	float fMoveDist = (m_fptLookAt - m_fptPrevLookAt).Length();
+	m_fAccel = fMoveDist / m_fTime;		// 등가속도 계산
+	m_fAccel *= m_fAccDir;
+
+	if (m_fAccDir < 0) // 초기 속도 세팅
+	{
+		m_fSpeed = fMoveDist;
+	}
+	else
+	{
+		m_fSpeed = 0.f;
+	}
+	m_fAccTime = 0.f;
 }
 
 void CCameraManager::SetTargetObj(CGameObject* target)
@@ -58,15 +78,27 @@ fPoint CCameraManager::GetRealPos(fPoint renderPos)
 
 void CCameraManager::CalDiff()
 {
+	m_fAccTime += fDT;
+
+	fVec2 fvLookDir = m_fptLookAt - m_fptPrevLookAt;
+
+	// 시간이 지났거나 방향 벡터의 크기가 0이라면, 도착한것으로 간주. 속도를 0으로
+	if (m_fTime <= m_fAccTime || fvLookDir.Length() == 0)
+	{
+		m_fptCurLookAt = m_fptLookAt;
+		m_fSpeed = 0.f;
+	}
+	else
+	{
+		m_fptCurLookAt = m_fptPrevLookAt + fvLookDir.normalize() * m_fSpeed * fDT;
+	}
+
 	fPoint fptCenter = fPoint(WINSIZEX / 2.f, WINSIZEY / 2.f);
 
 	m_fptDiff = m_fptCurLookAt - fptCenter;
-
-	// 목적지에서 이전 카메라 위치를 빼면, 방향 백터가 나옴
-	fVec2 vLookDir = m_fptLookAt - m_fptPrevLookAt;
-	// 구한 방향 벡터를 단위 벡터로 만들고, 내가 원하는 속도로 이동하게끔 구현.
-	m_fptCurLookAt = m_fptPrevLookAt + vLookDir.normalize() * 500.f * fDT;
-
-	// 둘이 차이가 생겼어도. 계산이 다 끝나면 똑같이 만듦.
 	m_fptPrevLookAt = m_fptCurLookAt;
+	m_fPreSpeed = m_fSpeed;
+
+	// 등가속도만큼 이전속도에 더해줌.
+	m_fSpeed = m_fPreSpeed += m_fAccel * fDT;
 }
