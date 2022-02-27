@@ -2,21 +2,29 @@
 
 class CGameObject;
 class CAnimation;
+class CTexture;
 
 class CAnimator
 {
 	friend class CGameObject;
 
 private:
-	map<wstring, CAnimation*> m_mapAni;
-	CGameObject* m_pOwner;
+	map<wstring, CAnimation*>	m_mapAni;
+	CAnimation*					m_pCurAni;
+	CGameObject*				m_pOwner;
 
 public:
 	CAnimator();
 	~CAnimator();
 
-	void CreateAnimation();
-	void FindAnimation();
-	void Play();
+	CGameObject* GetObj();
+
+	void update();
+	void render(HDC hDC);
+
+	void CreateAnimation(const wstring& strName, CTexture* tex, fPoint lt, fPoint slice,
+						fPoint step, float duration, UINT frmCount);
+	CAnimation* FindAnimation(const wstring& strName);
+	void Play(const wstring& strName);
 };
 

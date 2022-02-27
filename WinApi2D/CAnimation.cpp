@@ -9,7 +9,8 @@ CAnimation::CAnimation()
     m_strName = L"";
     m_pAnimator = nullptr;
     m_pTex = nullptr;
-    m_iCurFrm = -1;
+    m_iCurFrm = 0;
+    m_fAccTime = 0;
 }
 
 CAnimation::~CAnimation()
@@ -28,8 +29,14 @@ const wstring& CAnimation::GetName()
 
 void CAnimation::update()
 {
-    // TODO : 애니메이션 프레임 전환
-    m_iCurFrm = 0;
+    m_fAccTime += fDT;
+
+    if (m_vecFrm[m_iCurFrm].fDuration < m_fAccTime)
+    {
+        m_iCurFrm++;
+        m_iCurFrm %= m_vecFrm.size();
+        m_fAccTime -= m_vecFrm[m_iCurFrm].fDuration;
+    }
 }
 
 void CAnimation::render(HDC hDC)

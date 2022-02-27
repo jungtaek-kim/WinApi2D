@@ -4,16 +4,21 @@
 #include "CScene.h"
 #include "CTexture.h"
 #include "CCollider.h"
+#include "CAnimator.h"
 
 CPlayer::CPlayer()
 {
-	m_pTex = CResourceManager::getInst()->LoadTextrue(L"PlayerTex", L"texture\\Player.bmp");
+	m_pTex = CResourceManager::getInst()->LoadTextrue(L"PlayerTex", L"texture\\Animation_Player.bmp");
 	SetName(L"Player");
 	SetScale(fPoint(70.f, 70.f));
 
 	CreateCollider();
 	GetCollider()->SetScale(fPoint(40.f, 40.f));
 	GetCollider()->SetOffsetPos(fPoint(0.f, 10.f));
+
+	CreateAnimator();
+	GetAnimator()->CreateAnimation(L"None", m_pTex, fPoint(0.f, 0.f), fPoint(70.f, 70.f), fPoint(70.f, 0.f), 0.5f, 2);
+	GetAnimator()->Play(L"None");
 }
 
 CPlayer::~CPlayer()
@@ -56,6 +61,8 @@ void CPlayer::update()
 	{
 		CreateMissile();
 	}
+
+	GetAnimator()->update();
 }
 
 void CPlayer::render(HDC hDC)
@@ -65,13 +72,13 @@ void CPlayer::render(HDC hDC)
 
 	fPoint pos = GetPos();
 
-	TransparentBlt(hDC,
+	/*TransparentBlt(hDC,
 		(int)(pos.x - (float)(iWidth / 2)),
 		(int)(pos.y - (float)(iHeight / 2)),
 		iWidth, iHeight,
 		m_pTex->GetDC(),
 		0, 0, iWidth, iHeight,
-		RGB(255, 0, 255));
+		RGB(255, 0, 255));*/
 
 	component_render(hDC);
 }
