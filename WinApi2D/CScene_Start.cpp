@@ -21,6 +21,12 @@ void CScene_Start::update()
 	{
 		ChangeScn(GROUP_SCENE::TOOL);
 	}
+
+	if (KeyDown(VK_LBUTTON))
+	{
+		fPoint fptLookAt = CCameraManager::getInst()->GetRealPos(MousePos());
+		CCameraManager::getInst()->SetLookAt(fptLookAt);
+	}
 }
 
 void CScene_Start::Enter()
@@ -40,8 +46,8 @@ void CScene_Start::Enter()
 	CCollisionManager::getInst()->CheckGroup(GROUP_GAMEOBJ::MISSILE_PLAYER, GROUP_GAMEOBJ::MONSTER);
 
 	// Camera Look ÁöÁ¤
-	//CCameraManager::getInst()->SetLookAt(fPoint(WINSIZEX / 2.f, WINSIZEY / 2.f));
-	CCameraManager::getInst()->SetTargetObj(pPlayer);
+	CCameraManager::getInst()->SetLookAt(fPoint(WINSIZEX / 2.f, WINSIZEY / 2.f));
+	//CCameraManager::getInst()->SetTargetObj(pPlayer);
 }
 
 void CScene_Start::Exit()

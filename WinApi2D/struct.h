@@ -54,40 +54,30 @@ struct fPoint
 
 		return fPoint(x / num, y / num);
 	}
-};
 
-struct iVec2
-{
-	int x;
-	int y;
-};
-
-struct fVec2
-{
-	float x;
-	float y;
-
-	fVec2()
-	{
-		x = 0;
-		y = 0;
-	}
-
-	fVec2(float x, float y)
-	{
-		this->x = x;
-		this->y = y;
-	}
-
-	fVec2& normalize()
+	fPoint& normalize()
 	{
 		float length = (float)sqrt((double)x * x + (double)y * y);
 
-		assert(length != 0.f);
-
-		x = x / length;
-		y = y / length;
+		if (0 == length)
+		{
+			x = 0;
+			y = 0;
+		}
+		else
+		{
+			x = x / length;
+			y = y / length;
+		}
 
 		return *this;
 	}
+
+	float Length()
+	{
+		return (float)sqrt((double)x * x + (double)y * y);
+	}
 };
+
+typedef iPoint iVec2;
+typedef fPoint fVec2;
