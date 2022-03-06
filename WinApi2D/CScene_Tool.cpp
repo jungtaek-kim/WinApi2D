@@ -25,6 +25,8 @@ void CScene_Tool::update()
 	{
 		ChangeScn(GROUP_SCENE::START);
 	}
+
+	SetTileIdx();
 }
 
 void CScene_Tool::Enter()
@@ -50,10 +52,26 @@ void CScene_Tool::SetIdx(UINT idx)
 
 void CScene_Tool::SetTileIdx()
 {
-	if (KeyDown(VK_LBUTTON))
+	if (Key(VK_LBUTTON))
 	{
 		fPoint fptMousePos = MousePos();
 		fptMousePos = CCameraManager::getInst()->GetRealPos(fptMousePos);
+
+		int iTileX = (int)GetTileX();
+		int iTileY = (int)GetTileY();
+
+		int iCol = (int)fptMousePos.x / CTile::SIZE_TILE;
+		int iRow = (int)fptMousePos.y / CTile::SIZE_TILE;
+
+		if (fptMousePos.x < 0.f || iTileX <= iCol ||
+			fptMousePos.y < 0.f || iTileY <= iRow)
+		{
+			return;		// 타일이 없는 위치 무시
+		}
+
+		UINT iIdx = iRow * iTileX + iCol;
+		const vector<CGameObject*>& vecTile = GetGroupObject(GROUP_GAMEOBJ::TILE);
+		((CTile*)vecTile[iIdx])->SetImgIdx(m_iIdx);
 	}
 }
 
@@ -92,6 +110,27 @@ INT_PTR CALLBACK TileWinProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lPar
 
 			CScene_Tool* pToolScene = dynamic_cast<CScene_Tool*>(pCurScene);
 			assert(pToolScene);
+
+			CTexture* pTex = CResourceManager::getInst()->FindTexture(L"Tile");
+
+			UINT iWidth = pTex->GetBmpWidth();
+			UINT iHeight = pTex->GetBmpHeight();
+
+			UINT iMaxRow = iHeight / CTile::SIZE_TILE;
+			UINT iMaxCol = iWidth / CTile::SIZE_TILE;
+
+			UINT iCurRow = (m_iIdx / iMaxCol) % iMaxRow;
+			UINT iCurCol = (m_iIdx % iMaxCol);
+
+			BitBlt(GetDC(hDlg),
+				(int)(150),
+				(int)(150),
+				(int)(CTile::SIZE_TILE),
+				(int)(CTile::SIZE_TILE),
+				pTex->GetDC(),
+				(int)(iCurCol * CTile::SIZE_TILE),
+				(int)(iCurRow * CTile::SIZE_TILE),
+				SRCCOPY);
 
 			pToolScene->SetIdx(m_iIdx);
 		}

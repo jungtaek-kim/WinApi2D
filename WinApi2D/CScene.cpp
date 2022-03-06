@@ -122,9 +122,9 @@ void CScene::CreateTile(UINT xSize, UINT ySize)
 
     CTexture* pTex = CResourceManager::getInst()->LoadTextrue(L"Tile", L"texture\\tile\\tilemap.bmp");
 
-    for (UINT i = 0; i < xSize; i++)
+    for (UINT i = 0; i < ySize; i++)
     {
-        for (UINT j = 0; j < ySize; j++)
+        for (UINT j = 0; j < xSize; j++)
         {
             CTile* pTile = new CTile();
             pTile->SetPos(fPoint((float)(j * CTile::SIZE_TILE), (float)(i * CTile::SIZE_TILE)));

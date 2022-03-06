@@ -58,7 +58,9 @@ void CTile::render(HDC hDC)
 		(int)(fptScale.x),
 		(int)(fptScale.y),
 		m_pTex->GetDC(),
-		0, 0, SRCCOPY);
+		iCurCol * SIZE_TILE,
+		iCurRow * SIZE_TILE,
+		SRCCOPY);
 }
 
 void CTile::SetTexture(CTexture* pTex)

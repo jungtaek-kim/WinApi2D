@@ -38,12 +38,12 @@ using namespace std;
 enum class GROUP_GAMEOBJ
 {
 	DEFAULT,
+	TILE,
 	PLAYER,
 	MONSTER,
 	MISSILE_PLAYER,
 	MISSILE_MONSTER,
 
-	TILE,
 	SIZE,
 };
 
