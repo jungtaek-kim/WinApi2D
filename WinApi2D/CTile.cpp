@@ -72,3 +72,13 @@ void CTile::SetImgIdx(UINT idx)
 {
 	m_iIdx = idx;
 }
+
+void CTile::Save(FILE* pFile)
+{
+	fwrite(&m_iIdx, sizeof(int), 1, pFile);
+}
+
+void CTile::Load(FILE* pFile)
+{
+	fread(&m_iIdx, sizeof(int), 1, pFile);
+}

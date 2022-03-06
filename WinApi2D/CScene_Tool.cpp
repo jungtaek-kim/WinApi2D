@@ -91,6 +91,13 @@ void CScene_Tool::SaveTile(const wstring& strPath)
 	fwrite(&xCount, sizeof(UINT), 1, pFile);
 	fwrite(&yCount, sizeof(UINT), 1, pFile);
 
+	const vector<CGameObject*>& vecTile = GetGroupObject(GROUP_GAMEOBJ::TILE);
+
+	for (UINT i = 0; i < vecTile.size(); i++)
+	{
+		((CTile*)vecTile[i])->Save(pFile);
+	}
+
 	fclose(pFile);
 }
 

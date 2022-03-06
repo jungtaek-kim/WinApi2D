@@ -23,5 +23,8 @@ public:
 
 	void SetTexture(CTexture* pTex);
 	void SetImgIdx(UINT idx);
+
+	virtual void Save(FILE* pFile);
+	virtual void Load(FILE* pFile);
 };
 
