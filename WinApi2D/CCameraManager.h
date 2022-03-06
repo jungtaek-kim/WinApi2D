@@ -14,13 +14,9 @@ private:
 
 	fPoint m_fptDiff;			// 해상도 중심과 카메라 LookAt 사이의 차이
 
-	float m_fTime = 2;			// 타겟을 따라가는 총시간
+	float m_fTime = 1;			// 타겟을 따라가는 총시간
 	float m_fAccTime;			// 타겟을 따라간 소요시간
 	float m_fSpeed;				// 타겟을 따라가는 속도
-	float m_fPreSpeed;			// 타겟을 따라가던 속도
-	float m_fAccel;				// 타겟을 따라가는 등가속도
-	float m_fAccDir = 5.f;		// 등가속도의 증감
-
 
 	void CalDiff();
 

@@ -17,7 +17,7 @@ void CScene_Start::update()
 {
 	CScene::update();
 
-	if (KeyDown(VK_ESCAPE))
+	if (KeyDown(VK_TAB))
 	{
 		ChangeScn(GROUP_SCENE::TOOL);
 	}

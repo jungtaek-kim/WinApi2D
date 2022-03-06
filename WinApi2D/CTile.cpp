@@ -1,8 +1,11 @@
 #include "framework.h"
 #include "CTile.h"
+#include "CTexture.h"
 
 CTile::CTile()
 {
+	m_pTex = nullptr;
+	m_iIdx = 0;
 	SetScale(fPoint(SIZE_TILE, SIZE_TILE));
 }
 
@@ -21,12 +24,37 @@ void CTile::update()
 
 void CTile::render(HDC hDC)
 {
+	if (nullptr == m_pTex)
+	{
+		return;
+	}
+
+	UINT iWidth = m_pTex->GetBmpWidth();
+	UINT iHeight = m_pTex->GetBmpHeight();
+
+	UINT iMaxRow = iHeight / SIZE_TILE;
+	UINT iMaxCol = iWidth / SIZE_TILE;
+
+	UINT iCurRow = (m_iIdx / iMaxCol) % iMaxRow;
+	UINT iCurCol = (m_iIdx % iMaxCol);
+
 	fPoint fptRenderPos = CCameraManager::getInst()->GetRenderPos(GetPos());
 	fPoint fptScale = GetScale();
 
-	Rectangle(hDC,
+	TransparentBlt(hDC,
 		(int)(fptRenderPos.x),
 		(int)(fptRenderPos.y),
-		(int)(fptRenderPos.x + fptScale.x),
-		(int)(fptRenderPos.y + fptScale.y));
+		(int)(fptScale.x),
+		(int)(fptScale.y),
+		m_pTex->GetDC(),
+		(int)(iCurCol * SIZE_TILE),
+		(int)(iCurRow * SIZE_TILE),
+		(int)(fptScale.x),
+		(int)(fptScale.y),
+		RGB(255, 0, 255));
+}
+
+void CTile::SetTexture(CTexture* pTex)
+{
+	m_pTex = pTex;
 }
