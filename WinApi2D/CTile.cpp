@@ -41,7 +41,7 @@ void CTile::render(HDC hDC)
 	fPoint fptRenderPos = CCameraManager::getInst()->GetRenderPos(GetPos());
 	fPoint fptScale = GetScale();
 
-	TransparentBlt(hDC,
+	/*TransparentBlt(hDC,
 		(int)(fptRenderPos.x),
 		(int)(fptRenderPos.y),
 		(int)(fptScale.x),
@@ -51,10 +51,22 @@ void CTile::render(HDC hDC)
 		(int)(iCurRow * SIZE_TILE),
 		(int)(fptScale.x),
 		(int)(fptScale.y),
-		RGB(255, 0, 255));
+		RGB(255, 0, 255));*/
+	BitBlt(hDC,
+		(int)(fptRenderPos.x),
+		(int)(fptRenderPos.y),
+		(int)(fptScale.x),
+		(int)(fptScale.y),
+		m_pTex->GetDC(),
+		0, 0, SRCCOPY);
 }
 
 void CTile::SetTexture(CTexture* pTex)
 {
 	m_pTex = pTex;
+}
+
+void CTile::SetImgIdx(UINT idx)
+{
+	m_iIdx = idx;
 }

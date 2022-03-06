@@ -11,7 +11,7 @@ private:
 	int m_iIdx;			// 텍스쳐 인덱스
 
 public:
-	const static int SIZE_TILE = 16;
+	const static int SIZE_TILE = 32;
 
 	CTile();
 	virtual ~CTile();
@@ -22,6 +22,6 @@ public:
 	virtual void render(HDC hDC);
 
 	void SetTexture(CTexture* pTex);
-
+	void SetImgIdx(UINT idx);
 };
 

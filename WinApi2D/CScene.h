@@ -27,6 +27,8 @@ public:
 
 	void SetName(const wstring& strName);
 	wstring GetName();
+	UINT GetTileX();
+	UINT GetTileY();
 
 	const vector<CGameObject*>& GetGroupObject(GROUP_GAMEOBJ group);
 	void AddObject(CGameObject* pObj, GROUP_GAMEOBJ group);

@@ -3,12 +3,14 @@
 #include "CTile.h"
 #include "resource.h"
 #include "CScene.h"
+#include "CTexture.h"
 
 INT_PTR CALLBACK TileWinProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam);
 
 CScene_Tool::CScene_Tool()
 {
 	m_hWnd = 0;
+	m_iIdx = 0;
 }
 
 CScene_Tool::~CScene_Tool()
@@ -41,6 +43,20 @@ void CScene_Tool::Exit()
 	DeleteGroup(GROUP_GAMEOBJ::TILE);
 }
 
+void CScene_Tool::SetIdx(UINT idx)
+{
+	m_iIdx = idx;
+}
+
+void CScene_Tool::SetTileIdx()
+{
+	if (KeyDown(VK_LBUTTON))
+	{
+		fPoint fptMousePos = MousePos();
+		fptMousePos = CCameraManager::getInst()->GetRealPos(fptMousePos);
+	}
+}
+
 // 정보 대화 상자의 메시지 처리기입니다.
 INT_PTR CALLBACK TileWinProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
 {
@@ -67,6 +83,17 @@ INT_PTR CALLBACK TileWinProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lPar
 
 			pToolScene->DeleteGroup(GROUP_GAMEOBJ::TILE);
 			pToolScene->CreateTile(x, y);
+		}
+		else if (LOWORD(wParam) == IDC_BUTTON_TILE)
+		{
+			int m_iIdx = GetDlgItemInt(hDlg, IDC_EDIT_TILE, nullptr, false);
+
+			CScene* pCurScene = CSceneManager::getInst()->GetCurScene();
+
+			CScene_Tool* pToolScene = dynamic_cast<CScene_Tool*>(pCurScene);
+			assert(pToolScene);
+
+			pToolScene->SetIdx(m_iIdx);
 		}
 		break;
 	}
