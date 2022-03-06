@@ -52,6 +52,11 @@ void CScene::render(HDC hDC)
     // 씬이 가진 모든 오브젝트 render
     for (int i = 0; i < (int)GROUP_GAMEOBJ::SIZE; i++)
     {
+        if ((UINT)GROUP_GAMEOBJ::TILE == i)
+        {
+            render_tile(hDC);
+            continue;
+        }
         for (vector<CGameObject*>::iterator iter = m_arrObj[i].begin();
             iter != m_arrObj[i].end(); )
         {
@@ -64,6 +69,34 @@ void CScene::render(HDC hDC)
             {
                 iter = m_arrObj[i].erase(iter);
             }
+        }
+    }
+}
+
+void CScene::render_tile(HDC hDC)
+{
+    const vector<CGameObject*>& vecTile = GetGroupObject(GROUP_GAMEOBJ::TILE);
+
+    fPoint fptCamLook = CCameraManager::getInst()->GetLookAt();
+    fPoint fptLeftTop = fptCamLook - fPoint(WINSIZEX, WINSIZEY) / 2.f;
+
+    int iLTCol = (int)fptLeftTop.x / CTile::SIZE_TILE;
+    int iLTRow = (int)fptLeftTop.y / CTile::SIZE_TILE;
+    int iLTIdx = m_iTileX * iLTRow + iLTCol;
+
+    int iClientWidth = (int)WINSIZEX / CTile::SIZE_TILE;
+    int iClientHeight = (int)WINSIZEY / CTile::SIZE_TILE;
+    for (int iCurRow = iLTRow; iCurRow <= (iLTRow + iClientHeight); ++iCurRow)
+    {
+        for (int iCurCol = iLTCol; iCurCol <= (iLTCol + iClientWidth); ++iCurCol)
+        {
+            if (iCurCol < 0 || m_iTileX <= iCurCol || iCurRow < 0 || m_iTileY <= iCurRow)
+            {
+                continue;
+            }
+            int iIdx = (m_iTileX * iCurRow) + iCurCol;
+
+            vecTile[iIdx]->render(hDC);
         }
     }
 }
