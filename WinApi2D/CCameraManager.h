@@ -29,5 +29,7 @@ public:
 	fPoint GetLookAt();			// 현재 카메라 위치 반환
 	fPoint GetRenderPos(fPoint objPos);
 	fPoint GetRealPos(fPoint renderPos);
+
+	void Scroll(fVec2 vec, float velocity);
 };
 

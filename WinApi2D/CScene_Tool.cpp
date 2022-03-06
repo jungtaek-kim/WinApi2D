@@ -12,6 +12,7 @@ CScene_Tool::CScene_Tool()
 {
 	m_hWnd = 0;
 	m_iIdx = 0;
+	m_velocity = 200;
 }
 
 CScene_Tool::~CScene_Tool()
@@ -25,6 +26,23 @@ void CScene_Tool::update()
 	if (KeyDown(VK_TAB))
 	{
 		ChangeScn(GROUP_SCENE::START);
+	}
+
+	if (Key('A'))
+	{
+		CCameraManager::getInst()->Scroll(fVec2(-1, 0),  m_velocity);
+	}
+	if (Key('D'))
+	{
+		CCameraManager::getInst()->Scroll(fVec2(1, 0), m_velocity);
+	}
+	if (Key('W'))
+	{
+		CCameraManager::getInst()->Scroll(fVec2(0, -1), m_velocity);
+	}
+	if (Key('S'))
+	{
+		CCameraManager::getInst()->Scroll(fVec2(0, 1), m_velocity);
 	}
 
 	SetTileIdx();
