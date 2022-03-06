@@ -33,6 +33,8 @@ void CEventManager::Execute(const tEvent& event)
 		// Object를 삭제 예정 상태로 만듬
 		// 삭제예정 오브젝트들을 모아둔다
 		CGameObject* pObj = (CGameObject*)event.lParam;
+		if (pObj->isDead())
+			return;
 		pObj->SetDead();
 		m_vecDead.push_back(pObj);
 	}
