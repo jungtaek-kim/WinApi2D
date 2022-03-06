@@ -32,7 +32,9 @@ void CScene_Start::update()
 void CScene_Start::Enter()
 {
 	// 타일 로딩
-	// LoadTile(L"Tile\\Start.tile");
+	wstring path = CPathManager::getInst()->GetContentPath();
+	path += L"tile\\Start.tile";
+	LoadTile(path);
 
 	// Player 추가
 	CGameObject* pPlayer = new CPlayer;
