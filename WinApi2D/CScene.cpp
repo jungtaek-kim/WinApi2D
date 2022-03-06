@@ -117,6 +117,8 @@ void CScene::DeleteAll()
 
 void CScene::CreateTile(UINT xSize, UINT ySize)
 {
+    DeleteGroup(GROUP_GAMEOBJ::TILE);
+
     m_iTileX = xSize;
     m_iTileY = ySize;
 
@@ -132,4 +134,25 @@ void CScene::CreateTile(UINT xSize, UINT ySize)
             AddObject(pTile, GROUP_GAMEOBJ::TILE);
         }
     }
+}
+
+void CScene::LoadTile(const wstring& strPath)
+{
+    wstring strFilePath = CPathManager::getInst()->GetContentPath();
+    strFilePath += strPath;
+
+    FILE* pFile = nullptr;
+
+    _wfopen_s(&pFile, strFilePath.c_str(), L"rb");      // w : write, b : binary
+    assert(pFile);
+
+    UINT xCount = 0;
+    UINT yCount = 0;
+
+    fread(&xCount, sizeof(UINT), 1, pFile);
+    fread(&yCount, sizeof(UINT), 1, pFile);
+
+    CreateTile(xCount, yCount);
+
+    fclose(pFile);
 }

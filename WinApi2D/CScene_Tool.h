@@ -17,5 +17,7 @@ public:
 
 	void SetIdx(UINT idx);
 	void SetTileIdx();		// 마우스와 상호작용해서 타일을 바꿈.
+
+	void SaveTile(const wstring& strPath);
 };
 

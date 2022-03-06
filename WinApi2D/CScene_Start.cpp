@@ -31,6 +31,9 @@ void CScene_Start::update()
 
 void CScene_Start::Enter()
 {
+	// 타일 로딩
+	// LoadTile(L"Tile\\Start.tile");
+
 	// Player 추가
 	CGameObject* pPlayer = new CPlayer;
 	pPlayer->SetPos(fPoint(200, 200));

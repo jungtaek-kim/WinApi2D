@@ -75,6 +75,25 @@ void CScene_Tool::SetTileIdx()
 	}
 }
 
+void CScene_Tool::SaveTile(const wstring& strPath)
+{
+	wstring strFilePath = CPathManager::getInst()->GetContentPath();
+	strFilePath += strPath;
+
+	FILE* pFile = nullptr;
+
+	_wfopen_s(&pFile, strFilePath.c_str(), L"wb");		// w : write, b : binary
+	assert(pFile);
+
+	UINT xCount = GetTileX();
+	UINT yCount = GetTileY();
+
+	fwrite(&xCount, sizeof(UINT), 1, pFile);
+	fwrite(&yCount, sizeof(UINT), 1, pFile);
+
+	fclose(pFile);
+}
+
 // 정보 대화 상자의 메시지 처리기입니다.
 INT_PTR CALLBACK TileWinProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
 {
@@ -85,8 +104,26 @@ INT_PTR CALLBACK TileWinProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lPar
 		return (INT_PTR)TRUE;
 
 	case WM_COMMAND:
-		if (LOWORD(wParam) == IDOK || LOWORD(wParam) == IDCANCEL)
+		if (LOWORD(wParam) == IDOK)
 		{
+			CScene* pCurScene = CSceneManager::getInst()->GetCurScene();
+
+			CScene_Tool* pToolScene = dynamic_cast<CScene_Tool*>(pCurScene);
+			assert(pToolScene);
+
+			pToolScene->SaveTile(L"tile\\test.tile");
+
+			return (INT_PTR)TRUE;
+		}
+		else if (LOWORD(wParam) == IDCANCEL)
+		{
+			CScene* pCurScene = CSceneManager::getInst()->GetCurScene();
+
+			CScene_Tool* pToolScene = dynamic_cast<CScene_Tool*>(pCurScene);
+			assert(pToolScene);
+
+			pToolScene->LoadTile(L"tile\\test.tile");
+
 			return (INT_PTR)TRUE;
 		}
 		else if (LOWORD(wParam) == IDC_BUTTON_SIZE)
@@ -122,6 +159,7 @@ INT_PTR CALLBACK TileWinProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lPar
 			UINT iCurRow = (m_iIdx / iMaxCol) % iMaxRow;
 			UINT iCurCol = (m_iIdx % iMaxCol);
 
+			// 임시로 이미지 출력
 			BitBlt(GetDC(hDlg),
 				(int)(150),
 				(int)(150),
