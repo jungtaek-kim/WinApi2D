@@ -19,7 +19,7 @@ private:
 	float m_fSpeed;				// 타겟을 따라가는 속도
 	float m_fPreSpeed;			// 타겟을 따라가던 속도
 	float m_fAccel;				// 타겟을 따라가는 등가속도
-	float m_fAccDir = 1.f;		// 등가속도의 증감
+	float m_fAccDir = 5.f;		// 등가속도의 증감
 
 
 	void CalDiff();
