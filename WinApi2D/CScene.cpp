@@ -1,6 +1,7 @@
 #include "framework.h"
 #include "CScene.h"
 #include "CGameObject.h"
+#include "CTile.h"
 
 CScene::CScene()
 {
@@ -99,5 +100,24 @@ void CScene::DeleteAll()
     for (int i = 0; i < (UINT)GROUP_GAMEOBJ::SIZE; i++)
     {
         DeleteGroup((GROUP_GAMEOBJ)i);
+    }
+}
+
+void CScene::CreateTile(UINT xSize, UINT ySize)
+{
+    m_iTileX = xSize;
+    m_iTileY = ySize;
+
+    CTexture* pTex = CResourceManager::getInst()->LoadTextrue(L"Tile", L"texture\\tile\\TILE.bmp");
+
+    for (UINT i = 0; i < xSize; i++)
+    {
+        for (UINT j = 0; j < ySize; j++)
+        {
+            CTile* pTile = new CTile();
+            pTile->SetPos(fPoint((float)(j * CTile::SIZE_TILE), (float)(i * CTile::SIZE_TILE)));
+            pTile->SetTexture(pTex);
+            AddObject(pTile, GROUP_GAMEOBJ::TILE);
+        }
     }
 }

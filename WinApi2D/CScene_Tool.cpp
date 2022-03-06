@@ -2,6 +2,7 @@
 #include "CScene_Tool.h"
 #include "CTile.h"
 #include "resource.h"
+#include "CScene.h"
 
 INT_PTR CALLBACK TileWinProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam);
 
@@ -26,20 +27,9 @@ void CScene_Tool::update()
 
 void CScene_Tool::Enter()
 {
-	CTexture* pTileTex = CResourceManager::getInst()->LoadTextrue(L"Tile", L"texture\\tile\\Tile.bmp");
-	// Tile 생성
-	for (int i = 0; i < 5; i++)
-	{
-		for (int j = 0; j < 5; j++)
-		{
-			CTile* pTile = new CTile();
-			pTile->SetPos(fPoint((float)(j * CTile::SIZE_TILE), (float)(i * CTile::SIZE_TILE)));
-			pTile->SetTexture(pTileTex);
-			AddObject(pTile, GROUP_GAMEOBJ::TILE);
-		}
-	}
-
 	CCameraManager::getInst()->SetLookAt(fPoint(WINSIZEX / 2.f, WINSIZEY / 2.f));
+
+	CreateTile(5, 5);
 
 	m_hWnd = CreateDialog(hInst, MAKEINTRESOURCE(IDD_TILEBOX), hWnd, TileWinProc);
 	ShowWindow(m_hWnd, SW_SHOW);
@@ -48,6 +38,7 @@ void CScene_Tool::Enter()
 void CScene_Tool::Exit()
 {
 	EndDialog(m_hWnd, IDOK);
+	DeleteGroup(GROUP_GAMEOBJ::TILE);
 }
 
 // 정보 대화 상자의 메시지 처리기입니다.
@@ -63,6 +54,19 @@ INT_PTR CALLBACK TileWinProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lPar
 		if (LOWORD(wParam) == IDOK || LOWORD(wParam) == IDCANCEL)
 		{
 			return (INT_PTR)TRUE;
+		}
+		else if (LOWORD(wParam) == IDC_BUTTON_SIZE)
+		{
+			int x = GetDlgItemInt(hDlg, IDC_EDIT_SIZEX, nullptr, false);
+			int y = GetDlgItemInt(hDlg, IDC_EDIT_SIZEY, nullptr, false);
+
+			CScene* pCurScene = CSceneManager::getInst()->GetCurScene();
+
+			CScene_Tool* pToolScene = dynamic_cast<CScene_Tool*>(pCurScene);
+			assert(pToolScene);
+
+			pToolScene->DeleteGroup(GROUP_GAMEOBJ::TILE);
+			pToolScene->CreateTile(x, y);
 		}
 		break;
 	}

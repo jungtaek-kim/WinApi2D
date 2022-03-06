@@ -11,6 +11,9 @@ private:
 	vector<CGameObject*> m_arrObj[(int)GROUP_GAMEOBJ::SIZE];
 	wstring m_strName;
 
+	UINT m_iTileX;
+	UINT m_iTileY;
+
 public:
 	CScene();
 	virtual ~CScene();
@@ -29,5 +32,7 @@ public:
 	void AddObject(CGameObject* pObj, GROUP_GAMEOBJ group);
 	void DeleteGroup(GROUP_GAMEOBJ group);
 	void DeleteAll();
+
+	void CreateTile(UINT xSize, UINT ySize);
 };
 
