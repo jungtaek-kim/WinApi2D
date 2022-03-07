@@ -52,6 +52,12 @@
     <Filter Include="Engine\Component\Animator\Animation">
       <UniqueIdentifier>{a2dc5a2d-5c20-4e1a-919a-856815c3db28}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Object\Tile">
+      <UniqueIdentifier>{30e0c577-8d4e-443b-a91a-f7f7ac0f64f7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\UI">
+      <UniqueIdentifier>{e6177611-ca95-4efd-98d5-4a87ca547807}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -145,7 +151,10 @@
       <Filter>Engine\Manager</Filter>
     </ClInclude>
     <ClInclude Include="CTile.h">
-      <Filter>Object</Filter>
+      <Filter>Object\Tile</Filter>
+    </ClInclude>
+    <ClInclude Include="CUI.h">
+      <Filter>Object\UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -219,7 +228,10 @@
       <Filter>Engine\Manager</Filter>
     </ClCompile>
     <ClCompile Include="CTile.cpp">
-      <Filter>Object</Filter>
+      <Filter>Object\Tile</Filter>
+    </ClCompile>
+    <ClCompile Include="CUI.cpp">
+      <Filter>Object\UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
