@@ -22,7 +22,9 @@ void CUIManager::update()
 	{
 		CUI* pUI = (CUI*)vecUI[i];
 
-		if (pUI->IsMouseOn())
+		pUI = GetTargetUI(pUI);
+
+		if (nullptr != pUI)
 		{
 			pUI->MouseOn();
 
@@ -42,6 +44,25 @@ void CUIManager::update()
 				pUI->m_bLbtnDown = false;
 			}
 		}
+	}
+}
+
+CUI* CUIManager::GetTargetUI(CUI* pParentUI)
+{
+	static list<CUI*> queue;
+	CUI* pTargetUI = nullptr;
+
+	queue.push_back(pParentUI);
+
+	while (!queue.empty())
+	{
+		CUI* pUI = queue.front();
+		queue.pop_front();
+
+		if (pUI->IsMouseOn())
+		{
+			pTargetUI = pUI;
+		}
 		else
 		{
 			if (KeyUp(VK_LBUTTON))
@@ -49,5 +70,13 @@ void CUIManager::update()
 				pUI->m_bLbtnDown = false;
 			}
 		}
+
+		const vector<CUI*>& vecChild = pUI->GetChildUI();
+		for (UINT i = 0; i < vecChild.size(); i++)
+		{
+			queue.push_back(vecChild[i]);
+		}
 	}
+
+	return pTargetUI;
 }

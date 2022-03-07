@@ -39,6 +39,7 @@ public:
 
 	CUI* GetParent();
 	void AddChild(CUI* pUI);
+	const vector<CUI*>& GetChildUI();
 
 private:
 	void MouseOnCheck();

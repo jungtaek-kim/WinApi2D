@@ -147,6 +147,11 @@ void CUI::AddChild(CUI* pUI)
 	pUI->m_pParentUI = this;
 }
 
+const vector<CUI*>& CUI::GetChildUI()
+{
+	return m_vecChildUI;
+}
+
 void CUI::MouseOnCheck()
 {
 	fPoint fptMousePos = MousePos();
