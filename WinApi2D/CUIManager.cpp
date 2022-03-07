@@ -50,6 +50,7 @@ void CUIManager::update()
 CUI* CUIManager::GetTargetUI(CUI* pParentUI)
 {
 	static list<CUI*> queue;
+	static vector<CUI*> vecNoneTarget;
 	CUI* pTargetUI = nullptr;
 
 	queue.push_back(pParentUI);
@@ -61,20 +62,30 @@ CUI* CUIManager::GetTargetUI(CUI* pParentUI)
 
 		if (pUI->IsMouseOn())
 		{
+			if (nullptr != pTargetUI)
+			{
+				vecNoneTarget.push_back(pTargetUI);
+			}
 			pTargetUI = pUI;
 		}
 		else
 		{
-			if (KeyUp(VK_LBUTTON))
-			{
-				pUI->m_bLbtnDown = false;
-			}
+			vecNoneTarget.push_back(pUI);
 		}
 
 		const vector<CUI*>& vecChild = pUI->GetChildUI();
-		for (UINT i = 0; i < vecChild.size(); i++)
+		for (size_t i = 0; i < vecChild.size(); ++i)
 		{
 			queue.push_back(vecChild[i]);
+		}
+
+	}
+
+	if (KeyUp(VK_LBUTTON))
+	{
+		for (size_t i = 0; i < vecNoneTarget.size(); i++)
+		{
+			vecNoneTarget[i]->m_bLbtnDown = false;
 		}
 	}
 
