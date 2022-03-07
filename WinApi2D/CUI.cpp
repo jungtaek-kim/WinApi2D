@@ -136,6 +136,11 @@ bool CUI::IsMouseOn()
 	return m_bMouseOn;
 }
 
+bool CUI::IsLbtnDown()
+{
+	return m_bLbtnDown;
+}
+
 CUI* CUI::GetParent()
 {
 	return m_pParentUI;

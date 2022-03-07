@@ -6,6 +6,8 @@
 #include "CTexture.h"
 #include "commdlg.h"
 #include "CUI.h"
+#include "CPanelUI.h"
+#include "CButtonUI.h"
 
 INT_PTR CALLBACK TileWinProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam);
 
@@ -59,15 +61,15 @@ void CScene_Tool::Enter()
 	ShowWindow(m_hWnd, SW_SHOW);
 
 	// UI 생성
-	CUI* pUI = new CUI(false);
-	pUI->SetScale(fPoint(200.f, 80.f));
-	pUI->SetPos(fPoint(WINSIZEX - pUI->GetScale().x, 0.f));		// UI는 카메라의 위치와 상관없이 절대 좌표를 통해 구현
-	AddObject(pUI, GROUP_GAMEOBJ::UI);
+	CUI* pPanelUI = new CPanelUI();
+	pPanelUI->SetScale(fPoint(200.f, 80.f));
+	pPanelUI->SetPos(fPoint(WINSIZEX - pPanelUI->GetScale().x, 0.f));		// UI는 카메라의 위치와 상관없이 절대 좌표를 통해 구현
+	AddObject(pPanelUI, GROUP_GAMEOBJ::UI);
 
-	CUI* pChildUI = new CUI(false);
-	pChildUI->SetScale(fPoint(100.f, 40.f));
-	pChildUI->SetPos(fPoint(10.f, 10.f));
-	pUI->AddChild(pChildUI);
+	CUI* pButtonUI = new CButtonUI();
+	pButtonUI->SetScale(fPoint(100.f, 40.f));
+	pButtonUI->SetPos(fPoint(10.f, 10.f));
+	pPanelUI->AddChild(pButtonUI);
 }
 
 void CScene_Tool::Exit()

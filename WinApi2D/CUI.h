@@ -36,6 +36,7 @@ public:
 	fPoint GetFinalPos();
 	bool GetCameraAffected();
 	bool IsMouseOn();
+	bool IsLbtnDown();
 
 	CUI* GetParent();
 	void AddChild(CUI* pUI);
