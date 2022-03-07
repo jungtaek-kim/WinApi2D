@@ -60,9 +60,14 @@ void CScene_Tool::Enter()
 
 	// UI 생성
 	CUI* pUI = new CUI;
-	pUI->SetScale(fPoint(100.f, 30.f));
+	pUI->SetScale(fPoint(200.f, 80.f));
 	pUI->SetPos(fPoint(WINSIZEX - pUI->GetScale().x, 0.f));		// UI는 카메라의 위치와 상관없이 절대 좌표를 통해 구현
 	AddObject(pUI, GROUP_GAMEOBJ::UI);
+
+	CUI* pChildUI = new CUI;
+	pChildUI->SetScale(fPoint(100.f, 40.f));
+	pChildUI->SetPos(fPoint(10.f, 10.f));
+	pUI->AddChild(pChildUI);
 }
 
 void CScene_Tool::Exit()

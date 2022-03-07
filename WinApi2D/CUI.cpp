@@ -41,7 +41,7 @@ void CUI::finalupdate()
 
 void CUI::render(HDC hDC)
 {
-	fPoint fptPos = GetPos();
+	fPoint fptPos = GetFinalPos();
 	fPoint fptScale = GetScale();
 
 	Rectangle(hDC,
@@ -75,6 +75,22 @@ void CUI::render_child(HDC hDC)
 	{
 		m_vecChildUI[i]->render(hDC);
 	}
+}
+
+void CUI::MouseOn()
+{
+}
+
+void CUI::MouseLbtnDown()
+{
+}
+
+void CUI::MouseLbtnUp()
+{
+}
+
+void CUI::MouseLbtnClicked()
+{
 }
 
 fPoint CUI::GetFinalPos()
