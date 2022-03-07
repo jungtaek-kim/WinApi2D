@@ -101,6 +101,7 @@ enum class TYPE_EVENT
 #include "CEventManager.h"
 #include "CResourceManager.h"
 #include "CCameraManager.h"
+#include "CUIManager.h"
 
 //========================================
 //##			디파인문				##
@@ -116,7 +117,7 @@ enum class TYPE_EVENT
 #define fDT				CTimeManager::getInst()->GetfDT()
 
 #define Key(key)		CKeyManager::getInst()->GetButton(key)
-#define KeyUP(key)		CKeyManager::getInst()->GetButtonUP(key)
+#define KeyUp(key)		CKeyManager::getInst()->GetButtonUP(key)
 #define KeyDown(key)	CKeyManager::getInst()->GetButtonDOWN(key)
 
 #define MousePos()		CKeyManager::getInst()->GetMousePos()
