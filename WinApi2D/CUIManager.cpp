@@ -46,6 +46,33 @@ void CUIManager::update()
 	}
 }
 
+void CUIManager::SetFocusedUI(CUI* pUI)
+{
+	// 이미 포커싱된 UI 이거나 이전에 포커싱된 UI가 없었을 경우
+	if (m_pFocusedUI == pUI || nullptr == m_pFocusedUI)
+	{
+		m_pFocusedUI = pUI;
+		return;
+	}
+
+	m_pFocusedUI = pUI;
+
+	CScene* pCurScene = CSceneManager::getInst()->GetCurScene();
+	vector<CGameObject*>& vecUI = pCurScene->GetUIGroup();
+
+	vector<CGameObject*>::iterator iter = vecUI.begin();
+	for (; iter != vecUI.end(); iter++)
+	{
+		if (m_pFocusedUI == *iter)
+		{
+			break;
+		}
+	}
+
+	vecUI.erase(iter);
+	vecUI.push_back(m_pFocusedUI);
+}
+
 CUI* CUIManager::GetFocusedUI()
 {
 	CScene* pCurScene = CSceneManager::getInst()->GetCurScene();

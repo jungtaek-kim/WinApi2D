@@ -12,6 +12,8 @@ private:
 public:
 	void update();
 
+	void SetFocusedUI(CUI* pUI);
+
 private:
 	CUI* GetFocusedUI();
 	CUI* GetTargetedUI(CUI* pParentUI);
