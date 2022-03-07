@@ -51,6 +51,11 @@ void CScene_Tool::update()
 	SetTileIdx();
 }
 
+void ChangeScene(DWORD_PTR, DWORD_PTR)
+{
+	ChangeScn(GROUP_SCENE::START);
+}
+
 void CScene_Tool::Enter()
 {
 	CCameraManager::getInst()->SetLookAt(fPoint(WINSIZEX / 2.f, WINSIZEY / 2.f));
@@ -75,12 +80,19 @@ void CScene_Tool::Enter()
 	CUI* pClonePanel = pPanelUI->Clone();
 	pClonePanel->SetPos(pClonePanel->GetPos() + fPoint(-500.f, 0.f));
 	AddObject(pClonePanel, GROUP_GAMEOBJ::UI);
+
+	CButtonUI* pBtnUI = new CButtonUI;
+	pBtnUI->SetScale(fPoint(30.f, 50.f));
+	pBtnUI->SetPos(fPoint(150.f, 10.f));
+	pBtnUI->SetClickedCallBack(ChangeScene, 0, 0);	// 추가 정보가 필요로 하지 않는 동작
+	AddObject(pBtnUI, GROUP_GAMEOBJ::UI);
+	//pPanelUI->AddChild(pBtnUI);
 }
 
 void CScene_Tool::Exit()
 {
 	EndDialog(m_hWnd, IDOK);
-	DeleteGroup(GROUP_GAMEOBJ::TILE);
+	DeleteAll();
 }
 
 void CScene_Tool::SetIdx(UINT idx)
