@@ -9,6 +9,8 @@ public:
 	CPanelUI();
 	~CPanelUI();
 
+	virtual CPanelUI* Clone();
+
 	virtual void MouseOn();
 	virtual void MouseLbtnDown();
 	virtual void MouseLbtnUp();

@@ -11,6 +11,11 @@ CPanelUI::~CPanelUI()
 {
 }
 
+CPanelUI* CPanelUI::Clone()
+{
+	return new CPanelUI(*this);
+}
+
 void CPanelUI::MouseOn()
 {
 	if (IsLbtnDown())

@@ -10,6 +10,11 @@ CButtonUI::~CButtonUI()
 {
 }
 
+CButtonUI* CButtonUI::Clone()
+{
+	return new CButtonUI(*this);
+}
+
 void CButtonUI::MouseOn()
 {
 }

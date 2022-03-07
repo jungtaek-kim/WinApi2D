@@ -70,6 +70,11 @@ void CScene_Tool::Enter()
 	pButtonUI->SetScale(fPoint(100.f, 40.f));
 	pButtonUI->SetPos(fPoint(10.f, 10.f));
 	pPanelUI->AddChild(pButtonUI);
+
+	// UI บนป็
+	CUI* pClonePanel = pPanelUI->Clone();
+	pClonePanel->SetPos(pClonePanel->GetPos() + fPoint(-500.f, 0.f));
+	AddObject(pClonePanel, GROUP_GAMEOBJ::UI);
 }
 
 void CScene_Tool::Exit()

@@ -10,6 +10,20 @@ CUI::CUI(bool bCameraAffected)
 	m_bLbtnDown = false;
 }
 
+CUI::CUI(const CUI& other)
+	: CGameObject(other)		// 부모의 복사생성자를 지정해주어야 함
+{
+	m_pParentUI = nullptr;
+	m_bCameraAffected = other.m_bCameraAffected;
+	m_bMouseOn = false;
+	m_bLbtnDown = false;
+
+	for (UINT i = 0; i < other.m_vecChildUI.size(); i++)
+	{
+		AddChild(other.m_vecChildUI[i]->Clone());
+	}
+}
+
 CUI::~CUI()
 {
 	for (int i = 0; i < m_vecChildUI.size(); i++)
@@ -17,11 +31,6 @@ CUI::~CUI()
 		if (nullptr != m_vecChildUI[i])
 			delete m_vecChildUI[i];
 	}
-}
-
-CUI* CUI::Clone()
-{
-	return new CUI(*this);
 }
 
 void CUI::update()

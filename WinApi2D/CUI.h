@@ -16,9 +16,10 @@ private:
 
 public:
 	CUI(bool bCameraAffected);	// 카메라의 영향여부를 반드시 받기 위해 기본생성자 대신 구현한 생성자 사용
+	CUI(const CUI& other);
 	virtual ~CUI();
 
-	virtual CUI* Clone();
+	virtual CUI* Clone() = 0;
 
 	virtual void update();
 	virtual void finalupdate();
