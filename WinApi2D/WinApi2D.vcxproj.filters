@@ -58,6 +58,9 @@
     <Filter Include="Object\UI">
       <UniqueIdentifier>{e6177611-ca95-4efd-98d5-4a87ca547807}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Object\Character">
+      <UniqueIdentifier>{a0374c23-f28b-40d4-a4f4-380a7473d4b0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -98,15 +101,6 @@
     </ClInclude>
     <ClInclude Include="CScene_Start.h">
       <Filter>Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="CPlayer.h">
-      <Filter>Object</Filter>
-    </ClInclude>
-    <ClInclude Include="CMonster.h">
-      <Filter>Object</Filter>
-    </ClInclude>
-    <ClInclude Include="CMissile.h">
-      <Filter>Object</Filter>
     </ClInclude>
     <ClInclude Include="CResource.h">
       <Filter>Resouce</Filter>
@@ -156,6 +150,15 @@
     <ClInclude Include="CUI.h">
       <Filter>Object\UI</Filter>
     </ClInclude>
+    <ClInclude Include="CMissile.h">
+      <Filter>Object\Character</Filter>
+    </ClInclude>
+    <ClInclude Include="CMonster.h">
+      <Filter>Object\Character</Filter>
+    </ClInclude>
+    <ClInclude Include="CPlayer.h">
+      <Filter>Object\Character</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinApi2D.cpp">
@@ -181,15 +184,6 @@
     </ClCompile>
     <ClCompile Include="CScene_Start.cpp">
       <Filter>Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="CPlayer.cpp">
-      <Filter>Object</Filter>
-    </ClCompile>
-    <ClCompile Include="CMonster.cpp">
-      <Filter>Object</Filter>
-    </ClCompile>
-    <ClCompile Include="CMissile.cpp">
-      <Filter>Object</Filter>
     </ClCompile>
     <ClCompile Include="CResource.cpp">
       <Filter>Resouce</Filter>
@@ -232,6 +226,15 @@
     </ClCompile>
     <ClCompile Include="CUI.cpp">
       <Filter>Object\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="CMissile.cpp">
+      <Filter>Object\Character</Filter>
+    </ClCompile>
+    <ClCompile Include="CMonster.cpp">
+      <Filter>Object\Character</Filter>
+    </ClCompile>
+    <ClCompile Include="CPlayer.cpp">
+      <Filter>Object\Character</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
