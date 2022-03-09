@@ -3,6 +3,7 @@
 
 #include "framework.h"
 #include "WinApi2D.h"
+#include "locale.h"
 
 #define MAX_LOADSTRING 100
 
@@ -32,6 +33,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     _In_ LPWSTR    lpCmdLine,
     _In_ int       nCmdShow)
 {
+    setlocale(LC_ALL, "Korean");
     // 메모리 누수 체크
     //_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
     //_CrtSetBreakAlloc(219);
