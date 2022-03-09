@@ -1,6 +1,7 @@
 #include "framework.h"
 #include "CResourceManager.h"
 #include "CTexture.h"
+#include "CSound.h"
 
 CResourceManager::CResourceManager()
 {
@@ -55,4 +56,41 @@ CTexture* CResourceManager::LoadTextrue(const wstring& strKey, const wstring& st
 	m_mapTex.insert(make_pair(strKey, pTex));
 	
 	return pTex;
+}
+
+CSound* CResourceManager::FindSound(const wstring& strKey)
+{
+	// CSound 키 값을 통해 탐색
+	map<wstring, CSound*>::iterator iter = m_mapSound.find(strKey);
+
+	if (m_mapSound.end() == iter)
+	{
+		return nullptr;
+	}
+
+	return iter->second;
+}
+
+CSound* CResourceManager::LoadSound(const wstring& strKey, const wstring& strRelativePath)
+{
+	// Sound를 불러오기 전 자료구조에 이미 Sound가 있는지 확인
+	CSound* pSound = FindSound(strKey);
+	if (nullptr != pSound)
+	{
+		return pSound;
+	}
+
+	// Sound 저장 경로 확인
+	wstring strFilePath = CPathManager::getInst()->GetRelativeContentPath();
+	strFilePath += strRelativePath;
+
+	// Sound 생성 후 저장
+	pSound = new CSound;
+	pSound->Load(strFilePath);
+	pSound->SetKey(strKey);
+	pSound->SetRelativePath(strRelativePath);
+
+	m_mapSound.insert(make_pair(strKey, pSound));
+
+	return pSound;
 }
