@@ -5,6 +5,8 @@
 #include "CPlayer.h"
 #include "CMonster.h"
 
+#include "CSound.h"
+
 CScene_Start::CScene_Start()
 {
 }
@@ -26,6 +28,12 @@ void CScene_Start::update()
 	{
 		fPoint fptLookAt = CCameraManager::getInst()->GetRealPos(MousePos());
 		CCameraManager::getInst()->SetLookAt(fptLookAt);
+	}
+
+	if (KeyDown('Z'))
+	{
+		CSound* sound = CResourceManager::getInst()->LoadSound(L"sound", L"sound\\drumloop.wav");
+		sound->Play();
 	}
 }
 
