@@ -95,11 +95,32 @@ CSound* CResourceManager::LoadSound(const wstring& strKey, const wstring& strRel
 
 	// Sound 생성 후 저장
 	pSound = new CSound;
-	pSound->Load(strFilePath);
+	pSound->Load(strFilePath, false);
 	pSound->SetKey(strKey);
 	pSound->SetRelativePath(strRelativePath);
 
 	m_mapSound.insert(make_pair(strKey, pSound));
 
 	return pSound;
+}
+
+CSound* CResourceManager::LoadBGM(const wstring& strKey, const wstring& strRelativePath)
+{
+	CSound* pBGM = m_pBGM;
+	if (nullptr != pBGM)
+		return pBGM;
+
+	// Sound 저장 경로 확인
+	wstring strFilePath = CPathManager::getInst()->GetRelativeContentPath();
+	strFilePath += strRelativePath;
+
+	// Sound 생성 후 저장
+	pBGM = new CSound;
+	pBGM->Load(strFilePath, true);
+	pBGM->SetKey(strKey);
+	pBGM->SetRelativePath(strRelativePath);
+
+	m_pBGM = pBGM;
+
+	return pBGM;
 }

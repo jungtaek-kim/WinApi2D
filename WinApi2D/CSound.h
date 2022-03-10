@@ -26,6 +26,6 @@ public:
 
 	void SetLoop(bool loop);
 
-	void Load(const wstring& strRelativePath);
+	void Load(const wstring& strRelativePath, bool bgm);
 };
 

@@ -22,12 +22,19 @@ CSound::~CSound()
 	}
 }
 
-void CSound::Load(const wstring& strFilePath)
+void CSound::Load(const wstring& strFilePath, bool bgm)
 {
 	char str[255];
 	wcstombs_s(nullptr, str, strFilePath.c_str(), 255);
 
-	CSoundManager::getInst()->GetSystem()->createSound(str, FMOD_LOOP_OFF, 0, &sound);
+	if (bgm)
+	{
+		CSoundManager::getInst()->GetSystem()->createStream(str, FMOD_DEFAULT, 0, &sound);
+	}
+	else
+	{
+		CSoundManager::getInst()->GetSystem()->createSound(str, FMOD_LOOP_OFF, 0, &sound);
+	}
 }
 
 void CSound::Play()

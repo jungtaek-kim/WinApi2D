@@ -30,9 +30,17 @@ void CSoundManager::update()
 	m_pSystem->update();		// 반드시 매 프레임마다 업데이트 되어야 함. fmod에서 하래
 }
 
-void CSoundManager::AddSound(wstring keyName, wstring filePath, bool loop)
+void CSoundManager::AddSound(wstring keyName, wstring filePath, bool bgm, bool loop)
 {
-	CSound* pSound = CResourceManager::getInst()->LoadSound(keyName, filePath);
+	CSound* pSound;
+	if (bgm)
+	{
+		pSound = CResourceManager::getInst()->LoadBGM(keyName, filePath);
+	}
+	else
+	{
+		pSound = CResourceManager::getInst()->LoadSound(keyName, filePath);
+	}
 	pSound->SetLoop(loop);
 	m_mapSound.insert(make_pair(keyName, pSound));
 }

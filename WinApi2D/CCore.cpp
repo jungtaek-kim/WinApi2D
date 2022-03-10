@@ -46,9 +46,9 @@ void CCore::render()
 	CSceneManager::getInst()->render(m_hMemDC);
 
 	// 오른쪽 상단에 FPS 표시
-	/*WCHAR strFPS[6];
+	WCHAR strFPS[6];
 	swprintf_s(strFPS, L"%5d", CTimeManager::getInst()->GetFPS());
-	TextOutW(m_hMemDC, WINSIZEX - 50, 10, strFPS, 5);*/
+	TextOutW(m_hMemDC, WINSIZEX - 50, 10, strFPS, 5);
 
 	BitBlt(m_hDC, 0, 0, WINSIZEX, WINSIZEY, m_hMemDC, 0, 0, SRCCOPY);
 }
