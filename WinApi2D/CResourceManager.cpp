@@ -19,6 +19,15 @@ CResourceManager::~CResourceManager()
 		}
 	}
 	m_mapTex.clear();
+	// 자료구조에 저장된 모든 Sound 삭제
+	for (map<wstring, CSound*>::iterator iter = m_mapSound.begin(); iter != m_mapSound.end(); iter++)
+	{
+		if (nullptr != iter->second)
+		{
+			delete iter->second;
+		}
+	}
+	m_mapSound.clear();
 }
 
 CTexture* CResourceManager::FindTexture(const wstring& strKey)

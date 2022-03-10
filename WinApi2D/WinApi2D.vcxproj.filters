@@ -168,6 +168,9 @@
     <ClInclude Include="CButtonUI.h">
       <Filter>Object\UI</Filter>
     </ClInclude>
+    <ClInclude Include="CSoundManager.h">
+      <Filter>Engine\Manager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinApi2D.cpp">
@@ -253,6 +256,9 @@
     </ClCompile>
     <ClCompile Include="CButtonUI.cpp">
       <Filter>Object\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="CSoundManager.cpp">
+      <Filter>Engine\Manager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -9,7 +9,6 @@ class CSound : public CResource
 {
 private:
 
-	System*		system;
 	Sound*		sound;
 	Channel*	channel;
 
@@ -21,6 +20,11 @@ public:
 	void Stop();
 	void Pause();
 	void Resume();
+
+	bool IsPlaying();
+	bool IsPaused();
+
+	void SetLoop(bool loop);
 
 	void Load(const wstring& strRelativePath);
 };

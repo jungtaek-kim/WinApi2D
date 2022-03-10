@@ -36,6 +36,7 @@ void CCore::update()
 	CCollisionManager::getInst()->update();
 	CCameraManager::getInst()->update();
 	CUIManager::getInst()->update();
+	CSoundManager::getInst()->update();
 }
 
 void CCore::render()
@@ -62,6 +63,7 @@ void CCore::init()
 	CKeyManager::getInst()->init();
 	CSceneManager::getInst()->init();
 	CCollisionManager::getInst()->init();
+	CSoundManager::getInst()->init();
 
 	m_hDC = GetDC(hWnd);
 

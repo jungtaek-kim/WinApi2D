@@ -3,7 +3,6 @@
 
 CSound::CSound()
 {
-	system = nullptr;
 	sound = nullptr;
 	channel = nullptr;
 }
@@ -11,24 +10,29 @@ CSound::CSound()
 CSound::~CSound()
 {
 	Stop();
+	if (nullptr != channel)
+	{
+		delete channel;
+	}
+
+	if (nullptr != sound)
+	{
+		sound->release();
+		delete sound;
+	}
 }
 
 void CSound::Load(const wstring& strFilePath)
 {
-	FMOD_RESULT ret;
 	char str[255];
 	wcstombs_s(nullptr, str, strFilePath.c_str(), 255);
 
-	ret = FMOD::System_Create(&system);
-	assert(system);
-	ret = system->init(32, FMOD_INIT_NORMAL, nullptr);
-	ret = system->createSound(str, FMOD_DEFAULT, 0, &sound);
-	assert(sound);
+	CSoundManager::getInst()->GetSystem()->createSound(str, FMOD_LOOP_OFF, 0, &sound);
 }
 
 void CSound::Play()
 {
-	system->playSound(sound, 0, false, &channel);
+	CSoundManager::getInst()->GetSystem()->playSound(sound, 0, false, &channel);
 	assert(channel);
 }
 
@@ -48,4 +52,34 @@ void CSound::Resume()
 {
 	if (nullptr != channel)
 		channel->setPaused(true);
+}
+
+bool CSound::IsPlaying()
+{
+	bool playing = false;
+	if (nullptr != channel)
+		channel->isPlaying(&playing);
+
+	return playing;
+}
+
+bool CSound::IsPaused()
+{
+	bool paused = false;
+	if (nullptr != channel)
+		channel->getPaused(&paused);
+
+	return paused;
+}
+
+void CSound::SetLoop(bool loop)
+{
+	if (loop)
+	{
+		sound->setMode(FMOD_DEFAULT);
+	}
+	else
+	{
+		sound->setMode(FMOD_LOOP_OFF);
+	}
 }

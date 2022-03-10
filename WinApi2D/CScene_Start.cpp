@@ -32,8 +32,13 @@ void CScene_Start::update()
 
 	if (KeyDown('Z'))
 	{
-		CSound* sound = CResourceManager::getInst()->LoadSound(L"sound", L"sound\\drumloop.wav");
-		sound->Play();
+		CSoundManager::getInst()->AddSound(L"bgm", L"sound\\drumloop.wav", true);
+		CSoundManager::getInst()->Play(L"bgm");
+	}
+
+	if (KeyDown('X'))
+	{
+		CSoundManager::getInst()->Stop(L"bgm");
 	}
 }
 
@@ -42,7 +47,7 @@ void CScene_Start::Enter()
 	// 타일 로딩
 	wstring path = CPathManager::getInst()->GetContentPath();
 	path += L"tile\\Start.tile";
-	LoadTile(path);
+	//LoadTile(path);
 
 	// Player 추가
 	CGameObject* pPlayer = new CPlayer;
