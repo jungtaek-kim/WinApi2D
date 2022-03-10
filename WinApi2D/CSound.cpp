@@ -3,22 +3,16 @@
 
 CSound::CSound()
 {
-	sound = nullptr;
-	channel = nullptr;
+	m_pSound = nullptr;
+	m_pChannel = nullptr;
 }
 
 CSound::~CSound()
 {
 	Stop();
-	if (nullptr != channel)
+	if (nullptr != m_pSound)
 	{
-		delete channel;
-	}
-
-	if (nullptr != sound)
-	{
-		sound->release();
-		delete sound;
+		m_pSound->release();
 	}
 }
 
@@ -29,53 +23,52 @@ void CSound::Load(const wstring& strFilePath, bool bgm)
 
 	if (bgm)
 	{
-		CSoundManager::getInst()->GetSystem()->createStream(str, FMOD_DEFAULT, 0, &sound);
+		CSoundManager::getInst()->GetSystem()->createStream(str, FMOD_LOOP_NORMAL, 0, &m_pSound);
 	}
 	else
 	{
-		CSoundManager::getInst()->GetSystem()->createSound(str, FMOD_LOOP_OFF, 0, &sound);
+		CSoundManager::getInst()->GetSystem()->createSound(str, FMOD_LOOP_OFF, 0, &m_pSound);
 	}
 }
 
 void CSound::Play()
 {
-	CSoundManager::getInst()->GetSystem()->playSound(sound, 0, false, &channel);
-	assert(channel);
+	CSoundManager::getInst()->GetSystem()->playSound(m_pSound, 0, false, &m_pChannel);
+	assert(m_pChannel);
 }
 
 void CSound::Pause()
 {
-	if (nullptr != channel)
-		channel->setPaused(true);
+	
+	assert(m_pChannel);
+	m_pChannel->setPaused(true);
 }
 
 void CSound::Stop()
 {
-	if (nullptr != channel)
-		channel->stop();
+	assert(m_pChannel); 
+	m_pChannel->stop();
 }
 
 void CSound::Resume()
 {
-	if (nullptr != channel)
-		channel->setPaused(true);
+	assert(m_pChannel); 
+	m_pChannel->setPaused(true);
 }
 
 bool CSound::IsPlaying()
 {
 	bool playing = false;
-	if (nullptr != channel)
-		channel->isPlaying(&playing);
-
+	assert(m_pChannel); 
+	m_pChannel->isPlaying(&playing);
 	return playing;
 }
 
 bool CSound::IsPaused()
 {
 	bool paused = false;
-	if (nullptr != channel)
-		channel->getPaused(&paused);
-
+	assert(m_pChannel); 
+	m_pChannel->getPaused(&paused);
 	return paused;
 }
 
@@ -83,10 +76,10 @@ void CSound::SetLoop(bool loop)
 {
 	if (loop)
 	{
-		sound->setMode(FMOD_DEFAULT);
+		m_pSound->setMode(FMOD_LOOP_NORMAL);
 	}
 	else
 	{
-		sound->setMode(FMOD_LOOP_OFF);
+		m_pSound->setMode(FMOD_LOOP_OFF);
 	}
 }

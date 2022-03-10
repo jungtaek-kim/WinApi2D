@@ -9,8 +9,8 @@ class CSound : public CResource
 {
 private:
 
-	Sound*		sound;
-	Channel*	channel;
+	Sound*		m_pSound;
+	Channel*	m_pChannel;
 
 public:
 	CSound();
