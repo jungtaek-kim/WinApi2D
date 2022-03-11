@@ -65,6 +65,7 @@ void CScene_Start::Enter()
 
 	// Camera Look ÁöÁ¤
 	CCameraManager::getInst()->SetLookAt(fPoint(WINSIZEX / 2.f, WINSIZEY / 2.f));
+	CCameraManager::getInst()->FadeOut(5.f);
 	//CCameraManager::getInst()->SetTargetObj(pPlayer);
 }
 

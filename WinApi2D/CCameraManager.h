@@ -29,6 +29,8 @@ private:
 
 	CAM_EFFECT m_eEffect;
 	CTexture* m_pTex;
+	float m_fEffectDuration;
+	float m_fCurTime;
 
 public:
 	void init();
@@ -41,6 +43,9 @@ public:
 	fPoint GetLookAt();			// 현재 카메라 위치 반환
 	fPoint GetRenderPos(fPoint objPos);
 	fPoint GetRealPos(fPoint renderPos);
+
+	void FadeIn(float duration);
+	void FadeOut(float duration);
 
 	void Scroll(fVec2 vec, float velocity);
 

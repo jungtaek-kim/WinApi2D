@@ -11,6 +11,11 @@ CCameraManager::CCameraManager()
 	m_pTargetObj = nullptr;
 	m_fAccTime = m_fTime;
 	m_fSpeed = 0;
+
+	m_eEffect = CAM_EFFECT::NONE;
+	m_pTex = nullptr;
+	m_fEffectDuration = 0.f;
+	m_fCurTime = 0.f;
 }
 
 CCameraManager::~CCameraManager()
@@ -43,13 +48,30 @@ void CCameraManager::update()
 
 void CCameraManager::render(HDC hDC)
 {
-	Rectangle(m_pTex->GetDC(), 0, 0, 500, 500);
+	if (CAM_EFFECT::NONE == m_eEffect)
+		return;
+
+	float fRatio = 0.f;
+
+	if (CAM_EFFECT::FADE_OUT == m_eEffect)
+	{
+		m_fCurTime += fDT;
+
+		if (m_fEffectDuration < m_fCurTime)
+		{
+			m_eEffect = CAM_EFFECT::NONE;
+			return;
+		}
+		fRatio = m_fCurTime / m_fEffectDuration;
+	}
+	int iAlpha = (int)(255.f * fRatio);
+
 	BLENDFUNCTION bf = {};
 
 	bf.BlendOp = AC_SRC_OVER;
 	bf.BlendFlags = 0;
 	bf.AlphaFormat = 0;
-	bf.SourceConstantAlpha = 127;
+	bf.SourceConstantAlpha = iAlpha;
 
 	AlphaBlend(hDC
 		, 0, 0
@@ -90,6 +112,28 @@ fPoint CCameraManager::GetRealPos(fPoint renderPos)
 {
 	// 렌더링 좌표에서 차이값만큼 더해주면 절대 좌표가 나옴.
 	return renderPos + m_fptDiff;
+}
+
+void CCameraManager::FadeIn(float duration)
+{
+	m_eEffect = CAM_EFFECT::FADE_IN;
+	m_fEffectDuration = duration;
+
+	if (0.f == m_fEffectDuration)
+	{
+		assert(nullptr);
+	}
+}
+
+void CCameraManager::FadeOut(float duration)
+{
+	m_eEffect = CAM_EFFECT::FADE_OUT;
+	m_fEffectDuration = duration;
+
+	if (0.f == m_fEffectDuration)
+	{
+		assert(nullptr);
+	}
 }
 
 void CCameraManager::Scroll(fVec2 vec, float velocity)
