@@ -5,7 +5,7 @@
 
 CUIManager::CUIManager()
 {
-
+	m_pFocusedUI = nullptr;
 }
 
 CUIManager::~CUIManager()
@@ -15,33 +15,27 @@ CUIManager::~CUIManager()
 
 void CUIManager::update()
 {
-	CScene* pCurScene = CSceneManager::getInst()->GetCurScene();
-	const vector<CGameObject*>& vecUI = pCurScene->GetGroupObject(GROUP_GAMEOBJ::UI);
+	m_pFocusedUI = GetFocusedUI();
+	CUI* pUI = GetTargetUI(m_pFocusedUI);
 
-	for (UINT i = 0; i < vecUI.size(); i++)
+	if (nullptr != pUI)
 	{
-		CUI* pUI = (CUI*)vecUI[i];
-		pUI = GetTargetUI(pUI);
+		pUI->MouseOn();
 
-		if (nullptr != pUI)
+		if (KeyDown(VK_LBUTTON))
 		{
-			pUI->MouseOn();
+			pUI->MouseLbtnDown();
+			pUI->m_bLbtnDown = true;
+		}
+		else if (KeyUp(VK_LBUTTON))
+		{
+			pUI->MouseLbtnUp();
 
-			if (KeyDown(VK_LBUTTON))
+			if (pUI->m_bLbtnDown)
 			{
-				pUI->MouseLbtnDown();
-				pUI->m_bLbtnDown = true;
+				pUI->MouseLbtnClicked();
 			}
-			else if (KeyUp(VK_LBUTTON))
-			{
-				pUI->MouseLbtnUp();
-
-				if (pUI->m_bLbtnDown)
-				{
-					pUI->MouseLbtnClicked();
-				}
-				pUI->m_bLbtnDown = false;
-			}
+			pUI->m_bLbtnDown = false;
 		}
 	}
 }
@@ -52,6 +46,9 @@ CUI* CUIManager::GetTargetUI(CUI* pParentUI)
 	list<CUI*> queue;
 	vector<CUI*> vecNoneTarget;
 	CUI* pTargetUI = nullptr;
+
+	if (nullptr == pParentUI)
+		return nullptr;
 
 	queue.push_back(pParentUI);
 
@@ -90,4 +87,38 @@ CUI* CUIManager::GetTargetUI(CUI* pParentUI)
 	}
 
 	return pTargetUI;
+}
+
+CUI* CUIManager::GetFocusedUI()
+{
+	CScene* pCurScene = CSceneManager::getInst()->GetCurScene();
+	vector<CGameObject*>& vecUI = pCurScene->GetUIGroup();
+	CUI* pFocusedUI = m_pFocusedUI;
+
+	if (!KeyDown(VK_LBUTTON))
+	{
+		return pFocusedUI;
+	}
+
+	vector<CGameObject*>::iterator targetiter = vecUI.end();
+	vector<CGameObject*>::iterator iter = vecUI.begin();
+	for (; iter != vecUI.end(); ++iter)
+	{
+		if (((CUI*)*iter)->IsMouseOn())
+		{
+			targetiter = iter;
+		}
+	}
+
+	if (vecUI.end() == targetiter)
+	{
+		return nullptr;
+	}
+
+	pFocusedUI = (CUI*)*targetiter;
+
+	vecUI.erase(targetiter);
+	vecUI.push_back(pFocusedUI);
+
+	return pFocusedUI;
 }
