@@ -1,6 +1,7 @@
 #include "framework.h"
 #include "CCameraManager.h"
 #include "CGameObject.h"
+#include "CTexture.h"
 
 CCameraManager::CCameraManager()
 {
@@ -42,7 +43,23 @@ void CCameraManager::update()
 
 void CCameraManager::render(HDC hDC)
 {
-	Rectangle(hDC, 0, 0, 100, 100);
+	Rectangle(m_pTex->GetDC(), 0, 0, 500, 500);
+	BLENDFUNCTION bf = {};
+
+	bf.BlendOp = AC_SRC_OVER;
+	bf.BlendFlags = 0;
+	bf.AlphaFormat = 0;
+	bf.SourceConstantAlpha = 127;
+
+	AlphaBlend(hDC
+		, 0, 0
+		, (int)(m_pTex->GetBmpWidth())
+		, (int)(m_pTex->GetBmpHeight())
+		, m_pTex->GetDC()
+		, 0, 0
+		, (int)(m_pTex->GetBmpWidth())
+		, (int)(m_pTex->GetBmpHeight())
+		, bf);
 }
 
 void CCameraManager::SetLookAt(fPoint lookAt)

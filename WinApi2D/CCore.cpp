@@ -55,6 +55,7 @@ void CCore::init()
 {
 	// GDI
 	CreateBrushPen();
+	m_hDC = GetDC(hWnd);
 
 	CPathManager::getInst()->init();
 	CTimeManager::getInst()->init();
@@ -63,8 +64,6 @@ void CCore::init()
 	CSceneManager::getInst()->init();
 	CCollisionManager::getInst()->init();
 	CSoundManager::getInst()->init();
-
-	m_hDC = GetDC(hWnd);
 
 	// 이중 버퍼링 용도의 텍스쳐 한장을 만듦
 	m_pMemTex = CResourceManager::getInst()->CreateTexture(L"BackBuffer", WINSIZEX, WINSIZEY);
