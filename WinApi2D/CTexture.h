@@ -19,5 +19,6 @@ public:
 	int GetBmpHeight();
 
 	void Load(const wstring& strFilePath);
+	void Create(UINT width, UINT height);
 };
 

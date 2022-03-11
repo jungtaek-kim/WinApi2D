@@ -2,6 +2,14 @@
 
 class CGameObject;
 
+enum class CAM_EFFECT
+{
+	FADE_IN,
+	FADE_OUT,
+
+	NONE
+};
+
 class CCameraManager
 {
 	SINGLETON(CCameraManager);
@@ -18,7 +26,7 @@ private:
 	float m_fAccTime;			// 타겟을 따라간 소요시간
 	float m_fSpeed;				// 타겟을 따라가는 속도
 
-	void CalDiff();
+	CAM_EFFECT m_eEffect;
 
 public:
 	void update();
@@ -31,5 +39,8 @@ public:
 	fPoint GetRealPos(fPoint renderPos);
 
 	void Scroll(fVec2 vec, float velocity);
+
+private:
+	void CalDiff();
 };
 

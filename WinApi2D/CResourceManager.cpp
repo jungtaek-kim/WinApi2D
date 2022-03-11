@@ -67,6 +67,23 @@ CTexture* CResourceManager::LoadTextrue(const wstring& strKey, const wstring& st
 	return pTex;
 }
 
+CTexture* CResourceManager::CreateTexture(const wstring& strKey, UINT width, UINT height)
+{
+	CTexture* pTex = FindTexture(strKey);
+	if (nullptr != pTex)
+	{
+		return nullptr;
+	}
+	
+	pTex = new CTexture;
+	pTex->Create(width, height);
+	pTex->SetKey(strKey);
+
+	m_mapTex.insert(make_pair(strKey, pTex));
+
+	return pTex;
+}
+
 CSound* CResourceManager::FindSound(const wstring& strKey)
 {
 	// CSound 키 값을 통해 탐색

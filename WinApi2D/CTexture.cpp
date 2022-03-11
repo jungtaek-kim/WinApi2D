@@ -60,3 +60,15 @@ void CTexture::Load(const wstring& strFilePath)
 	// ºñÆ®¸Ê Á¤º¸
 	GetObject(m_hBMP, sizeof(BITMAP), &m_bmpInfo);
 }
+
+void CTexture::Create(UINT width, UINT height)
+{
+	HDC mainDC = CCore::getInst()->GetMainDC();
+	m_hBMP = CreateCompatibleBitmap(mainDC, width, height);
+	m_hDC = CreateCompatibleDC(mainDC);
+
+	HBITMAP hOldBmp = (HBITMAP)SelectObject(m_hDC, m_hBMP);
+	DeleteObject(hOldBmp);
+
+	GetObject(m_hBMP, sizeof(BITMAP), &m_bmpInfo);
+}
