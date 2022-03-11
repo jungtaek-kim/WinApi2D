@@ -86,6 +86,12 @@ void CScene_Tool::Enter()
 	CPanelUI* pClonePanel = pPanelUI->Clone();
 	pClonePanel->SetPos(pClonePanel->GetPos() + fPoint(-500.f, 0.f));
 	AddObject(pClonePanel, GROUP_GAMEOBJ::UI);
+
+	CButtonUI* pBtnUI = new CButtonUI();
+	pBtnUI->SetScale(fPoint(100.f, 100.f));
+	pBtnUI->SetPos(fPoint(100.f, 100.f));
+	pBtnUI->SetClickedCallBack(ChangeScene, 0, 0);
+	AddObject(pBtnUI, GROUP_GAMEOBJ::UI);
 }
 
 void CScene_Tool::Exit()
