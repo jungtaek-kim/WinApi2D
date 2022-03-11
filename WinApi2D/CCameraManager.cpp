@@ -12,10 +12,7 @@ CCameraManager::CCameraManager()
 	m_fAccTime = m_fTime;
 	m_fSpeed = 0;
 
-	m_eEffect = CAM_EFFECT::NONE;
 	m_pTex = nullptr;
-	m_fEffectDuration = 0.f;
-	m_fCurTime = 0.f;
 }
 
 CCameraManager::~CCameraManager()
@@ -48,27 +45,26 @@ void CCameraManager::update()
 
 void CCameraManager::render(HDC hDC)
 {
-	if (CAM_EFFECT::NONE == m_eEffect)
-		return;
-
-	m_fCurTime += fDT;
-	if (m_fEffectDuration < m_fCurTime)
+	if (m_listCamEffect.empty())
 	{
-		m_eEffect = CAM_EFFECT::NONE;
 		return;
 	}
+
+	tCamEffect& effect = m_listCamEffect.front();
+	effect.fCurTime += fDT;
 
 	float fRatio = 0.f;
+	fRatio = effect.fCurTime / effect.fDuration;
+	if (fRatio < 0.f)
+		fRatio = 0.f;
+	else if (fRatio > 1.f)
+		fRatio = 1.f;
+
 	int iAlpha = 0;
-	fRatio = m_fCurTime / m_fEffectDuration;
-	if (CAM_EFFECT::FADE_OUT == m_eEffect)
-	{
+	if (CAM_EFFECT::FADE_OUT == effect.m_eEffect)
 		iAlpha = (int)(255.f * fRatio);
-	}
-	else if (CAM_EFFECT::FADE_IN == m_eEffect)
-	{
+	else if (CAM_EFFECT::FADE_IN == effect.m_eEffect)
 		iAlpha = (int)(255.f * (1.f - fRatio));
-	}
 
 	BLENDFUNCTION bf = {};
 
@@ -86,6 +82,11 @@ void CCameraManager::render(HDC hDC)
 		, (int)(m_pTex->GetBmpWidth())
 		, (int)(m_pTex->GetBmpHeight())
 		, bf);
+
+	if (effect.fDuration < effect.fCurTime)
+	{
+		m_listCamEffect.pop_front();
+	}
 }
 
 void CCameraManager::SetLookAt(fPoint lookAt)
@@ -120,10 +121,14 @@ fPoint CCameraManager::GetRealPos(fPoint renderPos)
 
 void CCameraManager::FadeIn(float duration)
 {
-	m_eEffect = CAM_EFFECT::FADE_IN;
-	m_fEffectDuration = duration;
+	tCamEffect ef = {};
+	ef.m_eEffect = CAM_EFFECT::FADE_IN;
+	ef.fDuration = duration;
+	ef.fCurTime = 0.f;
 
-	if (0.f == m_fEffectDuration)
+	m_listCamEffect.push_back(ef);
+
+	if (0.f == duration)
 	{
 		assert(nullptr);
 	}
@@ -131,10 +136,14 @@ void CCameraManager::FadeIn(float duration)
 
 void CCameraManager::FadeOut(float duration)
 {
-	m_eEffect = CAM_EFFECT::FADE_OUT;
-	m_fEffectDuration = duration;
+	tCamEffect ef = {};
+	ef.m_eEffect = CAM_EFFECT::FADE_OUT;
+	ef.fDuration = duration;
+	ef.fCurTime = 0.f;
 
-	if (0.f == m_fEffectDuration)
+	m_listCamEffect.push_back(ef);
+
+	if (0.f == duration)
 	{
 		assert(nullptr);
 	}

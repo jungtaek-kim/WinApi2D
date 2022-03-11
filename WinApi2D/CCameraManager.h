@@ -11,6 +11,13 @@ enum class CAM_EFFECT
 	NONE
 };
 
+struct tCamEffect
+{
+	CAM_EFFECT m_eEffect;
+	float fDuration;
+	float fCurTime;
+};
+
 class CCameraManager
 {
 	SINGLETON(CCameraManager);
@@ -27,10 +34,8 @@ private:
 	float m_fAccTime;			// 타겟을 따라간 소요시간
 	float m_fSpeed;				// 타겟을 따라가는 속도
 
-	CAM_EFFECT m_eEffect;
+	list<tCamEffect> m_listCamEffect;
 	CTexture* m_pTex;
-	float m_fEffectDuration;
-	float m_fCurTime;
 
 public:
 	void init();
