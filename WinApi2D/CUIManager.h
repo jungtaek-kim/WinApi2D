@@ -7,15 +7,11 @@ class CUIManager
 	SINGLETON(CUIManager);
 
 private:
-	CUI* m_pFocusedUI;
 
 public:
 	void update();
 
-	void SetFocusedUI(CUI* pUI);
-
 private:
-	CUI* GetFocusedUI();
-	CUI* GetTargetedUI(CUI* pParentUI);
+	CUI* GetTargetUI(CUI* pParentUI);
 };
 
