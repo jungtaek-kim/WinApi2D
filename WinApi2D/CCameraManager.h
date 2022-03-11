@@ -1,6 +1,7 @@
 #pragma once
 
 class CGameObject;
+class CTexture;
 
 enum class CAM_EFFECT
 {
@@ -27,9 +28,12 @@ private:
 	float m_fSpeed;				// 타겟을 따라가는 속도
 
 	CAM_EFFECT m_eEffect;
+	CTexture* m_pTex;
 
 public:
+	void init();
 	void update();
+	void render(HDC hDC);
 
 	void SetLookAt(fPoint lookAt);
 	void SetTargetObj(CGameObject* target);

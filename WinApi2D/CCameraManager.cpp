@@ -17,6 +17,11 @@ CCameraManager::~CCameraManager()
 
 }
 
+void CCameraManager::init()
+{
+	m_pTex = CResourceManager::getInst()->CreateTexture(L"CameraTex", WINSIZEX, WINSIZEY);
+}
+
 void CCameraManager::update()
 {
 	if (m_pTargetObj)
@@ -33,6 +38,11 @@ void CCameraManager::update()
 
 	// 화면 중앙과 카메라 LookAt 좌표 사이의 차이 계산
 	CalDiff();
+}
+
+void CCameraManager::render(HDC hDC)
+{
+	Rectangle(hDC, 0, 0, 100, 100);
 }
 
 void CCameraManager::SetLookAt(fPoint lookAt)
