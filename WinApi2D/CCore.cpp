@@ -1,13 +1,12 @@
 #include "framework.h"
 #include "CCore.h"
 #include "CGameObject.h"
+#include "CTexture.h"
 
 CCore::CCore()
 {
 	// 게임 화면을 그리기 위한 DC 핸들값 초기화
 	m_hDC = 0;
-	m_hMemDC = 0;
-	m_hBMP = 0;
 	m_arrPen[0] = 0;
 	m_arrBrush[0] = 0;
 }
@@ -16,8 +15,6 @@ CCore::~CCore()
 {
 	// 게임 코어 종료 시점에 DC 핸들값 반납
 	ReleaseDC(hWnd, m_hDC);
-	DeleteObject(m_hMemDC);
-	DeleteObject(m_hBMP);
 
 	for (int i = 0; i < (int)TYPE_PEN::SIZE; i++)
 	{
@@ -41,16 +38,16 @@ void CCore::update()
 
 void CCore::render()
 {
-	Rectangle(m_hMemDC, -1, -1, WINSIZEX + 1, WINSIZEY + 1);
+	Rectangle(m_pMemTex->GetDC(), -1, -1, WINSIZEX + 1, WINSIZEY + 1);
 
-	CSceneManager::getInst()->render(m_hMemDC);
+	CSceneManager::getInst()->render(m_pMemTex->GetDC());
 
 	// 오른쪽 상단에 FPS 표시
 	WCHAR strFPS[6];
 	swprintf_s(strFPS, L"%5d", CTimeManager::getInst()->GetFPS());
-	TextOutW(m_hMemDC, WINSIZEX - 50, 10, strFPS, 5);
+	TextOutW(m_pMemTex->GetDC(), WINSIZEX - 50, 10, strFPS, 5);
 
-	BitBlt(m_hDC, 0, 0, WINSIZEX, WINSIZEY, m_hMemDC, 0, 0, SRCCOPY);
+	BitBlt(m_hDC, 0, 0, WINSIZEX, WINSIZEY, m_pMemTex->GetDC(), 0, 0, SRCCOPY);
 }
 
 void CCore::init()
@@ -67,12 +64,8 @@ void CCore::init()
 
 	m_hDC = GetDC(hWnd);
 
-	// 더블 버퍼링의 메모리 DC와 비트맵 생성
-	m_hMemDC = CreateCompatibleDC(m_hDC);
-	m_hBMP = CreateCompatibleBitmap(m_hDC, WINSIZEX, WINSIZEY);
-
-	HBITMAP hOldBitmap = (HBITMAP)SelectObject(m_hMemDC, m_hBMP);
-	DeleteObject(hOldBitmap);
+	// 이중 버퍼링 용도의 텍스쳐 한장을 만듦
+	m_pMemTex = CResourceManager::getInst()->CreateTexture(L"BackBuffer", WINSIZEX, WINSIZEY);
 }
 
 HDC CCore::GetMainDC()
