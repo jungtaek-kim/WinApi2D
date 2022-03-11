@@ -51,20 +51,24 @@ void CCameraManager::render(HDC hDC)
 	if (CAM_EFFECT::NONE == m_eEffect)
 		return;
 
-	float fRatio = 0.f;
+	m_fCurTime += fDT;
+	if (m_fEffectDuration < m_fCurTime)
+	{
+		m_eEffect = CAM_EFFECT::NONE;
+		return;
+	}
 
+	float fRatio = 0.f;
+	int iAlpha = 0;
+	fRatio = m_fCurTime / m_fEffectDuration;
 	if (CAM_EFFECT::FADE_OUT == m_eEffect)
 	{
-		m_fCurTime += fDT;
-
-		if (m_fEffectDuration < m_fCurTime)
-		{
-			m_eEffect = CAM_EFFECT::NONE;
-			return;
-		}
-		fRatio = m_fCurTime / m_fEffectDuration;
+		iAlpha = (int)(255.f * fRatio);
 	}
-	int iAlpha = (int)(255.f * fRatio);
+	else if (CAM_EFFECT::FADE_IN == m_eEffect)
+	{
+		iAlpha = (int)(255.f * (1.f - fRatio));
+	}
 
 	BLENDFUNCTION bf = {};
 
