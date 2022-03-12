@@ -110,13 +110,13 @@ void CGameObject::render(HDC hDC)
 
 void CGameObject::component_render(HDC hDC)
 {
-	if (nullptr != m_pCollider)
-	{
-		m_pCollider->render(hDC);
-	}
 	if (nullptr != m_pAnimator)
 	{
 		m_pAnimator->render(hDC);
+	}
+	if (nullptr != m_pCollider)
+	{
+		m_pCollider->render(hDC);
 	}
 }
 

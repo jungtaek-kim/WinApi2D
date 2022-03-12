@@ -2,10 +2,17 @@
 #include "CResourceManager.h"
 #include "CTexture.h"
 #include "CSound.h"
+#include "CD2DImage.h"
 
 CResourceManager::CResourceManager()
 {
-	m_mapTex = {};
+	m_pBGM = nullptr;
+
+	m_pFactory = nullptr;
+	m_pRenderTarget = nullptr;
+	m_pWriteFactory = nullptr;
+	m_pImageFactory = nullptr;
+	m_pBitmap = nullptr;
 }
 
 CResourceManager::~CResourceManager()
@@ -28,6 +35,51 @@ CResourceManager::~CResourceManager()
 		}
 	}
 	m_mapSound.clear();
+
+	if (nullptr != m_pRenderTarget)
+	{
+		m_pRenderTarget->Release();
+	}
+	// 자료구조에 저장된 모든 D2DImage 삭제
+	for (map<wstring, CD2DImage*>::iterator iter = m_mapD2DImg.begin(); iter != m_mapD2DImg.end(); iter++)
+	{
+		if (nullptr != iter->second)
+		{
+			delete iter->second;
+		}
+	}
+	m_mapD2DImg.clear();
+}
+
+void CResourceManager::init()
+{
+	RECT rc;
+	GetClientRect(hWnd, &rc);
+
+	// D2D1Factory 생성
+	D2D1CreateFactory(D2D1_FACTORY_TYPE_SINGLE_THREADED, &m_pFactory);
+
+	// 지정한 윈도우의 클라이언트 영역에 그림을 그리기 위한 Render Target을 생성
+	m_pFactory->CreateHwndRenderTarget(RenderTargetProperties(),
+		HwndRenderTargetProperties(hWnd, SizeU(rc.right, rc.bottom)),
+		&m_pRenderTarget);
+
+	// WICImagingFactory 생성
+	if (S_OK == CoInitialize(nullptr))
+	{
+
+	}
+	if (S_OK == CoCreateInstance(CLSID_WICImagingFactory, nullptr,
+		CLSCTX_INPROC_SERVER, IID_PPV_ARGS(&m_pImageFactory)))
+	{
+
+	}
+	if (S_OK == DWriteCreateFactory(DWRITE_FACTORY_TYPE_SHARED,
+		__uuidof(m_pWriteFactory),
+		reinterpret_cast<IUnknown**>(&m_pWriteFactory)))
+	{
+
+	}
 }
 
 CTexture* CResourceManager::FindTexture(const wstring& strKey)
@@ -72,7 +124,7 @@ CTexture* CResourceManager::CreateTexture(const wstring& strKey, UINT width, UIN
 	CTexture* pTex = FindTexture(strKey);
 	if (nullptr != pTex)
 	{
-		return nullptr;
+		return pTex;
 	}
 	
 	pTex = new CTexture;
@@ -140,4 +192,88 @@ CSound* CResourceManager::LoadBGM(const wstring& strKey, const wstring& strRelat
 	m_pBGM = pBGM;
 
 	return pBGM;
+}
+
+CD2DImage* CResourceManager::FindD2DImage(const wstring& strKey)
+{
+	// CD2DImage 키 값을 통해 탐색
+	map<wstring, CD2DImage*>::iterator iter = m_mapD2DImg.find(strKey);
+
+	if (m_mapD2DImg.end() == iter)
+	{
+		return nullptr;
+	}
+
+	return iter->second;
+}
+
+CD2DImage* CResourceManager::LoadD2DImage(const wstring& strKey, const wstring& strRelativePath)
+{
+	CD2DImage* pD2DImg = FindD2DImage(strKey);
+	if (nullptr != pD2DImg)
+		return pD2DImg;
+
+	wstring strFilePath = CPathManager::getInst()->GetRelativeContentPath();
+	strFilePath += strRelativePath;
+
+	CD2DImage* img = new CD2DImage;
+
+	IWICBitmapDecoder* p_decoder;		// 압축된 이미지를 해제할 객체
+	IWICBitmapFrameDecode* p_frame;		// 특정 그림을 선택한 객체
+	IWICFormatConverter* p_converter;	// 이미지 변환 객체
+
+	// WIC용 Factory 객체를 사용하여 이미지 압축 해제를 위한 객체를 생성
+	if (S_OK != m_pImageFactory->CreateDecoderFromFilename(strFilePath.c_str(), NULL, GENERIC_READ, WICDecodeMetadataCacheOnDemand, &p_decoder))
+	{
+		assert(nullptr);
+	}
+	// 파일을 구성하는 이미지 중에서 첫번째 이미지를 선택한다.
+	if (S_OK != p_decoder->GetFrame(0, &p_frame))
+	{
+		assert(nullptr);
+	}
+	// IWICBitmap형식의 비트맵을 ID2D1Bitmap. 형식으로 변환하기 위한 객체 생성
+	if (S_OK != m_pImageFactory->CreateFormatConverter(&p_converter))
+	{
+		assert(nullptr);
+	}
+	// 선택된 그림을 어떤 형식의 비트맵으로 변환할 것인지 설정
+	if (S_OK != p_converter->Initialize(p_frame, GUID_WICPixelFormat32bppPBGRA, WICBitmapDitherTypeNone, NULL, 0.0f, WICBitmapPaletteTypeCustom))
+	{
+		assert(nullptr);
+	}
+	// IWICBitmap 형식의 비트맵으로 ID2D1Bitmap 객체를 생성
+	if (S_OK != m_pRenderTarget->CreateBitmapFromWicBitmap(p_converter, NULL, &m_pBitmap))
+	{
+		assert(nullptr);
+	}
+
+	// 성공적으로 생성한 경우
+	img->SetImage(m_pBitmap);
+	img->SetKey(strKey);
+	img->SetRelativePath(strRelativePath);
+	m_mapD2DImg.insert(make_pair(strFilePath.c_str(), img));
+
+	int a = m_pBitmap->GetSize().width;
+	
+	p_converter->Release();		// 이미지 변환 객체 제거
+	p_frame->Release();			// 그림파일에 있는 이미지를 선택하기 위해 사용한 객체 제거
+	p_decoder->Release();		// 압축을 해제하기 위해 생성한 객체 제거
+
+	return img;
+}
+
+ID2D1HwndRenderTarget* CResourceManager::GetRenderTarget()
+{
+	return m_pRenderTarget;
+}
+
+IWICImagingFactory* CResourceManager::GetImageFactory()
+{
+	return m_pImageFactory;
+}
+
+IDWriteFactory* CResourceManager::GetWriteFactory()
+{
+	return m_pWriteFactory;
 }

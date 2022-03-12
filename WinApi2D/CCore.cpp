@@ -7,6 +7,7 @@ CCore::CCore()
 {
 	// 게임 화면을 그리기 위한 DC 핸들값 초기화
 	m_hDC = 0;
+	m_pMemTex = nullptr;
 	m_arrPen[0] = 0;
 	m_arrBrush[0] = 0;
 }
@@ -29,26 +30,31 @@ void CCore::update()
 
 	CTimeManager::getInst()->update();
 	CKeyManager::getInst()->update();
+	CSoundManager::getInst()->update();
+
 	CSceneManager::getInst()->update();
 	CCollisionManager::getInst()->update();
 	CCameraManager::getInst()->update();
 	CUIManager::getInst()->update();
-	CSoundManager::getInst()->update();
 }
 
 void CCore::render()
 {
 	Rectangle(m_pMemTex->GetDC(), -1, -1, WINSIZEX + 1, WINSIZEY + 1);
 
+	CResourceManager::getInst()->GetRenderTarget()->BeginDraw();
+
 	CSceneManager::getInst()->render(m_pMemTex->GetDC());
-	CCameraManager::getInst()->render(m_pMemTex->GetDC());
+	//CCameraManager::getInst()->render(m_pMemTex->GetDC());
+
+	CResourceManager::getInst()->GetRenderTarget()->EndDraw();
 
 	// 오른쪽 상단에 FPS 표시
 	WCHAR strFPS[6];
 	swprintf_s(strFPS, L"%5d", CTimeManager::getInst()->GetFPS());
 	TextOutW(m_pMemTex->GetDC(), WINSIZEX - 50, 10, strFPS, 5);
 
-	BitBlt(m_hDC, 0, 0, WINSIZEX, WINSIZEY, m_pMemTex->GetDC(), 0, 0, SRCCOPY);
+	//BitBlt(m_hDC, 0, 0, WINSIZEX, WINSIZEY, m_pMemTex->GetDC(), 0, 0, SRCCOPY);
 }
 
 void CCore::init()
@@ -60,10 +66,12 @@ void CCore::init()
 	CPathManager::getInst()->init();
 	CTimeManager::getInst()->init();
 	CKeyManager::getInst()->init();
+	CSoundManager::getInst()->init();
+	CResourceManager::getInst()->init();
+
 	CCameraManager::getInst()->init();
 	CSceneManager::getInst()->init();
 	CCollisionManager::getInst()->init();
-	CSoundManager::getInst()->init();
 
 	// 이중 버퍼링 용도의 텍스쳐 한장을 만듦
 	m_pMemTex = CResourceManager::getInst()->CreateTexture(L"BackBuffer", WINSIZEX, WINSIZEY);
