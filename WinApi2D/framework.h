@@ -104,6 +104,7 @@ enum class TYPE_EVENT
 #include "CCameraManager.h"
 #include "CUIManager.h"
 #include "CSoundManager.h"
+#include "CRenderManager.h"
 
 //========================================
 //##			디파인문				##

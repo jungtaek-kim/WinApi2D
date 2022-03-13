@@ -40,21 +40,19 @@ void CCore::update()
 
 void CCore::render()
 {
-	Rectangle(m_pMemTex->GetDC(), -1, -1, WINSIZEX + 1, WINSIZEY + 1);
+	CRenderManager::getInst()->GetRenderTarget()->BeginDraw();
 
-	CResourceManager::getInst()->GetRenderTarget()->BeginDraw();
+	CRenderManager::getInst()->RenderFillRectangle(-1, -1, WINSIZEX + 1, WINSIZEY + 1, RGB(255, 255, 255));
 
 	CSceneManager::getInst()->render(m_pMemTex->GetDC());
 	//CCameraManager::getInst()->render(m_pMemTex->GetDC());
 
-	CResourceManager::getInst()->GetRenderTarget()->EndDraw();
-
 	// 오른쪽 상단에 FPS 표시
 	WCHAR strFPS[6];
 	swprintf_s(strFPS, L"%5d", CTimeManager::getInst()->GetFPS());
-	TextOutW(m_pMemTex->GetDC(), WINSIZEX - 50, 10, strFPS, 5);
+	CRenderManager::getInst()->RenderText(strFPS, WINSIZEX - 50, 10, WINSIZEX, 50, 12, RGB(0, 0, 0));
 
-	//BitBlt(m_hDC, 0, 0, WINSIZEX, WINSIZEY, m_pMemTex->GetDC(), 0, 0, SRCCOPY);
+	CRenderManager::getInst()->GetRenderTarget()->EndDraw();
 }
 
 void CCore::init()
@@ -67,7 +65,7 @@ void CCore::init()
 	CTimeManager::getInst()->init();
 	CKeyManager::getInst()->init();
 	CSoundManager::getInst()->init();
-	CResourceManager::getInst()->init();
+	CRenderManager::getInst()->init();
 
 	CCameraManager::getInst()->init();
 	CSceneManager::getInst()->init();

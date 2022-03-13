@@ -57,6 +57,8 @@ void CScene_Start::Enter()
 	//AddObject(pMonster, GROUP_GAMEOBJ::MONSTER);
 
 	Map_Start* map = new Map_Start;
+	map->SetPos(fPoint(100, 100));
+	map->SetScale(fPoint(100, 100));
 	AddObject(map, GROUP_GAMEOBJ::MONSTER);
 
 	CCollisionManager::getInst()->CheckGroup(GROUP_GAMEOBJ::PLAYER, GROUP_GAMEOBJ::MONSTER);

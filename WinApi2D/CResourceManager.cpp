@@ -7,12 +7,6 @@
 CResourceManager::CResourceManager()
 {
 	m_pBGM = nullptr;
-
-	m_pFactory = nullptr;
-	m_pRenderTarget = nullptr;
-	m_pWriteFactory = nullptr;
-	m_pImageFactory = nullptr;
-	m_pBitmap = nullptr;
 }
 
 CResourceManager::~CResourceManager()
@@ -36,10 +30,6 @@ CResourceManager::~CResourceManager()
 	}
 	m_mapSound.clear();
 
-	if (nullptr != m_pRenderTarget)
-	{
-		m_pRenderTarget->Release();
-	}
 	// 자료구조에 저장된 모든 D2DImage 삭제
 	for (map<wstring, CD2DImage*>::iterator iter = m_mapD2DImg.begin(); iter != m_mapD2DImg.end(); iter++)
 	{
@@ -49,37 +39,6 @@ CResourceManager::~CResourceManager()
 		}
 	}
 	m_mapD2DImg.clear();
-}
-
-void CResourceManager::init()
-{
-	RECT rc;
-	GetClientRect(hWnd, &rc);
-
-	// D2D1Factory 생성
-	D2D1CreateFactory(D2D1_FACTORY_TYPE_SINGLE_THREADED, &m_pFactory);
-
-	// 지정한 윈도우의 클라이언트 영역에 그림을 그리기 위한 Render Target을 생성
-	m_pFactory->CreateHwndRenderTarget(RenderTargetProperties(),
-		HwndRenderTargetProperties(hWnd, SizeU(rc.right, rc.bottom)),
-		&m_pRenderTarget);
-
-	// WICImagingFactory 생성
-	if (S_OK == CoInitialize(nullptr))
-	{
-
-	}
-	if (S_OK == CoCreateInstance(CLSID_WICImagingFactory, nullptr,
-		CLSCTX_INPROC_SERVER, IID_PPV_ARGS(&m_pImageFactory)))
-	{
-
-	}
-	if (S_OK == DWriteCreateFactory(DWRITE_FACTORY_TYPE_SHARED,
-		__uuidof(m_pWriteFactory),
-		reinterpret_cast<IUnknown**>(&m_pWriteFactory)))
-	{
-
-	}
 }
 
 CTexture* CResourceManager::FindTexture(const wstring& strKey)
@@ -223,7 +182,7 @@ CD2DImage* CResourceManager::LoadD2DImage(const wstring& strKey, const wstring& 
 	IWICFormatConverter* p_converter;	// 이미지 변환 객체
 
 	// WIC용 Factory 객체를 사용하여 이미지 압축 해제를 위한 객체를 생성
-	if (S_OK != m_pImageFactory->CreateDecoderFromFilename(strFilePath.c_str(), NULL, GENERIC_READ, WICDecodeMetadataCacheOnDemand, &p_decoder))
+	if (S_OK != CRenderManager::getInst()->GetImageFactory()->CreateDecoderFromFilename(strFilePath.c_str(), NULL, GENERIC_READ, WICDecodeMetadataCacheOnDemand, &p_decoder))
 	{
 		assert(nullptr);
 	}
@@ -233,7 +192,7 @@ CD2DImage* CResourceManager::LoadD2DImage(const wstring& strKey, const wstring& 
 		assert(nullptr);
 	}
 	// IWICBitmap형식의 비트맵을 ID2D1Bitmap. 형식으로 변환하기 위한 객체 생성
-	if (S_OK != m_pImageFactory->CreateFormatConverter(&p_converter))
+	if (S_OK != CRenderManager::getInst()->GetImageFactory()->CreateFormatConverter(&p_converter))
 	{
 		assert(nullptr);
 	}
@@ -243,18 +202,17 @@ CD2DImage* CResourceManager::LoadD2DImage(const wstring& strKey, const wstring& 
 		assert(nullptr);
 	}
 	// IWICBitmap 형식의 비트맵으로 ID2D1Bitmap 객체를 생성
-	if (S_OK != m_pRenderTarget->CreateBitmapFromWicBitmap(p_converter, NULL, &m_pBitmap))
+	ID2D1Bitmap* bitmap = CRenderManager::getInst()->GetBitmap();
+	if (S_OK != CRenderManager::getInst()->GetRenderTarget()->CreateBitmapFromWicBitmap(p_converter, NULL, &bitmap))
 	{
 		assert(nullptr);
 	}
 
 	// 성공적으로 생성한 경우
-	img->SetImage(m_pBitmap);
+	img->SetImage(bitmap);
 	img->SetKey(strKey);
 	img->SetRelativePath(strRelativePath);
 	m_mapD2DImg.insert(make_pair(strFilePath.c_str(), img));
-
-	int a = m_pBitmap->GetSize().width;
 	
 	p_converter->Release();		// 이미지 변환 객체 제거
 	p_frame->Release();			// 그림파일에 있는 이미지를 선택하기 위해 사용한 객체 제거
@@ -263,17 +221,3 @@ CD2DImage* CResourceManager::LoadD2DImage(const wstring& strKey, const wstring& 
 	return img;
 }
 
-ID2D1HwndRenderTarget* CResourceManager::GetRenderTarget()
-{
-	return m_pRenderTarget;
-}
-
-IWICImagingFactory* CResourceManager::GetImageFactory()
-{
-	return m_pImageFactory;
-}
-
-IDWriteFactory* CResourceManager::GetWriteFactory()
-{
-	return m_pWriteFactory;
-}

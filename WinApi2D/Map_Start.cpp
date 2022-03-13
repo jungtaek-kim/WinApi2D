@@ -19,9 +19,40 @@ Map_Start* Map_Start::Clone()
 
 void Map_Start::update()
 {
+    fPoint pos = GetPos();
+
+    if (Key(VK_LEFT))
+    {
+        pos.x -= 100 * fDT;
+    }
+
+    if (Key(VK_RIGHT))
+    {
+        pos.x += 100 * fDT;
+    }
+
+    if (Key(VK_DOWN))
+    {
+        pos.y += 100 * fDT;
+    }
+
+    if (Key(VK_UP))
+    {
+        pos.y -= 100 * fDT;
+    }
+
+    SetPos(pos);
 }
 
 void Map_Start::render(HDC hDC)
 {
-    pimg->render();
+    fPoint pos = GetPos();
+    fPoint scale = GetScale();
+
+    pimg->render(
+        pos.x - scale.x / 2.f,
+        pos.y - scale.y / 2.f,
+        pos.x + scale.x / 2.f,
+        pos.y + scale.y / 2.f
+    );
 }

@@ -13,7 +13,12 @@ public:
 	~CD2DImage();
 
 	void render();
-	void render(RECT rect);
+	void render(float dstX, float dstY, float dstW, float dstH);
+
+	void renderFrame(float dstX, float dstY, float dstW, float dstH, float srcX, float srcY, float srcW, float srcH);
+	void renderReverseFrame(float dstX, float dstY, float dstW, float dstH, float srcX, float srcY, float srcW, float srcH);
+
+	void renderRectangle(D2D1::ColorF color, float dstX, float dstY, float dstW, float dstH);
 
 	void SetImage(ID2D1Bitmap* bitmap);
 

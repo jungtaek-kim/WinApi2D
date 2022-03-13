@@ -1,15 +1,7 @@
 #pragma once
-#include <d2d1.h>
-#include <dwrite.h>
-#include <wincodec.h>
-#pragma comment(lib, "D2D1.lib")
-#pragma comment(lib, "Dwrite.lib")
-
 class CTexture;
 class CSound;
 class CD2DImage;
-
-using namespace D2D1;
 
 class CResourceManager
 {
@@ -22,15 +14,7 @@ private:
 
 	map<wstring, CD2DImage*> m_mapD2DImg;	// D2D Image 리소스의 저장 자료구조
 
-	ID2D1Factory*			m_pFactory;
-	ID2D1HwndRenderTarget*	m_pRenderTarget;
-	IDWriteFactory*			m_pWriteFactory;
-	IWICImagingFactory*		m_pImageFactory;
-	ID2D1Bitmap*			m_pBitmap;
-
 public:
-	void init();
-
 	CTexture* FindTexture(const wstring& strKey);	// 저장된 Texture 탐색
 	CTexture* LoadTextrue(const wstring& strKey, const wstring& strRelativePath);	// Texture 불러오기 이미 있는 경우 있던 Texture 반환
 	CTexture* CreateTexture(const wstring& strKey, UINT width, UINT height);
@@ -42,10 +26,5 @@ public:
 
 	CD2DImage* FindD2DImage(const wstring& strKey);
 	CD2DImage* LoadD2DImage(const wstring& strKey, const wstring& strRelativePath);	// D2DImage 불러오기 이미 있는 경우 있던 D2DImage 반환
-
-	ID2D1HwndRenderTarget*	GetRenderTarget();
-	IWICImagingFactory*		GetImageFactory();
-	IDWriteFactory*			GetWriteFactory();
-
 };
 
