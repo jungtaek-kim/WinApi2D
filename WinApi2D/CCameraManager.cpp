@@ -12,7 +12,7 @@ CCameraManager::CCameraManager()
 	m_fAccTime = m_fTime;
 	m_fSpeed = 0;
 
-	m_pTex = nullptr;
+	m_pImg = nullptr;
 }
 
 CCameraManager::~CCameraManager()
@@ -22,7 +22,7 @@ CCameraManager::~CCameraManager()
 
 void CCameraManager::init()
 {
-	m_pTex = CResourceManager::getInst()->CreateTexture(L"CameraTex", WINSIZEX, WINSIZEY);
+	m_pImg = CResourceManager::getInst()->CreateTexture(L"CameraTex", WINSIZEX, WINSIZEY);
 }
 
 void CCameraManager::update()
@@ -75,12 +75,12 @@ void CCameraManager::render(HDC hDC)
 
 	AlphaBlend(hDC
 		, 0, 0
-		, (int)(m_pTex->GetBmpWidth())
-		, (int)(m_pTex->GetBmpHeight())
-		, m_pTex->GetDC()
+		, (int)(m_pImg->GetBmpWidth())
+		, (int)(m_pImg->GetBmpHeight())
+		, m_pImg->GetDC()
 		, 0, 0
-		, (int)(m_pTex->GetBmpWidth())
-		, (int)(m_pTex->GetBmpHeight())
+		, (int)(m_pImg->GetBmpWidth())
+		, (int)(m_pImg->GetBmpHeight())
 		, bf);
 
 	if (effect.fDuration < effect.fCurTime)

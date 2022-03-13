@@ -44,12 +44,13 @@ void Map_Start::update()
     SetPos(pos);
 }
 
-void Map_Start::render(HDC hDC)
+void Map_Start::render()
 {
     fPoint pos = GetPos();
     fPoint scale = GetScale();
 
-    pimg->render(
+    CRenderManager::getInst()->RenderImage(
+        pimg,
         pos.x - scale.x / 2.f,
         pos.y - scale.y / 2.f,
         pos.x + scale.x / 2.f,

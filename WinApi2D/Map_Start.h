@@ -13,6 +13,6 @@ public:
 
 	virtual Map_Start* Clone();
 	virtual void update();
-	virtual void render(HDC hDC);
+	virtual void render();
 };
 

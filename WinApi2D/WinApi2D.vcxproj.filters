@@ -126,9 +126,6 @@
     <ClInclude Include="CCollider.h">
       <Filter>Engine\Component\Collider</Filter>
     </ClInclude>
-    <ClInclude Include="SelectGDI.h">
-      <Filter>Util</Filter>
-    </ClInclude>
     <ClInclude Include="CCollisionManager.h">
       <Filter>Engine\Manager</Filter>
     </ClInclude>

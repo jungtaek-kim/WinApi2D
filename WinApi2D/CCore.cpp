@@ -7,20 +7,11 @@ CCore::CCore()
 {
 	// 게임 화면을 그리기 위한 DC 핸들값 초기화
 	m_hDC = 0;
-	m_pMemTex = nullptr;
-	m_arrPen[0] = 0;
-	m_arrBrush[0] = 0;
 }
 
 CCore::~CCore()
 {
-	// 게임 코어 종료 시점에 DC 핸들값 반납
-	ReleaseDC(hWnd, m_hDC);
 
-	for (int i = 0; i < (int)TYPE_PEN::SIZE; i++)
-	{
-		DeleteObject(m_arrPen[i]);
-	}
 }
 
 void CCore::update()
@@ -44,7 +35,7 @@ void CCore::render()
 
 	CRenderManager::getInst()->RenderFillRectangle(-1, -1, WINSIZEX + 1, WINSIZEY + 1, RGB(255, 255, 255));
 
-	CSceneManager::getInst()->render(m_pMemTex->GetDC());
+	CSceneManager::getInst()->render();
 	//CCameraManager::getInst()->render(m_pMemTex->GetDC());
 
 	// 오른쪽 상단에 FPS 표시
@@ -57,8 +48,6 @@ void CCore::render()
 
 void CCore::init()
 {
-	// GDI
-	CreateBrushPen();
 	m_hDC = GetDC(hWnd);
 
 	CPathManager::getInst()->init();
@@ -70,33 +59,9 @@ void CCore::init()
 	CCameraManager::getInst()->init();
 	CSceneManager::getInst()->init();
 	CCollisionManager::getInst()->init();
-
-	// 이중 버퍼링 용도의 텍스쳐 한장을 만듦
-	m_pMemTex = CResourceManager::getInst()->CreateTexture(L"BackBuffer", WINSIZEX, WINSIZEY);
 }
 
 HDC CCore::GetMainDC()
 {
 	return m_hDC;
-}
-
-void CCore::CreateBrushPen()
-{
-	// brush
-	m_arrBrush[(int)TYPE_BRUSH::HOLLOW] = (HBRUSH)GetStockObject(HOLLOW_BRUSH);
-
-	// pen
-	m_arrPen[(int)TYPE_PEN::RED] = CreatePen(PS_SOLID, 1, RGB(255, 0, 0));
-	m_arrPen[(int)TYPE_PEN::GREEN] = CreatePen(PS_SOLID, 1, RGB(0, 255, 0));
-	m_arrPen[(int)TYPE_PEN::BLUE] = CreatePen(PS_SOLID, 1, RGB(0, 0, 255));
-}
-
-HBRUSH CCore::GetBrush(TYPE_BRUSH type)
-{
-	return m_arrBrush[(int)type];
-}
-
-HPEN CCore::GetPen(TYPE_PEN type)
-{
-	return m_arrPen[(int)type];
 }
