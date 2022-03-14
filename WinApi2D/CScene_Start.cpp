@@ -57,15 +57,14 @@ void CScene_Start::Enter()
 	AddObject(pMonster, GROUP_GAMEOBJ::MONSTER);
 
 	Map_Start* map = new Map_Start;
-	map->SetPos(fPoint(100, 100));
-	map->SetScale(fPoint(100, 100));
-	AddObject(map, GROUP_GAMEOBJ::MONSTER);
+	AddObject(map, GROUP_GAMEOBJ::MAP);
 
 	CCollisionManager::getInst()->CheckGroup(GROUP_GAMEOBJ::PLAYER, GROUP_GAMEOBJ::MONSTER);
 	CCollisionManager::getInst()->CheckGroup(GROUP_GAMEOBJ::MISSILE_PLAYER, GROUP_GAMEOBJ::MONSTER);
 
 	// Camera Look ÁöÁ¤
 	CCameraManager::getInst()->SetLookAt(fPoint(WINSIZEX / 2.f, WINSIZEY / 2.f));
+	CCameraManager::getInst()->SetTargetObj(pPlayer);
 }
 
 void CScene_Start::Exit()
