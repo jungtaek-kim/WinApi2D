@@ -8,7 +8,11 @@ class CTile : public CGameObject
 
 private:
 	CD2DImage* m_pImg;
+	int m_iX;
+	int m_iY;
 	int m_iIdx;			// 텍스쳐 인덱스
+
+	GROUP_TILE m_group;
 
 public:
 	const static int SIZE_TILE = 32;

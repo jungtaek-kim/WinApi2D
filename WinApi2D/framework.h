@@ -40,8 +40,8 @@ enum class GROUP_GAMEOBJ
 {
 	DEFAULT,
 	BACKGROUND,
-	TILE,
 	MAP,
+	TILE,
 	PLAYER,
 	MONSTER,
 	MISSILE_PLAYER,
@@ -57,6 +57,15 @@ enum class GROUP_SCENE
 	START,
 	STAGE_01,
 	STAGE_02,
+
+	SIZE,
+};
+
+enum class GROUP_TILE
+{
+	NONE,
+	GROUND,
+	WALL,
 
 	SIZE,
 };
