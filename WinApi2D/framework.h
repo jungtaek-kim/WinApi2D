@@ -39,6 +39,7 @@ using namespace std;
 enum class GROUP_GAMEOBJ
 {
 	DEFAULT,
+	BACKGROUND,
 	TILE,
 	MAP,
 	PLAYER,
