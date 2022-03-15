@@ -92,6 +92,8 @@ void CScene_Tool::Enter()
 	pBtnUI->SetPos(fPoint(100.f, 100.f));
 	pBtnUI->SetClickedCallBack(ChangeScene, 0, 0);
 	AddObject(pBtnUI, GROUP_GAMEOBJ::UI);
+
+	CCameraManager::getInst()->SetLookAt(fPoint(WINSIZEX / 2.f, WINSIZEY / 2.f));
 }
 
 void CScene_Tool::Exit()
