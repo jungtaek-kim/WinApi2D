@@ -1,8 +1,13 @@
 #pragma once
 #include "CScene.h"
+
+class CD2DImage;
+
 class CScene_Tool : public CScene
 {
 private:
+	CD2DImage* m_pMap;
+
 	HWND m_hWnd;
 	UINT m_iIdx;
 	float m_velocity;

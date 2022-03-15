@@ -27,7 +27,7 @@ void CTile::update()
 
 void CTile::render()
 {
-	if (nullptr == m_pImg || 0 == m_iIdx)
+	if (nullptr == m_pImg)
 	{
 		return;
 	}
@@ -44,17 +44,20 @@ void CTile::render()
 	fPoint fptRenderPos = CCameraManager::getInst()->GetRenderPos(GetPos());
 	fPoint fptScale = GetScale();
 
-	CRenderManager::getInst()->RenderFrame(
-		m_pImg,
-		fptRenderPos.x,
-		fptRenderPos.y,
-		fptRenderPos.x + fptScale.x,
-		fptRenderPos.y + fptScale.y,
-		iCurCol * fptScale.x,
-		iCurRow * fptScale.y,
-		(iCurCol + 1) * fptScale.x,
-		(iCurRow + 1) * fptScale.y
-	);
+	if (0 != m_iIdx)
+	{
+		CRenderManager::getInst()->RenderFrame(
+			m_pImg,
+			fptRenderPos.x,
+			fptRenderPos.y,
+			fptRenderPos.x + fptScale.x,
+			fptRenderPos.y + fptScale.y,
+			iCurCol * fptScale.x,
+			iCurRow * fptScale.y,
+			(iCurCol + 1) * fptScale.x,
+			(iCurRow + 1) * fptScale.y
+		);
+	}
 
 	component_render();
 }

@@ -180,7 +180,7 @@ void CScene_Tool::SaveTile(const wstring& strPath)
 	for (UINT i = 0; i < vecTile.size(); i++)
 	{
 		CTile* pTile = (CTile*)vecTile[i];
-		if (0 != pTile->GetIdx())
+		if (0 != pTile->GetIdx() || GROUP_TILE::NONE != pTile->GetGroup())
 			tileCount++;
 	}
 
@@ -191,7 +191,7 @@ void CScene_Tool::SaveTile(const wstring& strPath)
 	for (UINT i = 0; i < vecTile.size(); i++)
 	{
 		CTile* pTile = (CTile*)vecTile[i];
-		if (0 != pTile->GetIdx())
+		if (0 != pTile->GetIdx() || GROUP_TILE::NONE != pTile->GetGroup())
 			((CTile*)vecTile[i])->Save(pFile);
 	}
 
