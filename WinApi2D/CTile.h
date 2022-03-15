@@ -28,6 +28,9 @@ public:
 	void SetTexture(CD2DImage* pTex);
 	void SetImgIdx(UINT idx);
 
+	int GetX();
+	int GetY();
+
 	virtual void Save(FILE* pFile);
 	virtual void Load(FILE* pFile);
 };

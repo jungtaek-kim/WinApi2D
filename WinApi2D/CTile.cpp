@@ -88,6 +88,16 @@ void CTile::SetImgIdx(UINT idx)
 	m_iIdx = idx;
 }
 
+int CTile::GetX()
+{
+	return m_iX;
+}
+
+int CTile::GetY()
+{
+	return m_iY;
+}
+
 void CTile::Save(FILE* pFile)
 {
 	fwrite(&m_iX, sizeof(int), 1, pFile);
