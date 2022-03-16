@@ -10,6 +10,7 @@ private:
 
 	HWND m_hWnd;
 	UINT m_iIdx;
+	GROUP_TILE m_gTile;
 	float m_velocity;
 
 	UINT m_iTileX;
@@ -27,6 +28,8 @@ public:
 
 	void SetIdx(UINT idx);
 	void SetTileIdx();		// 마우스와 상호작용해서 타일을 바꿈.
+	void SetGroup(GROUP_TILE group);
+	void SetTileGroup();
 
 	void CreateTile(UINT xSize, UINT ySize);
 	void SaveTile(const wstring& strPath);

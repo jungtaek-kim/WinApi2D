@@ -13,8 +13,11 @@ INT_PTR CALLBACK TileWinProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lPar
 
 CScene_Tool::CScene_Tool()
 {
+	m_pMap = nullptr;
+
 	m_hWnd = 0;
 	m_iIdx = 0;
+	m_gTile = GROUP_TILE::GROUND;
 	m_velocity = 200;
 	m_iTileX = 0;
 	m_iTileY = 0;
@@ -51,6 +54,7 @@ void CScene_Tool::update()
 	}
 
 	SetTileIdx();
+	SetTileGroup();
 }
 
 void CScene_Tool::render()
@@ -118,7 +122,7 @@ void CScene_Tool::SetIdx(UINT idx)
 
 void CScene_Tool::SetTileIdx()
 {
-	if (Key(VK_LBUTTON))
+	if (Key(VK_LBUTTON) || Key(VK_RBUTTON))
 	{
 		fPoint fptMousePos = MousePos();
 		fptMousePos = CCameraManager::getInst()->GetRealPos(fptMousePos);
@@ -137,7 +141,43 @@ void CScene_Tool::SetTileIdx()
 
 		UINT iIdx = iRow * iTileX + iCol;
 		const vector<CGameObject*>& vecTile = GetGroupObject(GROUP_GAMEOBJ::TILE);
-		((CTile*)vecTile[iIdx])->SetImgIdx(m_iIdx);
+		if (Key(VK_LBUTTON))
+			((CTile*)vecTile[iIdx])->SetImgIdx(m_iIdx);
+		else if (Key(VK_RBUTTON))
+			((CTile*)vecTile[iIdx])->SetImgIdx(0);
+	}
+}
+
+void CScene_Tool::SetGroup(GROUP_TILE group)
+{
+	m_gTile = group;
+}
+
+void CScene_Tool::SetTileGroup()
+{
+	if (Key(VK_LBUTTON) || Key(VK_RBUTTON))
+	{
+		fPoint fptMousePos = MousePos();
+		fptMousePos = CCameraManager::getInst()->GetRealPos(fptMousePos);
+
+		int iTileX = m_iTileX;
+		int iTileY = m_iTileY;
+
+		int iCol = (int)fptMousePos.x / CTile::SIZE_TILE;
+		int iRow = (int)fptMousePos.y / CTile::SIZE_TILE;
+
+		if (fptMousePos.x < 0.f || iTileX <= iCol ||
+			fptMousePos.y < 0.f || iTileY <= iRow)
+		{
+			return;		// 타일이 없는 위치 무시
+		}
+
+		UINT iIdx = iRow * iTileX + iCol;
+		const vector<CGameObject*>& vecTile = GetGroupObject(GROUP_GAMEOBJ::TILE);
+		if (Key(VK_LBUTTON))
+			((CTile*)vecTile[iIdx])->SetGroup(m_gTile);
+		else if (Key(VK_RBUTTON))
+			((CTile*)vecTile[iIdx])->SetGroup(GROUP_TILE::NONE);
 	}
 }
 
