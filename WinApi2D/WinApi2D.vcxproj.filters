@@ -67,6 +67,12 @@
     <Filter Include="Object\Map">
       <UniqueIdentifier>{9f3c24ba-7e30-486b-b0ca-8648d10081ef}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Component\AI">
+      <UniqueIdentifier>{2de06afb-8706-4063-babc-467d3be46911}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Component\AI\State">
+      <UniqueIdentifier>{ce728e5c-3022-41f1-a14b-029c3d2661bf}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -189,6 +195,15 @@
     <ClInclude Include="CTileButton.h">
       <Filter>Object\UI</Filter>
     </ClInclude>
+    <ClInclude Include="AI.h">
+      <Filter>Engine\Component\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="CState.h">
+      <Filter>Engine\Component\AI\State</Filter>
+    </ClInclude>
+    <ClInclude Include="CIdleState.h">
+      <Filter>Engine\Component\AI\State</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinApi2D.cpp">
@@ -292,6 +307,15 @@
     </ClCompile>
     <ClCompile Include="CTileButton.cpp">
       <Filter>Object\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="AI.cpp">
+      <Filter>Engine\Component\AI</Filter>
+    </ClCompile>
+    <ClCompile Include="CState.cpp">
+      <Filter>Engine\Component\AI\State</Filter>
+    </ClCompile>
+    <ClCompile Include="CIdleState.cpp">
+      <Filter>Engine\Component\AI\State</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
