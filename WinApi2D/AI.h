@@ -13,12 +13,11 @@ private:
 	CState* m_pCurState;
 
 public:
-	void AddState(CState* pState);
-
-public:
 	AI();
 	~AI();
 
-	
+	void update();
+
+	void AddState(CState* pState);
 };
 
