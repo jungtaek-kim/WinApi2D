@@ -54,7 +54,6 @@ void CScene_Start::Enter()
 	// Monster Ãß°¡
 	CMonster* pMonster = new CMonster;
 	pMonster->SetPos(fPoint(1100, 350));
-	pMonster->SetCenterPos(pMonster->GetPos());
 	AddObject(pMonster, GROUP_GAMEOBJ::MONSTER);
 
 	CMap* map = new CMap;

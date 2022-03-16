@@ -7,13 +7,11 @@ class AI;
 class CMonster : public CGameObject
 {
 private:
-	fPoint m_fptCenterPos;
-	float m_fVelocity;
-	float m_fDistance;
-	bool m_bIsUPDir;
-
 	CD2DImage* m_pImg;
 
+	float m_fSpeed;
+	int m_iHP;
+	
 	AI* m_pAI;
 
 public:
@@ -24,8 +22,10 @@ public:
 	virtual void render();
 	virtual void update();
 
+	float GetSpeed();
+
+	void SetSpeed(float speed);
 	void SetAI(AI* ai);
-	void SetCenterPos(fPoint point);
 
 	void OnCollisionEnter(CCollider* pOther);
 };
