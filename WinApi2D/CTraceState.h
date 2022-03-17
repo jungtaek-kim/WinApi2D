@@ -1,15 +1,13 @@
 #pragma once
 #include "CState.h"
-class CIdleState : public CState
+class CTraceState : public CState
 {
 public:
-	CIdleState(MON_STATE state);
-	virtual ~CIdleState();
+	CTraceState(MON_STATE state);
+	virtual ~CTraceState();
 
 	virtual void update();
 	virtual void Enter();
 	virtual void Exit();
-
-
 };
 

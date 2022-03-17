@@ -18,6 +18,10 @@ public:
 
 	void update();
 
-	void AddState(CState* pState);
+	CState* GetState(MON_STATE state);
+	void SetCurState(MON_STATE state);
+
+	void AddState(CState* state);
+	
 };
 

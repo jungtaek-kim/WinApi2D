@@ -204,6 +204,9 @@
     <ClInclude Include="CIdleState.h">
       <Filter>Engine\Component\AI\State</Filter>
     </ClInclude>
+    <ClInclude Include="CTraceState.h">
+      <Filter>Engine\Component\AI\State</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinApi2D.cpp">
@@ -315,6 +318,9 @@
       <Filter>Engine\Component\AI\State</Filter>
     </ClCompile>
     <ClCompile Include="CIdleState.cpp">
+      <Filter>Engine\Component\AI\State</Filter>
+    </ClCompile>
+    <ClCompile Include="CTraceState.cpp">
       <Filter>Engine\Component\AI\State</Filter>
     </ClCompile>
   </ItemGroup>

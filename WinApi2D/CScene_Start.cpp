@@ -78,6 +78,10 @@ void CScene_Start::Enter()
 	CCameraManager::getInst()->SetTargetObj(pPlayer);
 	CCameraManager::getInst()->FadeOut(1.f);
 	CCameraManager::getInst()->FadeIn(1.f);
+
+	// 몬스터 배치
+	CMonster* pMon = CMonster::Create(MON_TYPE::NORMAL, fPoint(500.f, 500.f));
+	AddObject(pMon, GROUP_GAMEOBJ::MONSTER);
 }
 
 void CScene_Start::Exit()

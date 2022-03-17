@@ -4,18 +4,13 @@
 #include "CD2DImage.h"
 #include "CAnimator.h"
 #include "AI.h"
-
-CMonster* CMonster::Clone()
-{
-	return new CMonster(*this);
-}
+#include "CIdleState.h"
+#include "CTraceState.h"
 
 CMonster::CMonster()
 {
-	m_pImg = CResourceManager::getInst()->LoadD2DImage(L"MonsterTex", L"texture\\PlayerStand.png");
+	CD2DImage* m_pImg = CResourceManager::getInst()->LoadD2DImage(L"MonsterTex", L"texture\\PlayerStand.png");
 
-	m_fSpeed = 0;
-	m_iHP = 5;
 	m_pAI = nullptr;
 
 	SetName(L"Monster");
@@ -35,6 +30,51 @@ CMonster::~CMonster()
 	{
 		delete m_pAI;
 	}
+}
+
+CMonster* CMonster::Clone()
+{
+	CMonster* newMonster = new CMonster;
+	if (nullptr != m_pAI)
+	{
+		newMonster->m_pAI = new AI;
+	}
+	return new CMonster(*newMonster);
+}
+
+CMonster* CMonster::Create(MON_TYPE type, fPoint pos)
+{
+	CMonster* pMon = nullptr;
+
+	switch (type)
+	{
+	case MON_TYPE::NORMAL:
+	{
+		pMon = new CMonster;
+		pMon->SetPos(pos);
+
+		tMonInfo info = {};
+		info.fAtt = 10.f;
+		info.fAttRange = 50.f;
+		info.fRecogRange = 300.f;
+		info.fHP = 100.f;
+		info.fSpeed = 150.f;
+
+		AI* pAI = new AI;
+		pAI->AddState(new CIdleState(MON_STATE::IDLE));
+		pAI->AddState(new CTraceState(MON_STATE::TRACE));
+		pAI->SetCurState(MON_STATE::IDLE);
+		pMon->SetMonInfo(info);
+		pMon->SetAI(pAI);
+	}
+	break;
+	case MON_TYPE::RANGE:
+		break;
+	default:
+		break;
+	}
+	assert(pMon);
+	return pMon;
 }
 
 void CMonster::render()
@@ -57,12 +97,12 @@ void CMonster::update()
 
 float CMonster::GetSpeed()
 {
-	return m_fSpeed;
+	return m_tInfo.fSpeed;
 }
 
 void CMonster::SetSpeed(float speed)
 {
-	m_fSpeed = speed;
+	m_tInfo.fSpeed = speed;
 }
 
 void CMonster::SetAI(AI* ai)
@@ -71,14 +111,19 @@ void CMonster::SetAI(AI* ai)
 	m_pAI->m_pOwner = this;
 }
 
+void CMonster::SetMonInfo(const tMonInfo& info)
+{
+	m_tInfo = info;
+}
+
 void CMonster::OnCollisionEnter(CCollider* pOther)
 {
 	CGameObject* pOtherObj = pOther->GetObj();
 
 	if (pOtherObj->GetName() == L"Missile_Player")
 	{
-		m_iHP -= 1;
-		if (m_iHP <= 0)
+		m_tInfo.fHP -= 1;
+		if (m_tInfo.fHP <= 0)
 			DeleteObj(this);
 	}
 }
