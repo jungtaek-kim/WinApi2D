@@ -29,20 +29,20 @@ void CScene_Start::update()
 
 	if (KeyDown('Z'))
 	{
-		CSoundManager::getInst()->AddSound(L"bgm", L"sound\\drumloop.wav", true);
-		CSoundManager::getInst()->Play(L"bgm");
+		CSoundManager::GetInst()->AddSound(L"bgm", L"sound\\drumloop.wav", true);
+		CSoundManager::GetInst()->Play(L"bgm");
 	}
 
 	if (KeyDown('X'))
 	{
-		CSoundManager::getInst()->Stop(L"bgm");
+		CSoundManager::GetInst()->Stop(L"bgm");
 	}
 }
 
 void CScene_Start::Enter()
 {
 	// 타일 로딩
-	wstring path = CPathManager::getInst()->GetContentPath();
+	wstring path = CPathManager::GetInst()->GetContentPath();
 	path += L"tile\\Start.tile";
 	LoadTile(path);
 
@@ -70,15 +70,15 @@ void CScene_Start::Enter()
 	backGround->SetPos(fPoint(-100.f, -500.f));
 	AddObject(backGround, GROUP_GAMEOBJ::BACKGROUND);
 
-	CCollisionManager::getInst()->CheckGroup(GROUP_GAMEOBJ::PLAYER, GROUP_GAMEOBJ::MONSTER);
-	CCollisionManager::getInst()->CheckGroup(GROUP_GAMEOBJ::MISSILE_PLAYER, GROUP_GAMEOBJ::MONSTER);
-	CCollisionManager::getInst()->CheckGroup(GROUP_GAMEOBJ::PLAYER, GROUP_GAMEOBJ::TILE);
+	CCollisionManager::GetInst()->CheckGroup(GROUP_GAMEOBJ::PLAYER, GROUP_GAMEOBJ::MONSTER);
+	CCollisionManager::GetInst()->CheckGroup(GROUP_GAMEOBJ::MISSILE_PLAYER, GROUP_GAMEOBJ::MONSTER);
+	CCollisionManager::GetInst()->CheckGroup(GROUP_GAMEOBJ::PLAYER, GROUP_GAMEOBJ::TILE);
 
 	// Camera Look 지정
-	CCameraManager::getInst()->SetLookAt(fPoint(WINSIZEX / 2.f, WINSIZEY / 2.f));
-	CCameraManager::getInst()->SetTargetObj(pPlayer);
-	CCameraManager::getInst()->FadeOut(1.f);
-	CCameraManager::getInst()->FadeIn(1.f);
+	CCameraManager::GetInst()->SetLookAt(fPoint(WINSIZEX / 2.f, WINSIZEY / 2.f));
+	CCameraManager::GetInst()->SetTargetObj(pPlayer);
+	CCameraManager::GetInst()->FadeOut(1.f);
+	CCameraManager::GetInst()->FadeIn(1.f);
 
 	// 몬스터 배치
 	CMonster* pMon = CMonster::Create(MON_TYPE::NORMAL, fPoint(500.f, 500.f));
@@ -89,5 +89,5 @@ void CScene_Start::Exit()
 {
 	DeleteAll();
 
-	CCollisionManager::getInst()->Reset();
+	CCollisionManager::GetInst()->Reset();
 }

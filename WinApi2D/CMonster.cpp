@@ -9,7 +9,7 @@
 
 CMonster::CMonster()
 {
-	CD2DImage* m_pImg = CResourceManager::getInst()->LoadD2DImage(L"MonsterTex", L"texture\\PlayerStand.png");
+	CD2DImage* m_pImg = CResourceManager::GetInst()->LoadD2DImage(L"MonsterTex", L"texture\\PlayerStand.png");
 
 	m_pAI = nullptr;
 
@@ -81,7 +81,7 @@ void CMonster::render()
 {
 	fPoint pos = GetPos();
  	fPoint scale = GetScale();
-	pos = CCameraManager::getInst()->GetRenderPos(pos);
+	pos = CCameraManager::GetInst()->GetRenderPos(pos);
 
 	component_render();
 }

@@ -26,7 +26,7 @@ void CTileButton::render()
 		UINT iCurCol = (m_iIdx % iMaxCol);
 
 
-		CRenderManager::getInst()->RenderFrame(
+		CRenderManager::GetInst()->RenderFrame(
 			m_pImg,
 			GetFinalPos().x,
 			GetFinalPos().y,

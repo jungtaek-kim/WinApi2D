@@ -25,7 +25,7 @@ void CEventManager::Execute(const tEvent& event)
 		CGameObject* pObj = (CGameObject*)event.lParam;
 		GROUP_GAMEOBJ group = (GROUP_GAMEOBJ)event.wParam;
 
-		CSceneManager::getInst()->GetCurScene()->AddObject(pObj, group);
+		CSceneManager::GetInst()->GetCurScene()->AddObject(pObj, group);
 	}
 		break;
 	case TYPE_EVENT::DELETE_OBJECT:
@@ -44,9 +44,9 @@ void CEventManager::Execute(const tEvent& event)
 	{
 		// lParam : scene ±×·ì
 		GROUP_SCENE scene = (GROUP_SCENE)event.lParam;
-		CCameraManager::getInst()->SetTargetObj(nullptr);
-		CUIManager::getInst()->SetFocusedUI(nullptr);
-		CSceneManager::getInst()->ChangeScene(scene);
+		CCameraManager::GetInst()->SetTargetObj(nullptr);
+		CUIManager::GetInst()->SetFocusedUI(nullptr);
+		CSceneManager::GetInst()->ChangeScene(scene);
 	}
 		break;
 	case TYPE_EVENT::CHANGE_AI_STATE:
@@ -118,5 +118,5 @@ void CEventManager::EventChangeAIState(AI* ai, STATE_MON state)
 	event.lParam = (DWORD_PTR)ai;
 	event.wParam = (DWORD_PTR)state;
 
-	CEventManager::getInst()->AddEvent(event);
+	CEventManager::GetInst()->AddEvent(event);
 }
