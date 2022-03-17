@@ -333,12 +333,13 @@ void ClickTileGroupButton(DWORD_PTR param1, DWORD_PTR param2)
 	CButtonUI* button = (CButtonUI*)param2;
 	scene_tool->ClickTileGroup(button);
 }
+
 void CScene_Tool::ClickTileGroup(CButtonUI* button)
 {
 	if (m_gTile == GROUP_TILE::NONE)
 	{
 		m_gTile = GROUP_TILE::GROUND;
-		button->SetText(L"Ground");
+		button->SetText(L"GROUND");
 	}
 	else if (m_gTile == GROUP_TILE::GROUND)
 	{

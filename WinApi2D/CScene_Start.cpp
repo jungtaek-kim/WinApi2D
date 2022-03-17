@@ -54,7 +54,11 @@ void CScene_Start::Enter()
 	// Monster Ãß°¡
 	CMonster* pMonster = new CMonster;
 	pMonster->SetPos(fPoint(1100, 350));
-	AddObject(pMonster, GROUP_GAMEOBJ::MONSTER);
+	AddObject(pMonster, GROUP_GAMEOBJ::PLAYER);
+
+	CMonster* pCloneMonster = pMonster->Clone();
+	pCloneMonster->SetPos(fPoint(500, 350));
+	AddObject(pCloneMonster, GROUP_GAMEOBJ::MONSTER);
 
 	CMap* map = new CMap;
 	map->Load(L"Map_Start", L"texture\\map\\Yoshis Island 2.png");
