@@ -47,9 +47,10 @@ void CScene_Start::Enter()
 	LoadTile(path);
 
 	// Player 추가
-	CGameObject* pPlayer = new CPlayer;
+	CPlayer* pPlayer = new CPlayer;
 	pPlayer->SetPos(fPoint(200, 200));
 	AddObject(pPlayer, GROUP_GAMEOBJ::PLAYER);
+	pPlayer->RegisterPlayer();
 
 	// Monster 추가
 	CMonster* pMonster = new CMonster;

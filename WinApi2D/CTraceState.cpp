@@ -1,7 +1,7 @@
 #include "framework.h"
 #include "CTraceState.h"
 
-CTraceState::CTraceState(MON_STATE state)
+CTraceState::CTraceState(STATE_MON state)
 	: CState(state)
 {
 }
