@@ -10,6 +10,7 @@
 CMonster::CMonster()
 {
 	CD2DImage* m_pImg = CResourceManager::GetInst()->LoadD2DImage(L"MonsterTex", L"texture\\PlayerStand.png");
+	CD2DImage* m_pImgTrace = CResourceManager::GetInst()->LoadD2DImage(L"MonsterTraceTex", L"texture\\Player.bmp");
 
 	m_pAI = nullptr;
 
@@ -21,6 +22,7 @@ CMonster::CMonster()
 
 	CreateAnimator();
 	GetAnimator()->CreateAnimation(L"PlayerStand", m_pImg, fPoint(0, 0), fPoint(32.f, 32.f), fPoint(32.f, 0), 0.1f, 5, true);
+	GetAnimator()->CreateAnimation(L"MonsterTrace", m_pImgTrace, fPoint(0, 0), fPoint(70.f, 70.f), fPoint(70.f, 0), 0.3f, 1, true);
 	GetAnimator()->Play(L"PlayerStand");
 }
 

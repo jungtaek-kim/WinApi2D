@@ -27,13 +27,13 @@ void CScene_Start::update()
 		ChangeScn(GROUP_SCENE::TOOL);
 	}
 
-	if (KeyDown('Z'))
+	if (KeyDown('1'))
 	{
 		CSoundManager::GetInst()->AddSound(L"bgm", L"sound\\drumloop.wav", true);
 		CSoundManager::GetInst()->Play(L"bgm");
 	}
 
-	if (KeyDown('X'))
+	if (KeyDown('2'))
 	{
 		CSoundManager::GetInst()->Stop(L"bgm");
 	}

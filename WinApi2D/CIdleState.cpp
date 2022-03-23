@@ -2,6 +2,7 @@
 #include "CIdleState.h"
 #include "CPlayer.h"
 #include "CMonster.h"
+#include "CAnimator.h"
 
 CIdleState::CIdleState(STATE_MON state)
 	: CState(state)
@@ -29,7 +30,7 @@ void CIdleState::update()
 	{
 		ChangeAIState(GetOwnerAI(), STATE_MON::TRACE);
 	}
-
+	pMonster->GetAnimator()->Play(L"PlayerStand");
 }
 
 void CIdleState::Enter()

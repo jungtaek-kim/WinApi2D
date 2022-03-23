@@ -44,6 +44,6 @@ public:
 	void SetAI(AI* ai);
 	void SetMonInfo(const tMonInfo& info);
 
-	void OnCollisionEnter(CCollider* pOther);
+	virtual void OnCollisionEnter(CCollider* pOther);
 };
 
